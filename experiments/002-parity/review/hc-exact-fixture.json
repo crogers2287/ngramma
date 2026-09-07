@@ -1,0 +1,47 @@
+{
+  "mixer_0_explicit_vs_engine": {
+    "max_abs": 0.0,
+    "unequal_elements": 0,
+    "relative_rms": 0.0
+  },
+  "mixer_0_torch_mean_vs_engine": {
+    "max_abs": 0.0,
+    "unequal_elements": 0,
+    "relative_rms": 0.0
+  },
+  "combine_0_torch_sigmoid_vs_engine": {
+    "max_abs": 7.450580596923828e-09,
+    "unequal_elements": 4969,
+    "relative_rms": 2.031065306451766e-08
+  },
+  "combine_0_libm_sigmoid_vs_engine": {
+    "max_abs": 0.0,
+    "unequal_elements": 0,
+    "relative_rms": 0.0
+  },
+  "mixer_1_explicit_vs_engine": {
+    "max_abs": 0.0,
+    "unequal_elements": 0,
+    "relative_rms": 0.0
+  },
+  "mixer_1_torch_mean_vs_engine": {
+    "max_abs": 0.0,
+    "unequal_elements": 0,
+    "relative_rms": 0.0
+  },
+  "combine_1_torch_sigmoid_vs_engine": {
+    "max_abs": 1.862645149230957e-09,
+    "unequal_elements": 2100,
+    "relative_rms": 2.5424934878926457e-09
+  },
+  "combine_1_libm_sigmoid_vs_engine": {
+    "max_abs": 0.0,
+    "unequal_elements": 0,
+    "relative_rms": 0.0
+  },
+  "synthetic_native_silu_vs_torch": {
+    "max_abs": 4.76837158203125e-07,
+    "unequal_elements": 1012,
+    "relative_rms": 2.286017161859525e-09
+  }
+}

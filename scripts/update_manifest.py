@@ -3,14 +3,20 @@
 import hashlib
 import json
 from pathlib import Path
+import subprocess
 
 root = Path(__file__).resolve().parents[1]
-skip_parts = {'.git', '__pycache__', '.venv', '.pytest_cache'}
 target = root/'data/SHA256SUMS.json'
 files = {}
-for path in sorted(root.rglob('*')):
-    if path == target or not path.is_file() or any(p in skip_parts for p in path.relative_to(root).parts):
+# Hash the reviewed Git index's file set, not concurrent untracked experiments
+# or ignored raw captures. Stage intended new files before refreshing this file.
+tracked = subprocess.check_output(['git', 'ls-files', '-z'], cwd=root).decode().split('\0')
+for name in sorted(n for n in tracked if n):
+    path = root / name
+    if path == target:
         continue
+    if not path.is_file():
+        raise SystemExit(f'Tracked file missing: {name}; stage removals first.')
     if path.is_symlink():
         raise SystemExit(f'Refuse symlink: {path}')
     files[str(path.relative_to(root))] = hashlib.sha256(path.read_bytes()).hexdigest()

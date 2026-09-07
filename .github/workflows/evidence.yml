@@ -9,3 +9,7 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Verify hashes, replay tool episodes, and check reported results
         run: python3 scripts/verify_results.py
+      - name: Install lightweight test dependency
+        run: python3 -m pip install 'pytest>=8,<10'
+      - name: Check runtime configuration and safe imports
+        run: python3 -m pytest -q tests/test_runtime_config.py

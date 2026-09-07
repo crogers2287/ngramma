@@ -13,6 +13,10 @@ Run `python3 scripts/verify_results.py` from the repository root. It uses the st
 
 These checks verify the archive and recompute task grading. The public archive contains numerical summaries, not full logits, tensor dumps, table rows, or model shards. It cannot independently recompute the tensor comparisons without rerunning inference.
 
+Maintainers should stage reviewed new files, then run `python3 scripts/update_manifest.py`
+and stage `data/SHA256SUMS.json`. The manifest uses the tracked/staged file set so
+untracked experiments and ignored local captures cannot enter it accidentally.
+
 The figure is generated directly from the `l_last-0` through `l_last-47` relative RMS entries in both replica JSON files. Reshaped diagnostic aliases are excluded. `python3 scripts/plot_results.py` writes a PNG and an SVG; Matplotlib is its only direct optional dependency.
 
 ## What is pinned

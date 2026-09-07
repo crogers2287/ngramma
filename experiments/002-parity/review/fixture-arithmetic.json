@@ -1,0 +1,50 @@
+{
+  "fixture_combine_reconstruction": {
+    "method": "Fit two scalar scatter coefficients per token/stream from exact captured attention and FFN outputs; coefficients are inferred, not captured inject values.",
+    "max_abs": 9.313225746154785e-10,
+    "fitted_scatter_min": 0.00021978859714192657,
+    "fitted_scatter_max": 0.71308630700673
+  },
+  "initial_embedding_rms_reduction": {
+    "mean_elements_different": 28,
+    "total_mean_elements": 40,
+    "mean_max_abs": 1.8189894035458565e-12,
+    "normalized_max_abs": 4.76837158203125e-07,
+    "epsilon": 1e-06,
+    "note": "Arithmetic comparison with stated illustrative epsilon; no claim this reproduces the checkpoint epsilon or ggml kernel exactly."
+  },
+  "q8_0_actual_hc_fixture_one_ulp_probe": [
+    {
+      "hc_occurrence": 0,
+      "direction": "positive",
+      "input_max_abs": 4.76837158203125e-07,
+      "rounded_max_abs": 0.00096893310546875,
+      "rounded_elements_different": 64,
+      "large_rounding_jumps_over_1e-5": 64
+    },
+    {
+      "hc_occurrence": 0,
+      "direction": "negative",
+      "input_max_abs": 4.76837158203125e-07,
+      "rounded_max_abs": 0.0,
+      "rounded_elements_different": 0,
+      "large_rounding_jumps_over_1e-5": 0
+    },
+    {
+      "hc_occurrence": 1,
+      "direction": "positive",
+      "input_max_abs": 2.384185791015625e-07,
+      "rounded_max_abs": 0.0110626220703125,
+      "rounded_elements_different": 2,
+      "large_rounding_jumps_over_1e-5": 2
+    },
+    {
+      "hc_occurrence": 1,
+      "direction": "negative",
+      "input_max_abs": 2.384185791015625e-07,
+      "rounded_max_abs": 0.0,
+      "rounded_elements_different": 0,
+      "large_rounding_jumps_over_1e-5": 0
+    }
+  ]
+}

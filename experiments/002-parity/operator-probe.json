@@ -1,0 +1,144 @@
+{
+  "schema": "ngramma-operator-probe/v1",
+  "tokens": [
+    9419,
+    11,
+    1814,
+    0,
+    220,
+    17,
+    478,
+    220,
+    17,
+    283
+  ],
+  "identity_sha256": "af848e254fb9a6ca6be56b8f14f1d369a6e705c3363c4c4ac6e5f0cc7e652f87",
+  "seconds": 17.013898523990065,
+  "routing_equal": true,
+  "metrics": {
+    "embedding": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    "chained/attention_mix/norm": {
+      "max_abs": 1.9073486328125e-06,
+      "relative_rms": 3.0559274222241584e-08,
+      "different_values": 8495,
+      "values": 102400
+    },
+    "chained/attention_mix/gate": {
+      "max_abs": 1.1920928955078125e-06,
+      "relative_rms": 8.125530825964233e-08,
+      "different_values": 43379,
+      "values": 102400
+    },
+    "chained/attention_mix/mixed": {
+      "max_abs": 9.5367431640625e-07,
+      "relative_rms": 7.026072523785842e-08,
+      "different_values": 10154,
+      "values": 25600
+    },
+    "chained/attention_mix/inject": {
+      "max_abs": 1.33514404296875e-05,
+      "relative_rms": 1.839158301208954e-07,
+      "different_values": 30,
+      "values": 40
+    },
+    "chained/attention_output": {
+      "max_abs": 0.0005916263908147812,
+      "relative_rms": 0.0002473298809491098,
+      "different_values": 24865,
+      "values": 25600
+    },
+    "exact_input/attention_output": {
+      "max_abs": 1.0222196578979492e-05,
+      "relative_rms": 5.730748398491414e-06,
+      "different_values": 23633,
+      "values": 25600
+    },
+    "chained/attention_combine": {
+      "max_abs": 6.0477061197161674e-05,
+      "relative_rms": 0.00018174821161665022,
+      "different_values": 99332,
+      "values": 102400
+    },
+    "exact_input/attention_combine": {
+      "max_abs": 7.450580596923828e-09,
+      "relative_rms": 2.0310652715238575e-08,
+      "different_values": 4969,
+      "values": 102400
+    },
+    "chained/ffn_mix/norm": {
+      "max_abs": 0.018378764390945435,
+      "relative_rms": 0.0003281308454461396,
+      "different_values": 98708,
+      "values": 102400
+    },
+    "chained/ffn_mix/gate": {
+      "max_abs": 0.04050314426422119,
+      "relative_rms": 0.001717173494398594,
+      "different_values": 97422,
+      "values": 102400
+    },
+    "chained/ffn_mix/mixed": {
+      "max_abs": 0.04028654098510742,
+      "relative_rms": 0.0019086945103481412,
+      "different_values": 25376,
+      "values": 25600
+    },
+    "chained/ffn_mix/inject": {
+      "max_abs": 0.00127410888671875,
+      "relative_rms": 1.70570765476441e-05,
+      "different_values": 38,
+      "values": 40
+    },
+    "exact_input/ffn_mix/norm": {
+      "max_abs": 1.9073486328125e-06,
+      "relative_rms": 7.880935015691648e-08,
+      "different_values": 20368,
+      "values": 102400
+    },
+    "exact_input/ffn_mix/gate": {
+      "max_abs": 1.1920928955078125e-06,
+      "relative_rms": 1.3701279044653347e-07,
+      "different_values": 67788,
+      "values": 102400
+    },
+    "exact_input/ffn_mix/mixed": {
+      "max_abs": 1.1026859283447266e-06,
+      "relative_rms": 1.4045123464256903e-07,
+      "different_values": 17576,
+      "values": 25600
+    },
+    "exact_input/ffn_mix/inject": {
+      "max_abs": 1.9073486328125e-05,
+      "relative_rms": 3.03894779563052e-07,
+      "different_values": 32,
+      "values": 40
+    },
+    "chained/ffn_output": {
+      "max_abs": 0.002557855099439621,
+      "relative_rms": 0.0027627807576209307,
+      "different_values": 25237,
+      "values": 25600
+    },
+    "chained/layer0_output": {
+      "max_abs": 0.0006192326545715332,
+      "relative_rms": 0.0014566455502063036,
+      "different_values": 101414,
+      "values": 102400
+    },
+    "exact_input/final_combine": {
+      "max_abs": 1.862645149230957e-09,
+      "relative_rms": 2.5424935490292455e-09,
+      "different_values": 2100,
+      "values": 102400
+    }
+  },
+  "source_sha256": "80b4ad607ef04b4fc4373de6c30a3494b8e0812e97ae8032330209a51a2f04cf",
+  "reference_metadata_sha256": "949c651cecaffa445719cf6f1276b98c094ac7c84af7c083fc416575b7789b2f",
+  "diagnostic_only": true,
+  "training_qualified": false
+}
