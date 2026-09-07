@@ -6,21 +6,27 @@ The project begins with [handoff.md](handoff.md), its original research specific
 
 The intended result is the original frozen model plus a small, versioned memory overlay. A teacher diagnoses failures and supplies independently verified corrections during improvement cycles. A numerical optimizer changes selected existing rows; the backbone, tokenizer, memory reader, and gates stay frozen. Ordinary inference and the primary evaluation use no teacher or extra lesson text.
 
-**Latest result:** the CPU forward reference now matches the real engine
-bit-for-bit on three short fixtures (39 tokens), through all 48 layers and every
-output logit. This fixes an important testing prerequisite. **No learned memory
-improvement has been demonstrated.** [Read experiment 003](experiments/003-attention/REPORT.md).
+**Latest result:** the memory-edit workbench measures 19 edits of one existing
+row, with eight fresh full-engine controls. Small edits vanish at the activation
+quantizer; the first surviving samples change scale bytes while integer codes
+stay fixed, and alter downstream token rankings. **No learned improvement has
+been demonstrated.** [Read experiment 004](experiments/004-row-response/REPORT.md).
+The [preceding forward checks](experiments/003-attention/REPORT.md) match the CPU
+engine bit-for-bit through all 48 layers and logits on 39 tested tokens.
 
 This repository follows that research program independently of any particular host or orchestration setup. The handoff is preserved as the design record. Its proposed components and milestones are not claims of completed implementation.
 
 ## Try the memory-edit workbench
+
+[Download the complete offline report](https://github.com/crogers2287/ngramma/raw/refs/heads/main/experiments/004-row-response/workbench.html)
+and open it in a browser, or generate it from the recorded data:
 
 Explore measured row edits in an interactive, offline report. Python 3.10+ is
 enough; these commands need no model, GPU, API key, or Python dependencies:
 
 ```sh
 PYTHONPATH=src python3 -m ngramma_runtime.response_report \
-  experiments/004-row-response/response.json --html .local/row-response.html
+  experiments/004-row-response/response-with-engine.json --html .local/row-response.html
 ```
 
 Open `.local/row-response.html`. The tables and toggles show which edits survive
@@ -31,10 +37,10 @@ sample alters scale bytes without altering integer codes. A smooth derivative
 passes its own check but does not predict every measured native response.
 
 Use the [JSON example and schema](examples/memory-edit-workbench/README.md) to
-report experiments from your own implementation, or build on the
-[checked row-patch utility](src/ngramma_runtime/row_patch.py). Read the
-[model-free overlay inspector](examples/memory-edit-workbench/README.md#inspect-an-overlay-without-a-model),
-[fixed experiment plan](experiments/004-row-response/PLAN.md) and
+report experiments from your own implementation, build on the
+[checked row-patch utility](src/ngramma_runtime/row_patch.py), or use the
+[model-free overlay inspector](examples/memory-edit-workbench/README.md#inspect-an-overlay-without-a-model).
+See the [fixed experiment plan](experiments/004-row-response/PLAN.md) and
 [reproduction instructions](experiments/004-row-response/REPRODUCE.md).
 These are research tools; no trained overlay or capability improvement is
 being released.

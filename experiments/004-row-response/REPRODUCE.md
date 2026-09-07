@@ -6,9 +6,9 @@ From the repository root, with Python 3.10 or newer:
 
 ```sh
 PYTHONPATH=src python3 -m ngramma_runtime.response_report \
-  experiments/004-row-response/response.json \
+  experiments/004-row-response/response-with-engine.json \
   --html .local/row-response.html
-python3 scripts/verify_row_response.py --local-only
+python3 scripts/verify_row_response.py
 ```
 
 Open `.local/row-response.html` in a browser. Everything runs offline; no model,

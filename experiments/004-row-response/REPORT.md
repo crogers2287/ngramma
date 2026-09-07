@@ -22,17 +22,18 @@ and exports the format accepted by the experimental engine loader. NumPy is
 needed for that utility; the native probe additionally needs the pinned model
 and runtime dependencies.
 
-The [local response](response.json), [fixed plan](PLAN.md),
+The [local response](response.json), [complete engine comparison](response-with-engine.json), [fixed plan](PLAN.md),
 [activation source audit](review/activation-encoding-audit.md),
 [independent numerical review](review/response-audit.md), and
-[reproduction commands](REPRODUCE.md) are included. Full-engine checks are
-being collected separately; the local response file alone is not full-engine
-evidence.
+[reproduction commands](REPRODUCE.md) are included. All eight full-engine checks
+finished. The local-only record is preserved separately from the engine evidence.
+The [standalone HTML report](workbench.html) is also included; download it and
+open it locally. Its content is checked against the measured JSON in CI.
 
 ## Controlled local result
 
 The experiment uses the exact 17-token Unicode/chat CPU fixture qualified in
-experiment003. It selects head8's existing trigram row at token index6, global
+experiment 003. It selects head 8's existing trigram row at token index 6, global
 address `163155024`. That row occurs once in this fixture. The code supports
 all matching occurrences; repeated occurrences are covered by utility tests,
 not by this real-model fixture.
@@ -45,7 +46,7 @@ values and model weights remain fixed.
 
 | Absolute epsilon | Intended row RMS change | Local observation, both signs |
 |---|---:|---|
-| 2^-20 through 2^-12, five sampled magnitudes | 0.0000954% through 0.0244% | All160 replacement values change; encoded bytes, projections and memory output do not. |
+| 2^-20 through 2^-12, five sampled magnitudes | 0.0000954% through 0.0244% | All 160 replacement values change; encoded bytes, projections and memory output do not. |
 | 2^-10 | 0.0977% | Two activation scale bytes change, zero code bytes; key/value projections and memory output change. |
 | 2^-8 | 0.3906% | Scale and code bytes change; memory output changes further. |
 | 2^-6 and 2^-4 | 1.5625% and 6.25% | Larger finite memory-output responses. |
@@ -56,24 +57,64 @@ parameters. The native PLE baseline matches the engine capture exactly before
 perturbations. The activation bytes are a replay of the actual dispatched
 encoder on the exact gathered inputs, **not** captured engine workspace.
 
-Both PLE projections use Q8_0 in ordinary CPU_Mapped buffers. Each32-value
-activation block has an FP16 scale and32 integer codes, totaling34 bytes.
+Both PLE projections use Q8_0 in ordinary CPU_Mapped buffers. Each 32-value
+activation block has an FP16 scale and 32 integer codes, totaling 34 bytes.
 This is why watching only integer codes misses the first measured change.
 The [activation build record](activation-build.json) binds the encoder to the
 same CPU libraries used by the native forward reference.
 
 A [more detailed replay](review/scale-transition-final.json) finds two distinct
-FP16 scales changing by one representable step each. In block40, the two edit
-directions move the scale in opposite directions. In block41, both edits raise
+FP16 scales changing by one representable step each. In block 40, the two edit
+directions move the scale in opposite directions. In block 41, both edits raise
 the scale: two positive values tie for the largest absolute value, at
-coordinates0 and31. The alternating edit raises coordinate0 in one direction
-and coordinate31 in the other. All integer codes stay unchanged.
+coordinates 0 and 31. The alternating edit raises coordinate 0 in one direction
+and coordinate 31 in the other. All integer codes stay unchanged.
 
 Thus opposite row edits produce encoded changes that are not opposites. This
 explains an asymmetry in the quantizer; it does not isolate each block's
 contribution through projection weights and nonlinear operations to the final
 scalar response. Earlier scale records are retained; `scale-transition-final`
 is the complete replay with maximum locations and baseline encoding hashes.
+
+## What happened in the full engine
+
+Eight fresh CPU processes tested the unmodified model, a zero overlay, and both
+directions at three magnitudes selected by the fixed local-response rule.
+Normal expert routing and attention selection ran in the actual engine.
+The gathered row replacements and full PLE outputs match the local probe;
+the earlier layer0 residual remains unchanged. No captured attention-support
+substitution was used for these perturbed engine runs.
+
+| Condition | Logits byte-identical to baseline? | Same highest-scoring token, out of 17 positions | Final fixed-margin change |
+|---|---|---:|---:|
+| Unmodified model | Yes | 17 | 0 |
+| Zero overlay | Yes | 17 | 0 |
+| -2^-12 | Yes | 17 | 0 |
+| +2^-12 | Yes | 17 | 0 |
+| -2^-10 | No | 14 | -3.077259 |
+| +2^-10 | No | 16 | -3.493896 |
+| -2^-8 | No | 16 | -1.004133 |
+| +2^-8 | No | 16 | +4.301823 |
+
+The final-position margin compares fixed token IDs 248068 and 248045, chosen from
+the unmodified top two before edited forwards. Its baseline value is 8.437328.
+The highest-scoring token **at the final position stays unchanged in every
+condition**. Changed rankings occur at other evaluated positions; these are
+prefill logit comparisons on fixed input tokens, not an autoregressive rollout
+or generated-answer accuracy test.
+
+At the first changed magnitude, both directions reduce the final margin. At
+the next magnitude their margin changes have opposite signs. Thus neither a
+smooth local derivative nor edit magnitude alone establishes the direction or
+size of the eventual full-model response. The local derivative below uses a
+different scalar and cannot be directly compared numerically with this margin.
+
+![Measured local, encoding, and full-engine responses](figures/row-response.png)
+
+Lines connect sampled steps for comparison; intermediate responses were not
+measured. The local scan took about 43 seconds. Engine controls include complete
+model-shard verification on each overlay load, which dominated their roughly
+four-minute runtimes. These are not decode-throughput or training benchmarks.
 
 ## The smooth derivative passes its own test—and still differs
 

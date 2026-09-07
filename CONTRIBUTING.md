@@ -69,7 +69,7 @@ Run these from the repository root:
 
 ```sh
 python3 scripts/verify_results.py
-python3 scripts/verify_row_response.py --local-only
+python3 scripts/verify_row_response.py
 python3 -m pytest -q tests
 ```
 

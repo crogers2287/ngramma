@@ -12,7 +12,7 @@ jobs:
           python3 scripts/verify_results.py
           python3 scripts/verify_parity_experiments.py
           python3 scripts/verify_attention_experiment.py
-          python3 scripts/verify_row_response.py --local-only
+          python3 scripts/verify_row_response.py
       - name: Install lightweight test dependency
         run: python3 -m pip install 'pytest>=8,<10' 'numpy>=1.26,<3'
       - name: Check runtime configuration and safe imports

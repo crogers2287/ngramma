@@ -239,6 +239,28 @@ intermediates and logits, in addition to numeric errors. This distinguishes
 bitwise agreement from ordinary numeric equality, including signed-zero cases.
 Successful forward hashes still do not supply a backward implementation.
 
+## Memory response and portable inspection
+
+Experiment 004 adds two standard-library commands: `ngramma-report` renders
+response JSON as a standalone interactive HTML artifact, and `ngramma-inspect`
+validates an experimental FML overlay without opening model paths. The latter
+checks file/manifest agreement, not the actual model shards; engine
+authentication remains required. Both commands are included in a normal
+`pip install .` without the research extras.
+
+`RowPatch` requires NumPy (the `memory` extra). It creates one FP32 replacement
+of an existing 160-value row, applies it at every matching gathered address,
+and exports the archived engine overlay format. The original row values and
+worker-specific binary overlays are not included in the public results.
+
+The separate `ActivationEncoding` library replays the dispatched ordinary
+CPU Q8_0 encoder and returns all 34 bytes per 32-value block, including its FP16
+scale. It does not support repacked layouts, Q8_K, or a backward operation.
+The actual PLE input is the concatenation of all 16 memory rows at a position,
+not the selected 160-value row in isolation. See
+[experiment 004 reproduction](../experiments/004-row-response/REPRODUCE.md)
+and its [dispatch audit](../experiments/004-row-response/review/activation-encoding-audit.md).
+
 Original integration code is covered by the repository MIT license. ENGRAFT
 interfaces derive from Copyright 2026 fulvian, Apache-2.0; see `NOTICE`,
 `licenses/ENGRAFT-Apache-2.0.txt`, and `licenses/ENGRAFT-NOTICE.txt`. ENGRAFT itself

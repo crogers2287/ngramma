@@ -13,7 +13,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'src'))
-from ngramma_runtime.response_report import validate_report
+from ngramma_runtime.response_report import validate_report, render_html
 
 
 def require(condition, message):
@@ -150,6 +150,7 @@ def main():
         summary['scale_transition_checks'] = 2
         if not args.local_only:
             require(report['local_response_sha256'] == hashlib.sha256((directory/'response.json').read_bytes()).hexdigest(), 'Engine checks bind a different local response')
+            require((directory/'workbench.html').read_text() == render_html(report), 'Published HTML differs from the measured data or renderer')
     except (KeyError,TypeError,ValueError,OSError) as error:
         parser.error(str(error))
     print(json.dumps(summary))

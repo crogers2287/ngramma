@@ -1,0 +1,50 @@
+{
+  "schema": "ngramma.row-response-validation/v1",
+  "date": "2026-09-07",
+  "tests": {
+    "passed": 442,
+    "skipped": 0,
+    "pytest_warnings": 2,
+    "seconds": 4.95,
+    "native_libraries_configured": true,
+    "test_log_sha256": "07ccff870c8f75c648f93abc98d8d7d4f09545a1972c577988c9dfbcb793b28c"
+  },
+  "measurements": {
+    "local_points": 19,
+    "full_engine_conditions": 8,
+    "independent_raw_capture_audit": "review/full-engine-audit.md",
+    "trained_rows": 0,
+    "capability_evaluation": false
+  },
+  "artifacts": {
+    "local_response_sha256": "cae579594b721fde25af2c49bbe351cf4774d17c4d84de6b4c4b503b429abe04",
+    "full_response_sha256": "c9ceda821665811f3fbd58b0900a90716a36d3a598f01d53ee5ca9fbcd46ba1e",
+    "html_sha256": "7c97f5205420d480b736902778e9bea783f3166e7a4a7d90072f91d32a911256",
+    "figure_png_sha256": "a85a5067f31b8e6dd0f8877b9d43154c82f5bf0906d43fa9b536cb289b98ac16"
+  },
+  "portable_tools": {
+    "wheel_sha256": "747a01a86e354fe09a54c4b1fa42a1ae0193722e8c733306f9949a5e87891594",
+    "wheel_bytes": 52871,
+    "installed_in_clean_venv": true,
+    "numpy_installed": false,
+    "torch_installed": false,
+    "report_command_passed": true,
+    "inspector_command_passed": true,
+    "actual_overlays_inspected_without_model_reads": 19,
+    "bundled_licenses": [
+      "ngramma_runtime-0.2.0.dist-info/licenses/LICENSE",
+      "ngramma_runtime-0.2.0.dist-info/licenses/NOTICE",
+      "ngramma_runtime-0.2.0.dist-info/licenses/licenses/ENGRAFT-Apache-2.0.txt",
+      "ngramma_runtime-0.2.0.dist-info/licenses/licenses/ENGRAFT-NOTICE.txt",
+      "ngramma_runtime-0.2.0.dist-info/licenses/licenses/llama-cpp-MIT.txt"
+    ]
+  },
+  "browser": {
+    "engine": "local headless Chrome",
+    "visual_inspection_passed": true,
+    "checkbox_hide_show_executed": true,
+    "external_assets_required": false
+  },
+  "original_handoff_sha256": "2d6642427b92597a259f2924a49d49eccf5868f5b3c9c0f42341ecc333207b72",
+  "scope": "No training, autoregressive generation evaluation, or useful memory improvement is established."
+}
