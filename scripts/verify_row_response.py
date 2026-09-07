@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import math
+import struct
 from pathlib import Path
 import sys
 
@@ -99,6 +100,39 @@ def verify(report, build):
     return {'points':len(points),'engine_checks':len(checks),'status':'saved records consistent; no inference rerun'}
 
 
+def verify_scale_transition(record, report, build):
+    """Bind the detailed scale replay to the main local response record."""
+    require(record['schema'] == 'ngramma.scale-transition/v1', 'Wrong scale record schema')
+    require(set(record['transitions']) == {'minus-10','plus-10'}, 'Missing paired scale replay conditions')
+    points = {point['overlay_label']:point for point in report['points']}
+    require(record['baseline_encoded_sha256'] == points['zero']['activation_sha256'], 'Scale replay baseline encoding mismatch')
+    provenance = record['provenance']
+    require(provenance['activation_build_record'] == build, 'Scale replay build differs')
+    require(provenance['activation_library_sha256'] == report['activation_library_sha256'], 'Scale replay library differs')
+    require(provenance['reference_ple_embd_sha256'] == report['reference_tensor_sha256']['ple_embd'], 'Scale replay input fixture differs')
+    require(provenance['cpu_library_sha256'] == build['linked_libraries']['libggml-cpu.so'], 'Scale replay CPU library differs')
+    for label, transition in record['transitions'].items():
+        require(label in ('minus-10','plus-10'), 'Unexpected scale replay condition')
+        require(transition['encoded_sha256'] == points[label]['activation_sha256'], 'Scale replay encoded hash differs')
+        require(provenance['overlay_sha256'][label] == points[label]['overlay_sha256'], 'Scale replay overlay differs')
+        require(transition['changed_scale_bytes'] == points[label]['activation_scale_changed_bytes'] == 2, 'Scale replay byte count differs')
+        require(transition['changed_code_bytes'] == points[label]['activation_code_changed_bytes'] == 0, 'Scale-only result has changed codes')
+        blocks = transition['changed_blocks']
+        require(len(blocks) == transition['changed_scale_fields'] == 2, 'Expected two distinct changed scales')
+        require({(block['token_index'],block['global_block_index']) for block in blocks} == {(6,40),(6,41)}, 'Different blocks changed')
+        for block in blocks:
+            before = int(block['scale_before_bits_hex'],16)
+            after = int(block['scale_after_bits_hex'],16)
+            require(struct.unpack('<e',struct.pack('<H',before))[0] == block['scale_before'], 'Before-scale bits/value mismatch')
+            require(struct.unpack('<e',struct.pack('<H',after))[0] == block['scale_after'], 'After-scale bits/value mismatch')
+            require(block['scale_after']-block['scale_before'] == block['scale_delta'], 'Scale delta does not recompute')
+            require(abs(after-before) == 1, 'Expected one ULP scale change')
+            require(block['code_changed_bytes'] == 0 and block['code_unchanged_count'] == 32, 'Changed codes in scale-only block')
+            if block['global_block_index'] == 41:
+                require(after-before == 1 and block['absolute_maximum_indices_before'] == [0,31], 'Tied-maximum evidence differs')
+                require(block['absolute_maximum_indices_after'] == ([0] if label == 'plus-10' else [31]), 'Wrong tied-maximum branch')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--local-only',action='store_true')
@@ -109,6 +143,11 @@ def main():
         report = json.loads(result_path.read_text())
         build = json.loads((directory/'activation-build.json').read_text())
         summary = verify(report,build)
+        scale = json.loads((directory/'review/scale-transition-final.json').read_text())
+        verify_scale_transition(scale,report,build)
+        require(scale['provenance']['script_sha256'] == hashlib.sha256((directory/'review/scale_transition.py').read_bytes()).hexdigest(), 'Scale replay source mismatch')
+        require(scale['provenance']['response_sha256'] == hashlib.sha256((directory/'response.json').read_bytes()).hexdigest(), 'Scale replay source response mismatch')
+        summary['scale_transition_checks'] = 2
         if not args.local_only:
             require(report['local_response_sha256'] == hashlib.sha256((directory/'response.json').read_bytes()).hexdigest(), 'Engine checks bind a different local response')
     except (KeyError,TypeError,ValueError,OSError) as error:

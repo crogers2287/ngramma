@@ -1,0 +1,177 @@
+{
+  "schema": "ngramma.scale-transition/v1",
+  "evidence_kind": "saved-activation encoder replay; no model forward",
+  "scope": {
+    "occurrences": [
+      [
+        6,
+        8
+      ]
+    ],
+    "epsilon_magnitude": 0.0009765625,
+    "token_count": 17,
+    "block_elements": 32,
+    "block_bytes": 34
+  },
+  "transitions": {
+    "minus-10": {
+      "changed_scale_fields": 2,
+      "changed_scale_bytes": 2,
+      "changed_code_bytes": 0,
+      "changed_blocks": [
+        {
+          "token_index": 6,
+          "global_block_index": 40,
+          "head": 8,
+          "head_block_index": 0,
+          "scale_before": 0.00011396408081054688,
+          "scale_after": 0.00011402368545532227,
+          "scale_delta": 5.960464477539063e-08,
+          "scale_before_bits_hex": "0778",
+          "scale_after_bits_hex": "0779",
+          "scale_changed_bytes": 1,
+          "code_changed_bytes": 0,
+          "code_unchanged_count": 32
+        },
+        {
+          "token_index": 6,
+          "global_block_index": 41,
+          "head": 8,
+          "head_block_index": 1,
+          "scale_before": 0.00010406970977783203,
+          "scale_after": 0.00010412931442260742,
+          "scale_delta": 5.960464477539063e-08,
+          "scale_before_bits_hex": "06d2",
+          "scale_after_bits_hex": "06d3",
+          "scale_changed_bytes": 1,
+          "code_changed_bytes": 0,
+          "code_unchanged_count": 32
+        }
+      ],
+      "input_sha256": "9c52cf3198358775c9a86b0d247dd9b11c1a97413a8e9e35c85d6103e673d849",
+      "encoded_sha256": "e5b9e5e969c541dcf79b6f6b2390efbc70d28ee97dcb4790f849d42b31c7858c",
+      "local_scalar_delta_from_response": 2.561137080192566e-08
+    },
+    "plus-10": {
+      "changed_scale_fields": 2,
+      "changed_scale_bytes": 2,
+      "changed_code_bytes": 0,
+      "changed_blocks": [
+        {
+          "token_index": 6,
+          "global_block_index": 40,
+          "head": 8,
+          "head_block_index": 0,
+          "scale_before": 0.00011396408081054688,
+          "scale_after": 0.00011390447616577148,
+          "scale_delta": -5.960464477539063e-08,
+          "scale_before_bits_hex": "0778",
+          "scale_after_bits_hex": "0777",
+          "scale_changed_bytes": 1,
+          "code_changed_bytes": 0,
+          "code_unchanged_count": 32
+        },
+        {
+          "token_index": 6,
+          "global_block_index": 41,
+          "head": 8,
+          "head_block_index": 1,
+          "scale_before": 0.00010406970977783203,
+          "scale_after": 0.00010412931442260742,
+          "scale_delta": 5.960464477539063e-08,
+          "scale_before_bits_hex": "06d2",
+          "scale_after_bits_hex": "06d3",
+          "scale_changed_bytes": 1,
+          "code_changed_bytes": 0,
+          "code_unchanged_count": 32
+        }
+      ],
+      "input_sha256": "079a3cecb418f9f3961ba5456e422410401897062495ae821c29b3428ad39c69",
+      "encoded_sha256": "04179851aa8e51db575b4293507e1751a9ef34151875161550e289b5f2aac071",
+      "local_scalar_delta_from_response": 2.7008354663848877e-08
+    }
+  },
+  "both_signs_change_same_block_set": true,
+  "all_replays_match_saved_response_hashes": true,
+  "provenance": {
+    "script_sha256": "92859c0e42356ca7efa38242ad66a5aafdbbe23bcfdb867d3a6f292529059c26",
+    "wrapper_sha256": "4c1d09071c83d0263c2e5edf065a2c6aa681ed261ff42c5090e79e7e217c15cb",
+    "reference_metadata_sha256": "dafaccc2679dba851f42c8aa46810634d80afcab177c522fe9fad9207688ee06",
+    "reference_ple_embd_sha256": "17efac7faa904de5f5071c616dc6a496660d94a7cda9c852fcf4bc4295ec1983",
+    "reference_capture_summary_sha256": "f5e45336558829e426607a34b12f0ee4f3addf15450f9e90036de31d77619f0a",
+    "spec_sha256": "66dbb9d7d9007f24a8799b6e24c7586a54f506f5c95d7d1d0926b7363a4561a3",
+    "response_sha256": "cae579594b721fde25af2c49bbe351cf4774d17c4d84de6b4c4b503b429abe04",
+    "overlay_sha256": {
+      "zero": "21989a38634902107c708f5df06df381cba7e07b47eaa33ca700b0e8d7222097",
+      "minus-10": "94a1031d83a5b11a1c2bce91a1bba26461d6d979657043bb1419656234d7cc81",
+      "plus-10": "10e8015176bfed277d14e28875a2daaeb6cf517e9215f744732b50a9d076b2df"
+    },
+    "activation_library_sha256": "f2da5272316a8eb4c60e0f01ec272762b19f52f0455bbeee854e31fe5ddda080",
+    "cpu_library_sha256": "501229e5937a6f9c0e6397ac6e67a7bf3242779a92639b119a970d2b1e4a352c",
+    "activation_build_record_sha256": "dd9a66b0178cf5cc5ad58ff737ccf83f0054b123e8015b6f0e50c813444b3958",
+    "activation_build_record": {
+      "schema_version": 1,
+      "library_sha256": "f2da5272316a8eb4c60e0f01ec272762b19f52f0455bbeee854e31fe5ddda080",
+      "sources": {
+        "activation_probe.cpp": "d1410b1c5b8c8803c55da3d55d0a9ee182e24865aea78b1cafb73537fb53373d",
+        "build_activation_probe.py": "5d3076b02284b9053b7ccbbd62437485e5eca1b5fb7b0b952b7535dcf4cb73e6"
+      },
+      "headers": {
+        "ggml-alloc.h": "94e4cd069b9313b2ceb35dacec901981e0bb478d8bb31035b7126be091998c23",
+        "ggml-backend.h": "f9bafda615fafa73306bed0a2c3d5a459cba2c19c9d76e1dc0adc2b3fd0cb2c8",
+        "ggml-blas.h": "e76cb8594dc9866d99e7d63191b9fff6ab8b50244b4a28ce3af0f962964a6b5b",
+        "ggml-cann.h": "2cdb134f27fe5c4ec19d52f1eb58f5355aa42b8f54bf385f0e487501c5df7362",
+        "ggml-cpp.h": "bc15ba002c68685df23faae42df0d2b3d58032011f88b649021ab92485862c72",
+        "ggml-cpu.h": "316279e004cdeb8e6ef78599acb602bf79a8abdf897fed9fd1914808c1518c6e",
+        "ggml-cuda.h": "9cbfcea49f6da4d07f41dc22fa8dbf870825faaa2a68e34e65fe30ea6c41e042",
+        "ggml-et.h": "33118c0642b8059a99ea930fd4e4a045e78ccb41760b173ede221f1297c35977",
+        "ggml-hexagon.h": "b2c12bac390f14707b16bdd27c8c75ce4f075ed509c729ee28fd4f03b17e7375",
+        "ggml-metal.h": "322f36cd30f3e9e7aad7b5b9bc63078012fd0b7706ac4e24f5721b604f3d8980",
+        "ggml-opencl.h": "8e443e1aa9c8bc6e0cf116c4cc3f42f4858938fa15e65b06bc07b26686e1233a",
+        "ggml-openvino.h": "c2e3f301e28ad815b4285888aad6130808a77e6acb4e8b558de63a648cf9743e",
+        "ggml-opt.h": "3586de1bc8a934b5c72339e2b6937b0641e8f149b512231e666f67de0736eea2",
+        "ggml-rpc.h": "505c01e4575c06a3b01cdbbb5688368baaabf6223a36eeafd918057251da6e43",
+        "ggml-sycl.h": "58429f8045b335f5e740faa2198caf72ba3beb04df0eb970103b932340daca8b",
+        "ggml-virtgpu.h": "ed231e7db3f0f58b84073f5ee67f9ec9d63046d1a7ed091c36a6cfe9f685a463",
+        "ggml-vulkan.h": "7eae5dad2cc7bb4d3eca828539f441816d5fd59fdc7b224d49aa229fc7b7248c",
+        "ggml-webgpu.h": "a91d855313a9e85e75ba597ff869a267247dea936a2c0faef03aeb7f1ea6e79c",
+        "ggml-zdnn.h": "ee1d79c95ade45ba195a6b71f59a05c18617de4a596d2b2b03ecf38975a9a448",
+        "ggml-zendnn.h": "2cb034b842438281616ce647232d922fb224450323f0d422d2af567c334aa8ff",
+        "ggml.h": "b834c28904934a65dc2b53a0115ae50e33126cc305ae4489bb781ad880b09b5c",
+        "gguf.h": "e56714aab702e5ce62ee587a409643c08f7e93e8fbb77f48ef7cc85075f96fa4"
+      },
+      "linked_libraries": {
+        "libggml-cpu.so": "501229e5937a6f9c0e6397ac6e67a7bf3242779a92639b119a970d2b1e4a352c",
+        "libggml-base.so": "8c6dd2c346e0d2b94a15499c6eccc40b73be9f175f4733e76c31656ddc776fa9"
+      },
+      "compiler": {
+        "executable": "c++",
+        "version": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
+      },
+      "command": [
+        "c++",
+        "-std=c++17",
+        "-O2",
+        "-fPIC",
+        "-shared",
+        "-pthread",
+        "-I",
+        "<ENGINE_SOURCE>/ggml/include",
+        "<REPOSITORY>/src/ngramma_runtime/native/activation_probe.cpp",
+        "-L",
+        "<RUNTIME>",
+        "-lggml-cpu",
+        "-lggml-base",
+        "-Wl,-z,defs",
+        "-Xlinker",
+        "-rpath",
+        "-Xlinker",
+        "<RUNTIME>",
+        "-o",
+        "<OUTPUT>"
+      ],
+      "qualification": "Compiled ordinary Q8_0 activation encoding replay; no model-parity or gradient qualification"
+    }
+  },
+  "interpretation": "Different blockwise quantization transitions need not be opposite vectors. A same-sign scalar response to opposite row edits is compatible with such asymmetric finite steps; the encoder alone does not attribute the scalar response to individual projection weights or nonlinear operations."
+}

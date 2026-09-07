@@ -13,6 +13,21 @@ checkboxes toggle SVG series. Everything is embedded, with no external scripts,
 assets, or network requests. The JSON remains unchanged. The supplied fixture is
 **entirely synthetic** and the report prominently labels it as such.
 
+## Inspect an overlay without a model
+
+An install supplies `ngramma-report` and `ngramma-inspect`. Both commands run
+without research dependencies. From a checkout:
+
+```sh
+PYTHONPATH=src python3 -m ngramma_runtime.overlay_inspect /path/to/rows.fml \
+  --identity /path/to/local-model-identity.json
+```
+
+This checks file structure, checksums, row ranges, finite values, and agreement
+with the supplied manifest. It does not open model files or authenticate their
+contents; the engine must still perform that check before loading the overlay.
+The output lists row IDs and hashes, without dumping row vectors or model paths.
+
 ## Data contract
 
 Use `schema: "ngramma.row-response/v1"`. `demo.json` is a complete example.

@@ -33,10 +33,14 @@ passes its own check but does not predict every measured native response.
 Use the [JSON example and schema](examples/memory-edit-workbench/README.md) to
 report experiments from your own implementation, or build on the
 [checked row-patch utility](src/ngramma_runtime/row_patch.py). Read the
+[model-free overlay inspector](examples/memory-edit-workbench/README.md#inspect-an-overlay-without-a-model),
 [fixed experiment plan](experiments/004-row-response/PLAN.md) and
 [reproduction instructions](experiments/004-row-response/REPRODUCE.md).
 These are research tools; no trained overlay or capability improvement is
 being released.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for adding another backend, collecting
+new row-response evidence, or designing a verifiable behavior experiment.
 
 ## First experiment: September 7, 2026
 

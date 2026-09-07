@@ -62,6 +62,19 @@ This is why watching only integer codes misses the first measured change.
 The [activation build record](activation-build.json) binds the encoder to the
 same CPU libraries used by the native forward reference.
 
+A [more detailed replay](review/scale-transition-final.json) finds two distinct
+FP16 scales changing by one representable step each. In block40, the two edit
+directions move the scale in opposite directions. In block41, both edits raise
+the scale: two positive values tie for the largest absolute value, at
+coordinates0 and31. The alternating edit raises coordinate0 in one direction
+and coordinate31 in the other. All integer codes stay unchanged.
+
+Thus opposite row edits produce encoded changes that are not opposites. This
+explains an asymmetry in the quantizer; it does not isolate each block's
+contribution through projection weights and nonlinear operations to the final
+scalar response. Earlier scale records are retained; `scale-transition-final`
+is the complete replay with maximum locations and baseline encoding hashes.
+
 ## The smooth derivative passes its own test—and still differs
 
 The independent smooth control uses FP64 PLE operations, dequantized frozen
