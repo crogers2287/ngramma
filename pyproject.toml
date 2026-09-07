@@ -18,6 +18,9 @@ test = ["pytest>=8"]
 [project.scripts]
 ngramma-report = "ngramma_runtime.response_report:main"
 
+[tool.setuptools]
+license-files = ["LICENSE", "NOTICE", "licenses/*.txt"]
+
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["ngramma_runtime*"]

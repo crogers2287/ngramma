@@ -2,8 +2,8 @@
 import ctypes
 import os
 from pathlib import Path
-import numpy as np
 import pytest
+np = pytest.importorskip('numpy')
 from ngramma_runtime.activation_encoding import ActivationEncoding
 
 
