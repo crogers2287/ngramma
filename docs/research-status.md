@@ -35,10 +35,12 @@ CPU matrix dispatch were material. The original differentiable replica has not
 thereby acquired a qualified gradient: these native operations have no backward
 implementation, so M2 and M4 remain unqualified.
 
-The first wider Unicode/chat test fails: 0.148-nat maximum selected-token error
+The first wider Unicode/chat control failed: 0.148-nat maximum selected-token error
 and a new first difference in memory-bearing layer 1. Its exact memory gather
 does not establish exact downstream memory processing. This retained control
-limits the original ten-token success; broader forward agreement remains open.
+limited the original ten-token success. A controlled change to the PLE scalar
+expression then restored the complete 17-token forward, including matching
+byte hashes for intermediates and logits. Wider execution modes remain open.
 
 Expand short-sequence coverage, then compare a differentiable implementation
 against the exact reference and validate directional gradients. Distinguish

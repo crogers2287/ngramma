@@ -48,7 +48,7 @@ timeout 900 python experiments/003-attention/probe.py \
 timeout 900 python experiments/003-attention/full_probe.py \
   --manifest "$NGRAMMA_MANIFEST" --reference .local/003/reference \
   --native-library .local/003/attention.so \
-  --native-recurrent --native-repack --native-reductions --native-attention \
+  --native-recurrent --native-repack --native-reductions --native-attention --native-ple-scale \
   --output .local/003/full-result.json
 ```
 
@@ -65,6 +65,15 @@ scores, probabilities, and outputs; it does not substitute captured activation
 values. Cache width comes from the capture. This validates a specific fixture,
 not a general implementation of QSA. Cached-prefix and multimodal execution are
 unsupported by this reference context.
+
+The final command includes the later memory-gate scalar correction. Omit
+`--native-ple-scale` to reproduce the attention-only controls. To isolate that
+change at layer 1, capture `ple_gate`, `ple_gated_value`, and `ple_conv_out` in
+addition to `ple_embd`, `l_last`, and `kq_soft_max`, using the Unicode/chat tokens.
+Then run `ple_probe.py` with the same manifest, reference, native-library, and a
+new output path. It evaluates both scalar formulas automatically and requires
+the new capture configuration metadata. Its original branch must match the
+upstream PLE function before the correction is compared.
 
 The additional `unicode-chat` and `eos-repeat` token lists are in
 `data/compatibility-cases.json`. Extract one list at a time, capture with

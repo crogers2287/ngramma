@@ -2,6 +2,7 @@
 """Compare a short full-model CPU forward with saved engine outputs; no training."""
 import argparse
 from contextlib import nullcontext
+import hashlib
 import json
 from pathlib import Path
 import resource
@@ -18,6 +19,7 @@ def main():
     p.add_argument('--native-repack', action='store_true')
     p.add_argument('--native-reductions', action='store_true')
     p.add_argument('--native-attention', action='store_true')
+    p.add_argument('--native-ple-scale', action='store_true')
     p.add_argument('--threads', type=int, default=4)
     p.add_argument('--cache-gib', type=float, default=4)
     args = p.parse_args()
@@ -28,6 +30,8 @@ def main():
 
     if args.native_attention and not (args.native_library and args.native_recurrent and args.native_repack and args.native_reductions):
         p.error('Native attention requires the complete previous native condition')
+    if args.native_ple_scale and not args.native_attention:
+        p.error('PLE scalar correction requires the complete native attention condition')
 
     import numpy as np
     import torch
@@ -89,6 +93,10 @@ def main():
         layouts = verified_layouts(args.reference, hp, tokens)
         attention_ops = AttentionOps(args.native_library, rope_config=RopeConfig.from_metadata(table.metadata), threads=args.threads)
         attention_mode = NativeAttentionReference(attention_ops, layouts, tokens)
+    ple_mode = nullcontext()
+    if args.native_ple_scale:
+        from ngramma_runtime.ple_reference import NativePleScale
+        ple_mode = NativePleScale()
 
     def compare(name, actual):
         item = next(x for x in metadata if x['name'] == name)
@@ -105,6 +113,9 @@ def main():
         result = {'name': name, 'max_abs': float(np.abs(difference).max()),
                   'relative_rms': float(np.sqrt(np.mean(difference**2))/max(np.sqrt(np.mean(expected.astype(np.float64)**2)), 1e-12)),
                   'different_values': int(np.count_nonzero(difference)), 'values': actual.size}
+        result['actual_logical_sha256'] = hashlib.sha256(actual.astype('<f4',copy=False).tobytes()).hexdigest()
+        result['reference_logical_sha256'] = hashlib.sha256(expected.astype('<f4',copy=False).tobytes()).hexdigest()
+        result['bitwise_equal'] = result['actual_logical_sha256'] == result['reference_logical_sha256']
         metrics.append(result)
         print(json.dumps({**result, 'elapsed_seconds': time.monotonic()-start}), flush=True)
 
@@ -118,7 +129,7 @@ def main():
             compare(f'l_last-{layer}', value)
 
     initialized = time.monotonic()
-    with torch.no_grad(), mode, attention_mode:
+    with torch.no_grad(), mode, attention_mode, ple_mode:
         logits = replica.full(tokens, capture=Captures())
     finished = time.monotonic()
     expected = np.fromfile(args.reference/'logits.f32', dtype='<f4').reshape(len(tokens), -1)
@@ -143,6 +154,8 @@ def main():
               'peak_rss_gib': resource.getrusage(resource.RUSAGE_SELF).ru_maxrss/(1 << 20),
               'initial_available_gib': inventory['available_bytes']/(1 << 30),
               'max_logit_error': float(logit_difference.max()), 'mean_logit_error': float(logit_difference.mean()),
+              'actual_logits_sha256': hashlib.sha256(logits.numpy().astype('<f4',copy=False).tobytes()).hexdigest(),
+              'logits_bitwise_equal': logits.numpy().astype('<f4',copy=False).tobytes() == expected.astype('<f4',copy=False).tobytes(),
               'selected_logprob_error_max': float(selected_difference.max()),
               'selected_logprob_error_by_position': selected_difference.tolist(),
               'top1_agreement': float(np.mean(logits.argmax(-1).numpy() == selected)),
@@ -151,6 +164,9 @@ def main():
               'thresholds': {'selected_logprob_nats_strictly_below': 0.02, 'relative_rms_strictly_below': 0.01},
               'native_library_sha256': file_hash(args.native_library) if args.native_library else None,
               'native_attention': args.native_attention,
+              'native_ple_scale': args.native_ple_scale,
+              'ple_scale_calls': ple_mode.calls if args.native_ple_scale else 0,
+              'ple_scale_coefficient': ple_mode.coefficient if args.native_ple_scale else None,
               'attention_calls': dict(attention_ops.calls) if attention_ops else {},
               'rope_config': attention_ops.settings() if attention_ops else None,
               'verified_attention_layouts': layouts,

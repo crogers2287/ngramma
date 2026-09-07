@@ -1,8 +1,8 @@
 # Experiment 003: reproducing full-attention arithmetic
 
-**The original ten-token sequence now matches the CPU engine bit-for-bit through
-all 48 layers and every output logit.** Selected-token log-probability error
-falls from 0.905555 nats to zero. The work addresses a compatibility prerequisite of the
+**The original ten-token and wider seventeen-token Unicode/chat sequences now
+match the CPU engine through all 48 layers and every output logit.** Selected-token
+log-probability error falls to zero. The work addresses a compatibility prerequisite of the
 [original handoff](../../handoff.md); it does not train memory rows.
 
 ## Full-model result
@@ -19,14 +19,20 @@ during execution. Forward time after initialization was 89.14 seconds; peak
 process RSS was 14.98 GiB. These measurements share host/OS caches and are not
 controlled throughput benchmarks or estimates of backward cost.
 
-The first wider `unicode-chat` test does **not** pass: 17 tokens yield 16/17
+The first wider `unicode-chat` control did **not** pass: 17 tokens yielded 16/17
 top-token agreement, maximum selected-token error **0.148039 nats**, and final
 layer relative RMS **0.290736**. Memory gather and layer 0 are exact. The first
 difference appears at memory-bearing layer 1, with maximum absolute error
 1.49e-8, then grows downstream. This failed control is retained in
-`full-unicode-chat.json`; it prevents claiming broad short-sequence agreement.
-The next component test isolates the memory gate's scale operation. Source and
-synthetic evidence identify it as a candidate, not yet a measured explanation.
+`full-unicode-chat.json`. The repeated-EOS control also failed the intermediate
+gate: maximum relative RMS 0.184052, despite selected-token error 0.017462 falling
+below its 0.02 threshold. Both failed controls remain unchanged.
+
+The later memory-gate correction restores the complete Unicode/chat forward:
+all 49 measured PLE/residual tensors and the complete logit array have matching
+byte hashes. Top-token agreement is 17/17, both error measures are zero, and the
+run records one corrected PLE call. Forward time was 113.08 seconds after
+initialization; peak process RSS was 16.40 GiB.
 
 ## Component findings
 
@@ -86,6 +92,28 @@ The output projection in the contiguous controls already rounded to the exact
 reference output despite upstream differences. That is why a final projection
 alone cannot establish internal attention agreement. Conversely, experiment
 002 showed how tiny differences can be amplified by activation quantization.
+
+## Why the wider test mattered: memory-gate scaling
+
+The replica divided its summed key–query product by a Python-derived square
+root of 2560. The engine multiplies by `1.0f / sqrtf(2560.0f)`. Those expressions
+use different rounded operations. The correct FP32 multiplier is
+`0.019764235243201256`, derived from the actual embedding width.
+
+The controlled [PLE probe](ple_probe.py) changes only that scalar expression.
+It first verifies that its original transcription reproduces the upstream
+function's output and history exactly. In the Unicode fixture, **2 of 68 gate
+values differ**, first at zero-based token 10, with maximum error 7.45e-9. That
+becomes 13,963 differing values in the complete memory-layer residual. The
+original ten-token fixture ends before this first difference.
+
+Multiplication by the engine's FP32 reciprocal makes every compared gate,
+gated-value, convolution output, and full layer-1 value exact. No convolution,
+sigmoid, normalization, weight, row, or addition-order change is bundled into
+this ablation. The later full Unicode run confirms the downstream result.
+`ple-gate-scaling.json` retains both conditions, source identities, first differing
+token, and per-token counts. This is a calculation fix in the diagnostic replica;
+the original model and its memory contents are unchanged.
 
 ## Scope and evidence
 

@@ -53,9 +53,10 @@ bit-for-bit through all 48 layers and every output logit on the original
 ten-token fixture. Native rotary arithmetic, padded attention, and preservation
 of the query tensor's memory layout resolve the remaining discrepancy. Maximum
 selected-token log-probability error falls from experiment 002's 0.906 nats to
-zero. A wider 17-token Unicode/chat test still fails at 0.148 nats, beginning
-with a small difference in the memory-bearing layer. Broad agreement remains
-unqualified. The [forward diagnostic harness](docs/runtime.md) has no backward
+zero. A wider 17-token Unicode/chat control exposed a memory-gate rounding
+difference; correcting that calculation restores exact agreement on that
+sequence too. The failed controls remain published. The
+[forward diagnostic harness](docs/runtime.md) has no backward
 implementation; no rows have been trained.
 
 The experimental prototype recorded 22 guard and plumbing tests passing; these were not real-model gradient validation. The checker in this publication is a separate evidence audit. No teacher model was called and no selected rows were optimized on correction examples. Only a manually specified diagnostic perturbation was evaluated.

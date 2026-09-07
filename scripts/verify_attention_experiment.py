@@ -8,13 +8,15 @@ import json
 import math
 from pathlib import Path
 import re
+import struct
 
 ROOT = Path(__file__).resolve().parents[1]
 DIRECTORY = ROOT/'experiments/003-attention'
 COMPONENTS = {'baseline.json': (False, False), 'native-rope.json': (True, False),
               'native-attention.json': (False, True), 'combined.json': (True, True),
               'combined-strides.json': (True, True)}
-FULL_RESULTS = ('full-native-attention.json', 'full-native-attention-provenance.json', 'full-unicode-chat.json', 'full-eos-repeat.json')
+FULL_RESULTS = ('full-native-attention.json', 'full-native-attention-provenance.json', 'full-unicode-chat.json', 'full-eos-repeat.json',
+                'full-native-attention-ple-scale.json', 'full-unicode-chat-ple-scale.json', 'full-eos-repeat-ple-scale.json')
 METRICS = {'hc_mixed', 'hc_inject', 'query_projection', 'query_split', 'query_norm',
            'key_projection', 'key_norm', 'value_projection', 'query_rope', 'key_rope',
            'gate_input', 'gate_sigmoid', 'gated_output', 'projected_output',
@@ -155,6 +157,78 @@ def verify_provenance(record):
     for digest in external.values():sha(digest)
 
 
+
+def f32(value):
+    return struct.unpack('<f', struct.pack('<f', value))[0]
+
+
+def ple_coefficient(width):
+    require(type(width) is int and width > 0, 'Invalid PLE embedding width')
+    return f32(1.0 / f32(math.sqrt(f32(width))))
+
+
+def verify_ple_scaled_full(record):
+    require(record['native_ple_scale'] is True and type(record['ple_scale_calls']) is int and
+            record['ple_scale_calls'] == 1, 'Incomplete PLE scalar substitution')
+    require(record['ple_scale_coefficient'] == ple_coefficient(2560), 'PLE scalar coefficient changed')
+    for row in record['intermediates']:
+        for key in ('actual_logical_sha256', 'reference_logical_sha256'):sha(row[key])
+        equal = row['actual_logical_sha256'] == row['reference_logical_sha256']
+        require(type(row['bitwise_equal']) is bool and row['bitwise_equal'] is equal,
+                'Logical tensor hash/exactness claim disagree')
+        if equal:
+            require(row['max_abs'] == 0 and row['relative_rms'] == 0 and row['different_values'] == 0,
+                    'Bitwise-equal tensor has nonzero numerical differences')
+    sha(record['actual_logits_sha256'])
+    equal = record['actual_logits_sha256'] == record['reference_sha256']['logits.f32']
+    require(type(record['logits_bitwise_equal']) is bool and record['logits_bitwise_equal'] is equal,
+            'Logit hash/exactness claim disagree')
+    if equal:
+        require(record['max_logit_error'] == 0 and record['mean_logit_error'] == 0 and
+                record['selected_logprob_error_max'] == 0 and record['top1_agreement'] == 1,
+                'Bitwise-equal logits have nonzero numerical differences')
+
+
+def verify_ple_probe(record, identity):
+    common(record, identity)
+    require(record['schema'] == 'ngramma-ple-scalar-probe/v1' and record['layer'] == 1,
+            'Unexpected PLE probe schema/layer')
+    require(record['original_transcription_matches_upstream'] is True, 'Unverified PLE transcription')
+    require(not record['sources_changed_during_run'] and not record['external_sources_changed_during_run'],
+            'PLE probe source changed during run')
+    require(record['n_embd'] == 2560 and record['original_divisor'] == math.sqrt(2560), 'Unexpected PLE dimension/divisor')
+    coefficient = ple_coefficient(record['n_embd'])
+    require(record['corrected_float32_coefficient'] == coefficient and
+            record['corrected_coefficient_ieee754_le_hex'] == struct.pack('<f', coefficient).hex(),
+            'PLE probe corrected scalar/value bits disagree')
+    conditions = record['conditions']
+    require(set(conditions) == {'original_division', 'float32_reciprocal_multiply'}, 'Missing/extra PLE scalar condition')
+    for condition in conditions.values():
+        require(condition['fresh_layer_state'] is True, 'PLE probe reused layer state')
+        require(set(condition['metrics']) == {'gate', 'gated_value', 'conv_out', 'full_layer1'}, 'Missing PLE stage')
+        for value in condition['metrics'].values():
+            metric(value)
+            counts = value['different_values_by_token']
+            require(len(counts) == len(record['tokens']) and all(type(n) is int and n >= 0 for n in counts),
+                    'Invalid per-token PLE difference counts')
+            require(value['values'] % len(counts) == 0 and all(n <= value['values']//len(counts) for n in counts) and
+                    sum(counts) == value['different_values'], 'PLE per-token/total count mismatch')
+            first = next((i for i,n in enumerate(counts) if n), None)
+            require(value['first_differing_token'] == first and
+                    (value['first_differing_token'] is None or type(value['first_differing_token']) is int),
+                    'PLE first differing token mismatch')
+    for group in ('reference_sha256', 'compared_tensor_sha256', 'external_source_sha256'):
+        require(bool(record[group]), 'Missing PLE reference/source hashes')
+        for digest in record[group].values():sha(digest)
+    require(set(record['compared_tensor_sha256']) == {'l_last-0', 'ple_embd', 'ple_gate-1',
+            'ple_gated_value-1', 'ple_conv_out-1', 'l_last-1'}, 'Missing compared PLE tensor identities')
+    capture = record['capture_identity']
+    require(capture['identity_sha256'] == identity and capture['tokens'] == record['tokens'],
+            'PLE capture identity/token mismatch')
+    require(capture['metadata_sha256'] == record['reference_sha256']['tensors.json'] and
+            capture['logits_sha256'] == record['reference_sha256']['logits.f32'], 'PLE capture content hash mismatch')
+
+
 def main():
     identity = json.loads((ROOT/'data/model-identity.json').read_text())['identity_sha256']
     tokens = json.loads((ROOT/'data/replica-quantized-parity.json').read_text())['tokens']
@@ -175,19 +249,26 @@ def main():
             print(f'{filename}: absent; no full-forward claim checked for this fixture')
             continue
         record = json.loads(path.read_text())
-        if filename in ('full-native-attention.json', 'full-native-attention-provenance.json'):
+        if filename in ('full-native-attention.json', 'full-native-attention-provenance.json', 'full-native-attention-ple-scale.json'):
             require(record['tokens'] == tokens, 'Primary full-forward token sequence changed')
         else:
-            case_name = filename.removeprefix('full-').removesuffix('.json')
+            case_name = filename.removeprefix('full-').removesuffix('.json').removesuffix('-ple-scale')
             cases = json.loads((ROOT/'data/compatibility-cases.json').read_text())
             require(record['tokens'] == next(case['tokens'] for case in cases if case['name'] == case_name),
                     'Additional fixture token sequence changed')
         verify_full(record, identity)
         verify_provenance(record)
+        if filename.endswith('-ple-scale.json'):
+            verify_ple_scaled_full(record)
         if filename != 'full-native-attention.json':
             require('capture_identity' in record, 'Enhanced run missing capture provenance')
         print(f'{filename}: saved metrics and fixed-threshold decisions internally consistent')
         count += 1
+    ple_path = DIRECTORY/'ple-gate-scaling.json'
+    if ple_path.is_file():
+        verify_ple_probe(json.loads(ple_path.read_text()), identity)
+        count += 1
+        print('ple-gate-scaling.json: scalar ablation and saved stage evidence internally consistent')
     print(f'PASS: {count} saved experiment-003 records checked. No raw tensor/logit comparison or inference rerun.')
 
 
