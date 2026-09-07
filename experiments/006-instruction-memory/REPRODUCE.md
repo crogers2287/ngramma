@@ -21,6 +21,13 @@ candidate records. The repository manifest detects changes to published files.
 This is an audit of saved evidence. It does not rerun inference, read the
 original model files, or recompute the ignored raw tensor captures.
 
+The new [weight-free row tracer](../../examples/row-addresses/README.md) lets
+you inspect the selected rows directly from the saved token IDs.
+`audit_addresses.py` uses it to replay the historical 624-address native
+reference and calculate selected-row uses throughout every saved prompt and
+decoded history. It labels these broader uses as offline calculations, not
+fresh native traces.
+
 To regenerate the outcome figure, install the existing optional figure
 dependencies and run:
 

@@ -195,7 +195,7 @@ def verify(exp=EXP, root=ROOT, require_complete=True):
     require(report['heldout_evaluated'] is False, 'Search record must not claim separate holdout evaluation')
     return {'schema': 'ngramma.instruction-evidence/v1', 'complete': report['complete'],
             'candidates_replayed': count, 'scored_generations': 24 * count,
-            'zero_matching_generations': 24, 'selected_rows': 8, 'trainable_values': 1280,
+            'zero_matching_generations': 24, 'selected_rows': 8, 'edited_values': 1280,
             'eligible_candidates': sum(r['eligible'] for r in replayed),
             'selected_winner': expected_winner, 'heldout_evaluated': False,
             'note': 'Saved evidence replay only; no inference, model authentication, or raw capture recomputation.'}

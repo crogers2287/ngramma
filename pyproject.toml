@@ -18,6 +18,7 @@ test = ["pytest>=8"]
 [project.scripts]
 ngramma-report = "ngramma_runtime.response_report:main"
 ngramma-inspect = "ngramma_runtime.overlay_inspect:main"
+ngramma-addresses = "ngramma_runtime.addressing:main"
 
 [tool.setuptools]
 license-files = ["LICENSE", "NOTICE", "licenses/*.txt"]

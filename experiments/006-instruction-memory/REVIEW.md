@@ -30,3 +30,9 @@ original model files were modified during testing.
 
 The audit does not establish inference parity for another engine build or GPU
 profile. The measured profile and hashes remain explicit in each raw result.
+
+A later attempt to obtain a second review of the newly added evidence checker
+timed out after 300 seconds; a retry with inline source timed out after 180
+seconds. Neither returned findings or a verdict. They are not counted as
+completed independent reviews. The checker's published tests and local review
+provide its verification evidence.
