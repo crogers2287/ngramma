@@ -268,4 +268,83 @@ int ngramma_gdn(const float * q, const float * k, const float * v,
     });
 }
 
+
+// Attention diagnostics, contiguous caller-owned CPU arrays only, no backward.
+// IMROPE input/output[T,H,D], positions int32[4,T], sections int32[4].
+// n_rot rotates the first n_rot channels; D and n_rot must both be even.
+// No per-frequency factor tensor or rotation offset is supplied.
+int ngramma_rope_multi(const float * input, const int32_t * positions,
+                       const int32_t * sections, float * output,
+                       int64_t tokens, int64_t heads, int64_t dim,
+                       int n_rot, int mode, int n_ctx,
+                       float freq_base, float freq_scale, float ext_factor,
+                       float attn_factor, float beta_fast, float beta_slow,
+                       int threads) noexcept {
+    return guarded([&] {
+        dimensions(tokens, heads, threads); dimensions(dim, tokens * heads, threads);
+        require(input && positions && sections && output, "Null RoPE tensor buffer");
+        require(mode == GGML_ROPE_TYPE_IMROPE, "This RoPE bridge supports IMROPE mode 40 only");
+        require(dim % 2 == 0 && n_rot > 0 && n_rot % 2 == 0 && n_rot <= dim, "RoPE requires even dim and positive even n_rot <= dim");
+        require(n_ctx > 0, "RoPE original context must be positive");
+        require(std::isfinite(freq_base) && freq_base > 1 && std::isfinite(freq_scale) && freq_scale > 0,
+                "RoPE requires finite freq_base > 1 and freq_scale > 0");
+        require(std::isfinite(ext_factor) && ext_factor >= 0 && std::isfinite(attn_factor) && attn_factor > 0 &&
+                std::isfinite(beta_fast) && beta_fast > 0 && std::isfinite(beta_slow) && beta_slow > 0,
+                "RoPE scaling parameters must be finite; ext_factor >= 0 and attn/beta factors > 0");
+        int selected_sections[4];
+        int64_t sum = 0;
+        for (int i = 0; i < 4; ++i) {
+            require(sections[i] >= 0 && sections[i] <= INT32_MAX / 3, "Invalid RoPE section size");
+            selected_sections[i] = sections[i]; sum += sections[i];
+        }
+        require(sum > 0 && sum <= dim && int64_t(sections[0]) + sections[1] + sections[2] > 0,
+                "RoPE sections must have a positive spatial/temporal section and total <= dim");
+        auto ctx = context();
+        auto * values = ggml_new_tensor_3d(ctx.get(), GGML_TYPE_F32, dim, heads, tokens);
+        auto * pos = ggml_new_tensor_1d(ctx.get(), GGML_TYPE_I32, tokens * 4);
+        values->data = const_cast<float *>(input); pos->data = const_cast<int32_t *>(positions);
+        auto * result = ggml_rope_multi(ctx.get(), values, pos, nullptr, n_rot, selected_sections,
+            mode, n_ctx, freq_base, freq_scale, ext_factor, attn_factor, beta_fast, beta_slow);
+        compute(ctx.get(), result, output, threads);
+    });
+}
+
+// F32 weights[Hw,N,K], inputs[Hx,M,K], output[Hx,M,N]. Hx divisible by Hw.
+// Unlike GDN's tiled heads, GGML matmul repeats contiguous head groups:
+// output head h uses weight head h/(Hx/Hw). No padding or quantization.
+int ngramma_batched_matmul(const float * weights, const float * inputs,
+                           float * output, int64_t k, int64_t n, int64_t m,
+                           int64_t weight_heads, int64_t input_heads,
+                           int threads) noexcept {
+    return guarded([&] {
+        dimensions(weight_heads, n, threads); dimensions(input_heads, m, threads);
+        dimensions(k, weight_heads * n, threads); dimensions(k, input_heads * m, threads);
+        dimensions(n, input_heads * m, threads);
+        require(input_heads % weight_heads == 0, "Batched matmul input heads must be divisible by weight heads");
+        require(weights && inputs && output, "Null batched matmul tensor buffer");
+        auto ctx = context();
+        auto * w = ggml_new_tensor_3d(ctx.get(), GGML_TYPE_F32, k, n, weight_heads);
+        auto * x = ggml_new_tensor_3d(ctx.get(), GGML_TYPE_F32, k, m, input_heads);
+        w->data = const_cast<float *>(weights); x->data = const_cast<float *>(inputs);
+        compute(ctx.get(), ggml_mul_mat(ctx.get(), w, x), output, threads);
+    });
+}
+
+// scores/output[H,T,K], additive F32 mask[T,K] (broadcast to all heads).
+// Native scale then additive mask; max_bias=0; no sinks, softcap, or ALiBi.
+int ngramma_softmax_ext(const float * scores, const float * mask, float * output,
+                        int64_t heads, int64_t tokens, int64_t keys,
+                        float scale, int threads) noexcept {
+    return guarded([&] {
+        dimensions(heads, tokens, threads); dimensions(keys, heads * tokens, threads);
+        require(scores && mask && output, "Null attention softmax tensor buffer");
+        require(std::isfinite(scale), "Attention softmax scale must be finite");
+        auto ctx = context();
+        auto * values = ggml_new_tensor_3d(ctx.get(), GGML_TYPE_F32, keys, tokens, heads);
+        auto * additive = ggml_new_tensor_2d(ctx.get(), GGML_TYPE_F32, keys, tokens);
+        values->data = const_cast<float *>(scores); additive->data = const_cast<float *>(mask);
+        compute(ctx.get(), ggml_soft_max_ext(ctx.get(), values, additive, scale, 0.0f), output, threads);
+    });
+}
+
 } // extern C
