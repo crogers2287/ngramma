@@ -1,0 +1,15 @@
+{
+  "schema": "ngramma.test-run/v1",
+  "commit": "c03ce4b12832737932710b12a7a1ae107eed6874",
+  "tests": 630,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "seconds": 21.503,
+  "xml_sha256": "2c025dd980082af6f833aefc55e044c8285443ff93836bb164d3d3edd2356a1c",
+  "log_sha256": "eda28c4b2ca125017fcdd6365d23ff3bc83c6009cb466abea8d0ca6ce4e81209",
+  "native_dependencies_configured": true,
+  "model_inference_run_by_tests": false,
+  "search_candidates_complete_at_test": 8,
+  "note": "Synthetic native and model-free tests; separate candidate processes provide actual model evidence."
+}
