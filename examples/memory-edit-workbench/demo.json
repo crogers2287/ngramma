@@ -1,0 +1,23 @@
+{
+  "schema": "ngramma.row-response/v1",
+  "evidence_kind": "synthetic_demo",
+  "title": "One row, several perturbation sizes",
+  "experiment": {
+    "row_id": "toy-table/head-0/row-7",
+    "direction": "Fixed synthetic unit vector; epsilon is its signed multiplier",
+    "notes": "Invented values for learning the report format. No checkpoint, native library, or model was used."
+  },
+  "interpretation": {
+    "response_kind": "finite_step",
+    "notes": "Small steps illustrate a flat response followed by a change. This is a synthetic illustration, not a measured quantization threshold."
+  },
+  "points": [
+    {"epsilon": -0.1, "ple_output_rms": 0.012, "key_changed_count": 8, "value_changed_count": 12},
+    {"epsilon": -0.01, "ple_output_rms": 0.001, "key_changed_count": 2, "value_changed_count": 4},
+    {"epsilon": -0.001, "ple_output_rms": 0.0, "key_changed_count": 0, "value_changed_count": 0},
+    {"epsilon": 0, "ple_output_rms": 0.0, "key_changed_count": 0, "value_changed_count": 0},
+    {"epsilon": 0.001, "ple_output_rms": 0.0, "key_changed_count": 0, "value_changed_count": 0},
+    {"epsilon": 0.01, "ple_output_rms": 0.0012, "key_changed_count": 3, "value_changed_count": 4},
+    {"epsilon": 0.1, "ple_output_rms": 0.014, "key_changed_count": 9, "value_changed_count": 13}
+  ]
+}

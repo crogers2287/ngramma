@@ -16,6 +16,7 @@ def main():
     p.add_argument('--tokens', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--lens', type=Path, help='Optional locally built diagnostic lens')
+    p.add_argument('--overlay', type=Path, help='Explicit experimental rows.fml; engine authenticates model shards')
     p.add_argument('--no-repack', action='store_true')
     p.add_argument('--verbose', action='store_true')
     p.add_argument('--capture', action='append', default=[])
@@ -33,6 +34,11 @@ def main():
     env['LD_LIBRARY_PATH'] = str(runtime)
     env.pop('FLASH_MEMORY_OVERLAY', None)
     env.pop('FLASH_MEMORY_TRACE', None)
+    overlay_hash = None
+    if args.overlay:
+        overlay_path = args.overlay.resolve(strict=True)
+        overlay_hash = hashlib.sha256(overlay_path.read_bytes()).hexdigest()
+        env['FLASH_MEMORY_OVERLAY'] = str(overlay_path)
     cmd = [str(binary), '-m', identity['shards'][0]['path'], '--device', 'none',
            '--fit', 'off', '-ngl', '0', '-c', '128', '-b', '32', '-ub', '32',
            '-t', str(args.threads), '-tb', str(args.threads), '-fa', 'off',
@@ -49,10 +55,13 @@ def main():
     records = [json.loads(x) for x in result.stdout.splitlines() if x.startswith('{')]
     if result.returncode or not records or records[-1].get('ok') is not True:
         raise RuntimeError('Reference capture failed; inspect local stderr and response logs')
+    if args.overlay and hashlib.sha256(overlay_path.read_bytes()).hexdigest() != overlay_hash:
+        raise RuntimeError('Overlay changed during engine execution')
     summary = {'tokens':tokens, 'capture_prefixes':args.capture, 'chunk_size':args.chunk_size,
                'threads':args.threads, 'device':'CPU', 'cache_type':'f32', 'repack':not args.no_repack,
                'flash_attention':False, 'context':128, 'batch':32, 'microbatch':32,
                'rope_overrides':False,
+               'overlay_sha256':overlay_hash,
                'capture_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                'seconds':time.monotonic()-start,
                'identity_sha256':identity['identity_sha256'],

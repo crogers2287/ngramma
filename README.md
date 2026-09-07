@@ -13,6 +13,31 @@ improvement has been demonstrated.** [Read experiment 003](experiments/003-atten
 
 This repository follows that research program independently of any particular host or orchestration setup. The handoff is preserved as the design record. Its proposed components and milestones are not claims of completed implementation.
 
+## Try the memory-edit workbench
+
+Explore measured row edits in an interactive, offline report. Python 3.10+ is
+enough; these commands need no model, GPU, API key, or Python dependencies:
+
+```sh
+PYTHONPATH=src python3 -m ngramma_runtime.response_report \
+  experiments/004-row-response/response.json --html .local/row-response.html
+```
+
+Open `.local/row-response.html`. The tables and toggles show which edits survive
+quantization, how memory outputs change, and full-engine prediction changes
+when supplied. The first real experiment changes one existing 160-value row:
+several small edits vanish at the activation quantizer, while the first changed
+sample alters scale bytes without altering integer codes. A smooth derivative
+passes its own check but does not predict every measured native response.
+
+Use the [JSON example and schema](examples/memory-edit-workbench/README.md) to
+report experiments from your own implementation, or build on the
+[checked row-patch utility](src/ngramma_runtime/row_patch.py). Read the
+[fixed experiment plan](experiments/004-row-response/PLAN.md) and
+[reproduction instructions](experiments/004-row-response/REPRODUCE.md).
+These are research tools; no trained overlay or capability improvement is
+being released.
+
 ## First experiment: September 7, 2026
 
 **Existing-row overlays worked in the tested CPU engine, but the sequence-training replica failed numerical agreement. No learned improvement was demonstrated.** The first experiment reached overlay interception and numerical diagnostics; it did not qualify a training run.

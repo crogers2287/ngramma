@@ -11,6 +11,8 @@ from .artifacts import file_hash
 def validate_capture(directory, identity_sha256):
     directory = Path(directory)
     record = json.loads((directory/'capture-summary.json').read_text())
+    if record.get('overlay_sha256') is not None:
+        raise ValueError('A baseline reference must not contain a memory overlay')
     required = {'identity_sha256': identity_sha256, 'device': 'CPU',
                 'cache_type': 'f32', 'repack': True, 'flash_attention': False,
                 'rope_overrides': False, 'context': 128, 'batch': 32, 'microbatch': 32}

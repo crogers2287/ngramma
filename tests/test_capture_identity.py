@@ -37,6 +37,21 @@ def test_wrong_requested_model_identity_rejected(capture):
         validate_capture(path,'d'*64)
 
 
+def test_edited_capture_cannot_be_used_as_unmodified_reference(capture):
+    path,record,write=capture
+    record['overlay_sha256']='e'*64
+    write()
+    with pytest.raises(ValueError,match='must not contain a memory overlay'):
+        validate_capture(path,IDENTITY)
+
+
+def test_explicit_absence_of_overlay_is_a_valid_baseline(capture):
+    path,record,write=capture
+    record['overlay_sha256']=None
+    write()
+    assert validate_capture(path,IDENTITY)==record
+
+
 @pytest.mark.parametrize('field,value',[('identity_sha256','d'*64),('device','CUDA'),
     ('cache_type','f16'),('repack',False),('repack',1),('flash_attention',True),
     ('rope_overrides',True),('context',256),('context',128.),('batch',64),('microbatch',16)])

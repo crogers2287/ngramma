@@ -12,7 +12,8 @@ jobs:
           python3 scripts/verify_results.py
           python3 scripts/verify_parity_experiments.py
           python3 scripts/verify_attention_experiment.py
+          python3 scripts/verify_row_response.py --local-only
       - name: Install lightweight test dependency
         run: python3 -m pip install 'pytest>=8,<10'
       - name: Check runtime configuration and safe imports
-        run: python3 -m pytest -q tests/test_runtime_config.py tests/test_native_bridge.py tests/test_native_adapter.py tests/test_native_attention.py tests/test_native_attention_api.py tests/test_native_attention_scores.py tests/test_attention_reference.py tests/test_capture_identity.py tests/test_ple_reference.py
+        run: python3 -m pytest -q tests
