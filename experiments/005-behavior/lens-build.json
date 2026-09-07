@@ -1,0 +1,12 @@
+{
+  "binary_sha256": "337f7902a86822d8476a5402081f76130deae764cf53cdf80039a5ea1efdc846",
+  "source_sha256": "3a7f9dc02c257678ea27f3cdec3f8341f8975242b7c9fee32b7bede9471a514f",
+  "build_script_sha256": "e88077762743dc4ea6bd123e1cafd97b35f35591ecc431fda2a62aeb2efc3a0b",
+  "compiler": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "runtime_sha256": {
+    "libllama.so": "86d051fe73cbf5ddbfbfa11c6ea43e7172ce5dbca77199a3bdf1b06c38a088b5",
+    "libllama-common.so": "96ced3d2c5a2ba247f377db43a2eff917e57e25ce9b7939ead7b682178ab75cd",
+    "libggml.so": "8a98a858030637ff98f7aebb60fa36f75b07e0bdb28ced0741df9a9e1584521e",
+    "libggml-base.so": "8c6dd2c346e0d2b94a15499c6eccc40b73be9f175f4733e76c31656ddc776fa9"
+  }
+}
