@@ -1,0 +1,119 @@
+{
+  "schema": "ngramma-attention-probe/v1",
+  "identity_sha256": "af848e254fb9a6ca6be56b8f14f1d369a6e705c3363c4c4ac6e5f0cc7e652f87",
+  "native_recurrent": true,
+  "metrics": {
+    "qkv": {
+      "max_abs": 9.5367431640625e-06,
+      "relative_rms": 1.581553163987337e-07,
+      "different_values": 87504,
+      "values": 102400
+    },
+    "z": {
+      "max_abs": 3.337860107421875e-06,
+      "relative_rms": 1.592733269717428e-07,
+      "different_values": 49803,
+      "values": 61440
+    },
+    "beta_raw": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 480
+    },
+    "beta": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 480
+    },
+    "alpha": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 480
+    },
+    "softplus": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 480
+    },
+    "log_decay": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 480
+    },
+    "conv_raw": {
+      "max_abs": 1.430511474609375e-06,
+      "relative_rms": 1.1834902835516914e-07,
+      "different_values": 84037,
+      "values": 102400
+    },
+    "conv_silu": {
+      "max_abs": 1.430511474609375e-06,
+      "relative_rms": 1.3314443947365362e-07,
+      "different_values": 82827,
+      "values": 102400
+    },
+    "q_normalized": {
+      "max_abs": 2.980232238769531e-07,
+      "relative_rms": 1.4850989771275636e-07,
+      "different_values": 17112,
+      "values": 20480
+    },
+    "k_normalized": {
+      "max_abs": 2.980232238769531e-07,
+      "relative_rms": 1.691992395080888e-07,
+      "different_values": 16936,
+      "values": 20480
+    },
+    "v": {
+      "max_abs": 1.430511474609375e-06,
+      "relative_rms": 1.3194149062201177e-07,
+      "different_values": 49576,
+      "values": 61440
+    },
+    "recurrent_output": {
+      "max_abs": 4.470348358154297e-08,
+      "relative_rms": 1.6219257759075845e-07,
+      "different_values": 52275,
+      "values": 61440
+    },
+    "recurrent_state": {
+      "max_abs": 9.5367431640625e-07,
+      "relative_rms": 2.166192984986992e-07,
+      "different_values": 717876,
+      "values": 786432
+    },
+    "gated_normalized_output": {
+      "max_abs": 1.1920928955078125e-06,
+      "relative_rms": 2.3004923832559143e-07,
+      "different_values": 54758,
+      "values": 61440
+    },
+    "projected_output": {
+      "max_abs": 1.0222196578979492e-05,
+      "relative_rms": 5.7308393479615916e-06,
+      "different_values": 23720,
+      "values": 25600
+    }
+  },
+  "seconds": 2.3679116120329127,
+  "native_calls": {
+    "matmul_type_2": 3,
+    "matmul_type_0": 2,
+    "unary_2": 2,
+    "unary_6": 1,
+    "ssm_conv": 1,
+    "unary_1": 1,
+    "unary_3": 2,
+    "gated_delta_net": 1,
+    "unary_0": 1
+  },
+  "native_library_sha256": "591ba4afee7f73981a4fb9044879cb60fc961c3b43888b2eca06ff3a379cbaee",
+  "source_sha256": "a49598d17e2e77a0d4b033212a1ab672a7501a55141768c4c7ece7021de07bb3",
+  "diagnostic_only": true,
+  "training_qualified": false
+}

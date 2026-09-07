@@ -55,7 +55,10 @@ table_paths = [Path('/path/to/table.gguf')]
 table = ModelTable(table_paths)
 try:
     weights = EngineWeights(model_paths, ram_cache_bytes=1 << 30)
-    hp = Hparams.from_gguf(weights.readers[0])
+    # The first table/metadata shard carries architecture fields; a weight
+    # shard may omit them. n_vocab can be absent from that metadata shard.
+    hp = Hparams.from_gguf(table.readers[0])
+    hp.n_vocab = weights.shape("output.weight")[1]
     replica = SequenceReplica(hp, weights, table, max_tokens=32)
     with torch.no_grad():
         capture = {}
@@ -64,8 +67,13 @@ finally:
     table.close()
 ```
 
-Replace example token IDs with independently verified tokenizer outputs. Check
-the pinned `Hparams` API when constructing model hyperparameters. Each full
+Supply every required model/table shard in the example lists and put the shard
+carrying architecture metadata first in `table_paths`. `weights.shape()` returns
+GGML dimensions, so `output.weight` has vocabulary size at index 1. This is the
+pinned `Hparams.from_gguf(reader)` API; it does not populate vocabulary size when
+the metadata reader has no output tensor.
+
+Replace example token IDs with independently verified tokenizer outputs. Each full
 forward starts fresh state; the sequence must fit the checkpoint's sparse
 attention top-k limit. `capture` holds PLE input, layer outputs, and routing;
 retaining every tensor increases RAM. `routing_source` may explicitly impose
@@ -90,6 +98,98 @@ These tests use no checkpoint, GPU, or real bridge. Base module imports do not
 modify `sys.path` or load NumPy, Torch, GGUF, or ENGRAFT; requesting model classes
 loads the optional dependencies. Configure once before those imports; use a
 fresh process for a different engine or ENGRAFT source.
+
+## Optional native CPU primitive bridge
+
+From the repository root, build against **matching, already-built** engine
+libraries and headers. The helper requires a C++17 compiler and Linux shared
+libraries `libggml-cpu.so` and `libggml-base.so`. It compiles only this research
+bridge and does not rebuild or start the engine:
+
+```sh
+python scripts/build_forward_bridge.py \
+  --engine-source "$NGRAMMA_ENGINE_SOURCE" \
+  --runtime "$NGRAMMA_RUNTIME" \
+  --output .local/002/libngramma-forward.so
+export NGRAMMA_FORWARD_LIBRARY="$PWD/.local/002/libngramma-forward.so"
+python -m pytest tests/test_native_bridge.py -q
+```
+
+These fixtures load the native library and small synthetic CPU arrays. They
+check matrix multiplication, unary row operations, convolution windows, state
+layout, and split-sequence recurrence. No model artifacts are read. With
+`NGRAMMA_FORWARD_LIBRARY` unset the fixtures skip; a configured missing or
+unloadable library fails. The helper embeds the supplied runtime location as an
+RPATH, so moving its libraries requires rebuilding or an explicitly configured
+loader environment. Headers and libraries must be verified as the same engine
+revision; neither compilation nor synthetic tests establish that identity.
+
+For a model diagnostic, replace `EngineWeights` in the earlier example with
+`NativeEngineWeights`, then enter `NativeForward` after `torch.no_grad()`:
+
+```python
+import os
+from ngramma_runtime.native_forward import NativeEngineWeights, NativeForward
+
+weights = NativeEngineWeights(model_paths, ram_cache_bytes=1 << 30)
+# Reuse hp and an OPEN table from the earlier example's try block.
+replica = SequenceReplica(hp, weights, table, max_tokens=32)
+with torch.no_grad():
+    with NativeForward(weights, os.environ["NGRAMMA_FORWARD_LIBRARY"],
+                       primitives=True, matmul=True, recurrent=True,
+                       threads=2) as native:
+        capture = {}
+        logits = replica.full([1, 2, 3], capture=capture)
+print(dict(native.calls))
+print(native.library_sha256)
+```
+
+Place this replacement inside the earlier `try` block, before `table.close()`;
+the example is not a standalone script. `NativeEngineWeights` retains original
+quantized buffers to run native matrix multiplication and can consume additional
+RAM beyond decoded-cache accounting. Its matrices must be used without
+unsupported shape transformations. `NativeForward` defaults to unary primitives
+and matrix multiplication enabled, recurrent substitution disabled. Set each
+switch explicitly and record call/fallback counts when comparing conditions.
+Set `repack=True` to select available loader-style CPU extra buffers for native
+matrices. The bridge reports actual buffer selections in `native.calls`; raw
+matrix calls remain the default control. Repacking can select a different
+kernel and rounding order. Compare its buffer choice and token batching with
+the engine capture before treating the two as equivalent. The adjacent
+`.so.build.json` records source, headers, linked libraries, and compiler details;
+the Python adapter checks its library hash when that record exists.
+Dilation other than 1 falls back to the original convolution. Unregistered
+matrix operations remain on PyTorch. This is selective operator substitution,
+not complete engine execution, and does not establish model parity.
+
+The context temporarily patches ENGRAFT functions process-wide. Use an isolated,
+single diagnostic process; do not run concurrent replicas or overlap this context
+with `ActivationReference`. It restores those functions on exit. **There is no
+native backward implementation, straight-through estimator, or admitted training
+path.** Inputs must be CPU float32 tensors, and entry requires `torch.no_grad()`.
+Historical failed qualification remains separate from any improved forward-only
+comparison.
+
+The C ABI uses contiguous caller-owned arrays, status `0` for success and `-1`
+for guarded failures; `ngramma_last_error()` reports the current thread's message.
+Callers must supply sufficiently sized buffers. Upstream GGML assertions can
+abort the process and cannot be converted into Python exceptions by this bridge.
+
+| Entry point | Layout and semantics |
+| --- | --- |
+| `ngramma_matmul` | Source GGML weights `[n,k]`, F32 input `[m,k]`, F32 output `[m,n]`; source quantization block size must divide `k`. |
+| `ngramma_matmul_repack` | Same ABI; chooses supported CPU extra buffers, uploads original bytes through the backend, reports the selection via `ngramma_last_buffer_type`. |
+| `ngramma_unary` | F32 `[rows,width]`; op 0 RMSNorm, 1 SiLU, 2 sigmoid, 3 L2Norm, 4 softmax, 5 exp, 6 softplus. Normalization and softmax operate per row. |
+| `ngramma_ssm_conv` | Full history/input `[channels,tokens+kernel-1]`, weights `[channels,kernel]`, output `[tokens,channels]`; one sequence, dilation 1, no implicit padding or activation. |
+| `ngramma_gdn` | Unscaled q/k `[tokens,key_heads,dim]`, v/output `[tokens,value_heads,dim]`, log-decay g and sigmoid beta `[tokens,value_heads]`; one sequence, scalar gates, final state only. |
+
+GDN native state is `[value_heads,value_dim,key_dim]`, transposed relative to the
+replica's conceptual `[key_dim,value_dim]` state. The Python adapter handles this
+transpose. Value-head count must be divisible by key-head count; native head
+mapping is `value_head % key_heads`. GGML computes `exp(g)` internally and applies
+`1/sqrt(dim)` after the state/query dot product. Output and new-state destinations
+must not overlap. These details are tested independently because different
+layouts or scaling order can create numerical divergence.
 
 Original integration code is covered by the repository MIT license. ENGRAFT
 interfaces derive from Copyright 2026 fulvian, Apache-2.0; see `NOTICE`,

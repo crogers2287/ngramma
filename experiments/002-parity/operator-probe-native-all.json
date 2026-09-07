@@ -1,0 +1,160 @@
+{
+  "schema": "ngramma-operator-probe/v1",
+  "tokens": [
+    9419,
+    11,
+    1814,
+    0,
+    220,
+    17,
+    478,
+    220,
+    17,
+    283
+  ],
+  "identity_sha256": "af848e254fb9a6ca6be56b8f14f1d369a6e705c3363c4c4ac6e5f0cc7e652f87",
+  "seconds": 16.771593356039375,
+  "routing_equal": true,
+  "metrics": {
+    "embedding": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    "chained/attention_mix/norm": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    "chained/attention_mix/gate": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    "chained/attention_mix/mixed": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 25600
+    },
+    "chained/attention_mix/inject": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 40
+    },
+    "chained/attention_output": {
+      "max_abs": 0.0005940813571214676,
+      "relative_rms": 0.00015758839435875416,
+      "different_values": 23897,
+      "values": 25600
+    },
+    "exact_input/attention_output": {
+      "max_abs": 0.0005940813571214676,
+      "relative_rms": 0.00015758839435875416,
+      "different_values": 23897,
+      "values": 25600
+    },
+    "chained/attention_combine": {
+      "max_abs": 6.072793621569872e-05,
+      "relative_rms": 0.00012703542597591877,
+      "different_values": 86190,
+      "values": 102400
+    },
+    "exact_input/attention_combine": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    "chained/ffn_mix/norm": {
+      "max_abs": 0.01845484972000122,
+      "relative_rms": 0.00021106898202560842,
+      "different_values": 84787,
+      "values": 102400
+    },
+    "chained/ffn_mix/gate": {
+      "max_abs": 0.02629552036523819,
+      "relative_rms": 0.0010298473061993718,
+      "different_values": 20302,
+      "values": 102400
+    },
+    "chained/ffn_mix/mixed": {
+      "max_abs": 0.021542906761169434,
+      "relative_rms": 0.0012142221676185727,
+      "different_values": 22740,
+      "values": 25600
+    },
+    "chained/ffn_mix/inject": {
+      "max_abs": 0.000560760498046875,
+      "relative_rms": 4.921005256619537e-06,
+      "different_values": 31,
+      "values": 40
+    },
+    "exact_input/ffn_mix/norm": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    "exact_input/ffn_mix/gate": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    "exact_input/ffn_mix/mixed": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 25600
+    },
+    "exact_input/ffn_mix/inject": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 40
+    },
+    "chained/ffn_output": {
+      "max_abs": 0.0016543176025152206,
+      "relative_rms": 0.0014809314161539078,
+      "different_values": 23090,
+      "values": 25600
+    },
+    "chained/layer0_output": {
+      "max_abs": 0.000619255006313324,
+      "relative_rms": 0.000947787833865732,
+      "different_values": 94522,
+      "values": 102400
+    },
+    "exact_input/final_combine": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    }
+  },
+  "source_sha256": "e94e9b16e8aae91b56a3e22904fb9ea98cdddf6ef4e9f317c0e8b523651fe0b9",
+  "reference_metadata_sha256": "949c651cecaffa445719cf6f1276b98c094ac7c84af7c083fc416575b7789b2f",
+  "native_mode": "all",
+  "native_calls": {
+    "unary_0": 5,
+    "matmul_type_8": 6,
+    "unary_1": 106,
+    "unary_2": 12,
+    "matmul_type_0": 9,
+    "matmul_type_2": 9,
+    "unary_6": 2,
+    "unary_3": 4,
+    "unary_5": 20,
+    "unary_4": 2,
+    "matmul_type_22": 200,
+    "matmul_type_42": 100,
+    "unregistered_mm_or_mv": 1
+  },
+  "diagnostic_only": true,
+  "training_qualified": false
+}

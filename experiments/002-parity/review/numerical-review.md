@@ -59,3 +59,41 @@ The smallest useful forward-only bridge candidates are: (a) native rowwise `ggml
 5. After layer-0 qualification, check final recurrent state and chunked sequence continuation before broad full-model parity. Do not admit training from the fixture sensitivity test alone.
 
 All work in this review was read-only outside the review directory. No model weights were loaded, GPU operations invoked, services changed, or commits created.
+
+## Follow-up: recurrence after native elementwise and matrix primitives
+
+The subsequent `operator-probe-native-all.json` reports exact first HC stages, exact second HC stages from exact inputs, and exact combines, while recurrent attention still differs (maximum 0.00059408, relative RMS 0.00015759). That localizes the remaining measured difference inside the attention block under this primitive configuration. It does not isolate an individual operation. Whole-layer relative RMS in that artifact is 0.00094779.
+
+The smallest additional native primitive supported by source evidence is **the fused gated delta net operation**, preceded by **SSM convolution** if the raw-convolution capture differs. Replacing only elementwise functions and weight matmuls leaves these composite operations numerically different:
+
+| Stage | Engine | Replica | Consequence |
+|---|---|---|---|
+| Query scale | Fused GDN dots state with unscaled q, then multiplies dot result by `1/sqrtf(D)` (`ggml/src/ggml-cpu/ops.cpp:11073–11077`) | Scales q before dot (`vendor/engraft/replica/layers.py:317–330`) | Different multiplication/reduction order |
+| State–key and state–query contractions | `ggml_vec_dot_f32` (`ops.cpp:11059–11077`) | Torch einsum, lowering to batched contractions | Native weight-matmul hook does not replace these contractions |
+| Outer-product state update | `ggml_vec_mad_f32` (`ops.cpp:11067–11069`); SIMD FMA at `ggml/src/ggml-cpu/vec.h:416–425` | Separate multiplication and addition | Different rounding, even with identical q/k/v/g/beta |
+| Decay | Fused kernel calls scalar `expf` (`ops.cpp:11053`) | Native exp graph when intercepted | Both represent exp, but preserving the composite native kernel avoids assumptions about equivalent dispatched implementations |
+| Convolution | Ordered scalar FP32 `sumf += s*c` (`ops.cpp:9781–9789`) | Explicit tensor product followed by in-place add (`layers.py:264–272`) | Same mathematical tap order; compiler contraction may still differ. Need raw-output fixture comparison before attributing error |
+
+This is the default engine path: `src/llama-context.cpp:232–234` initializes fused GDN AR/CH enabled and automatic selection disabled; `src/models/delta-net-base.cpp:425–447` selects the fused operation for a multi-token sequence when CH is enabled. Capture/probe configuration should still record actual flags. If a run overrides the fused choice, match its chunked graph rather than silently substituting the fused operation.
+
+**Native GDN bridge contract:** q/k/v have GGML dimensions `[D,H,T,1]` (contiguous Torch `[T,H,D]`), g and beta `[1,H,T,1]`, and initial state `[D,D,H,1]`. The kernel stores state as contiguous rows indexed `state[value,key]` (`ops.cpp:11037–11038`), whereas the replica stores `[head,key,value]`. Transpose the last two Torch state dimensions before the call and transpose the returned state back. Use K=1 for a final state without snapshots. Return both the entire output sequence and the updated state. The `ggml_gated_delta_net` primitive preserves reduction, FMA, scale placement, and decay together; a local Python reordering of q scaling alone cannot guarantee that result.
+
+Softplus and the post-recurrence output gate do not show a remaining structural mismatch: engine `ggml/src/ggml-cpu/unary-ops.cpp:80–82` uses x>20 passthrough and `logf(1+expf(x))`, which the new native softplus primitive calls. `src/models/qwen4exp.cpp:683–692` performs weighted RMSNorm followed by multiplication by sigmoid(z), matching the replica ordering. Capture `alpha`, `a_softplus`, `gate`, `beta_sigmoid`, `conv_output_raw`, `q_conv_predelta`, `k_conv_predelta`, `v_conv_predelta`, `attn_output`, `new_state`, and `final_output` to identify the first divergence in that order.
+
+Native hook review: `src/ngramma_runtime/native_forward.py` intercepts registered weight `mm`/`mv`, plus selected unary operations and named normalization functions. The three recurrence einsums remain outside its native matmul path. Its weak-reference registry checks array liveness; torch tensors made with `from_numpy` retain the backing array, so ordinary weight transposes remain valid registrations. No evidence of a weak-reference liveness failure was found. Registry misses should remain observable. A whole native graph is still sensitive to tensor shape/layout and available fused kernels; batching expert calls into new shapes must be qualified rather than presumed equivalent.
+
+## Follow-up: CPU matrix buffer dispatch
+
+The later attention diagnostic reports that Q4_0 QKV projection is already nonexact from exact input (maximum 9.54e-6, relative RMS approximately 1.58e-7). Before attributing downstream recurrence error, match the engine's matrix buffer type and packed kernel.
+
+The native bridge `src/ngramma_runtime/native/ggml_forward.cpp:94–99` initially assigns original weight bytes directly to `weights->data`. This leaves `weights->buffer` and `weights->extra` unset. That is not equivalent to a model-loaded CPU tensor when the model selects an extra buffer type:
+
+1. `src/llama-model.cpp:1058–1084` puts available extra CPU buffer types before the ordinary CPU buffer; `:2700` defaults `use_extra_bufts` to true.
+2. `ggml/src/ggml-cpu/repack.cpp:4573–4577` selects Q4_0 8x8 packing when AVX2 is available and the output dimension is divisible by eight. Other architectures/types have other selections; inspect the actual tensor's buffer type.
+3. Repack-buffer initialization attaches tensor traits (`repack.cpp:4726–4729`); `ggml_backend_tensor_set` invokes its repacking upload callback (`:4733–4742`). Assigning original bytes directly bypasses both.
+4. CPU `ggml_graph_compute` already checks extra-buffer dispatch (`ggml/src/ggml-cpu/ggml-cpu.c:1918–1920`); repack selection requires the weight buffer type and extra traits (`repack.cpp:4810–4814`). Switching only from direct graph compute to backend graph compute cannot repair missing weight metadata and packing.
+5. Packed matmul uses GEMM for input-row chunks longer than three and GEMV for remaining rows (`repack.cpp:4239–4252`). Preserve the reference token batch and tensor shape. A collection of single-row dots need not reproduce a ten-row graph.
+
+**Concrete bridge change to test:** record the reference buffer type for each weight. Allocate the weight in a separate GGML context through `ggml_backend_alloc_ctx_tensors_from_buft(weight_ctx, selected_buft)`, then upload original bytes with `ggml_backend_tensor_set(weights, raw, 0, ggml_nbytes(weights))`. Keep the existing host F32 input/output and original batch dimensions. Existing graph planning and compute can then see the packed traits and their workspace requirements. Confirm support before uploading; unsupported types must use their recorded ordinary buffer, not be forced into CPU_REPACK. Discover available CPU extra types through the registered `ggml_backend_dev_get_extra_bufts` procedure when avoiding private repack headers.
+
+This is a source-supported mechanism and a concrete discrimination test, not proof that the saved reference used CPU_REPACK. Capture `ggml_backend_buffer_name(weight->buffer)` or the buffer-type name for QKV and gate weights before declaring repacking the cause. A plain-buffer reference would require investigation of another dispatch difference.

@@ -1,0 +1,456 @@
+{
+  "schema": "ngramma-full-parity/v1",
+  "identity_sha256": "af848e254fb9a6ca6be56b8f14f1d369a6e705c3363c4c4ac6e5f0cc7e652f87",
+  "tokens": [
+    9419,
+    11,
+    1814,
+    0,
+    220,
+    17,
+    478,
+    220,
+    17,
+    283
+  ],
+  "threads": 4,
+  "cache_gib": 4,
+  "initialization_seconds": 59.31997847300954,
+  "forward_seconds": 150.66382207593415,
+  "peak_rss_gib": 14.924148559570312,
+  "initial_available_gib": 114.16724014282227,
+  "max_logit_error": 6.755399703979492,
+  "mean_logit_error": 0.6235828995704651,
+  "selected_logprob_error_max": 2.703909397125244,
+  "selected_logprob_error_by_position": [
+    0.20482921600341797,
+    0.12163829803466797,
+    0.2682925760746002,
+    0.00525510311126709,
+    1.5209245681762695,
+    0.10141748189926147,
+    0.04365251958370209,
+    2.703909397125244,
+    0.1552233099937439,
+    0.011523067951202393
+  ],
+  "top1_agreement": 0.8,
+  "intermediates": [
+    {
+      "name": "ple_embd",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 25600
+    },
+    {
+      "name": "l_last-0",
+      "max_abs": 0.000619255006313324,
+      "relative_rms": 0.0007218323648700379,
+      "different_values": 93520,
+      "values": 102400
+    },
+    {
+      "name": "l_last-1",
+      "max_abs": 0.0005955994129180908,
+      "relative_rms": 0.0021697895390522404,
+      "different_values": 101081,
+      "values": 102400
+    },
+    {
+      "name": "l_last-2",
+      "max_abs": 0.0008029453456401825,
+      "relative_rms": 0.0041840573616095346,
+      "different_values": 101261,
+      "values": 102400
+    },
+    {
+      "name": "l_last-3",
+      "max_abs": 0.007774060592055321,
+      "relative_rms": 0.02015102017093173,
+      "different_values": 101354,
+      "values": 102400
+    },
+    {
+      "name": "l_last-4",
+      "max_abs": 0.0074917711317539215,
+      "relative_rms": 0.021831412942507285,
+      "different_values": 102398,
+      "values": 102400
+    },
+    {
+      "name": "l_last-5",
+      "max_abs": 0.009211815893650055,
+      "relative_rms": 0.02398181205110353,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-6",
+      "max_abs": 0.019686564803123474,
+      "relative_rms": 0.035758603697431966,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-7",
+      "max_abs": 0.024059809744358063,
+      "relative_rms": 0.0412880897122488,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-8",
+      "max_abs": 0.023281730711460114,
+      "relative_rms": 0.04367984714896288,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-9",
+      "max_abs": 0.021974213421344757,
+      "relative_rms": 0.04436139317021445,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-10",
+      "max_abs": 0.025772109627723694,
+      "relative_rms": 0.05316870112491915,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-11",
+      "max_abs": 0.02571570873260498,
+      "relative_rms": 0.059570820934383845,
+      "different_values": 102399,
+      "values": 102400
+    },
+    {
+      "name": "l_last-12",
+      "max_abs": 0.03181612491607666,
+      "relative_rms": 0.06630573980491175,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-13",
+      "max_abs": 0.031473904848098755,
+      "relative_rms": 0.07809569450343476,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-14",
+      "max_abs": 0.03261581063270569,
+      "relative_rms": 0.08456709296785697,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-15",
+      "max_abs": 0.03387058153748512,
+      "relative_rms": 0.09026720249735931,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-16",
+      "max_abs": 0.045087844133377075,
+      "relative_rms": 0.09806890784082621,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-17",
+      "max_abs": 0.046407878398895264,
+      "relative_rms": 0.10861131925707988,
+      "different_values": 102399,
+      "values": 102400
+    },
+    {
+      "name": "l_last-18",
+      "max_abs": 0.04686328023672104,
+      "relative_rms": 0.12009379506493573,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-19",
+      "max_abs": 0.04323645681142807,
+      "relative_rms": 0.12485622553566246,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-20",
+      "max_abs": 0.04739529639482498,
+      "relative_rms": 0.12550760070666098,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-21",
+      "max_abs": 0.04786937031894922,
+      "relative_rms": 0.13596527076709825,
+      "different_values": 102399,
+      "values": 102400
+    },
+    {
+      "name": "l_last-22",
+      "max_abs": 0.04807936027646065,
+      "relative_rms": 0.13992436310850404,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-23",
+      "max_abs": 0.05614892579615116,
+      "relative_rms": 0.1484784507518546,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-24",
+      "max_abs": 0.05941816605627537,
+      "relative_rms": 0.1543675145870209,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-25",
+      "max_abs": 0.0601627416908741,
+      "relative_rms": 0.1657310405957319,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-26",
+      "max_abs": 0.07417640462517738,
+      "relative_rms": 0.17581938094960678,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-27",
+      "max_abs": 0.07995760813355446,
+      "relative_rms": 0.19414687137661038,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-28",
+      "max_abs": 0.08099590614438057,
+      "relative_rms": 0.21297747169633618,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-29",
+      "max_abs": 0.11370018124580383,
+      "relative_rms": 0.23220195139496136,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-30",
+      "max_abs": 0.16274021565914154,
+      "relative_rms": 0.255364311598708,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-31",
+      "max_abs": 0.1558801606297493,
+      "relative_rms": 0.27938691859336773,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-32",
+      "max_abs": 0.19753717258572578,
+      "relative_rms": 0.30801794865773624,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-33",
+      "max_abs": 0.20574413239955902,
+      "relative_rms": 0.3243172283271056,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-34",
+      "max_abs": 0.2309759259223938,
+      "relative_rms": 0.33716435581893334,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-35",
+      "max_abs": 0.2973507195711136,
+      "relative_rms": 0.3733681367304561,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-36",
+      "max_abs": 0.4259829521179199,
+      "relative_rms": 0.3857552783257645,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-37",
+      "max_abs": 0.48448915034532547,
+      "relative_rms": 0.40024561716534734,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-38",
+      "max_abs": 0.4827113151550293,
+      "relative_rms": 0.41105350356880627,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-39",
+      "max_abs": 0.6034387722611427,
+      "relative_rms": 0.4372737109567961,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-40",
+      "max_abs": 0.6406707391142845,
+      "relative_rms": 0.4477805653669945,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-41",
+      "max_abs": 0.6915727257728577,
+      "relative_rms": 0.4591384660531285,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-42",
+      "max_abs": 0.6968145444989204,
+      "relative_rms": 0.45934207542994104,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-43",
+      "max_abs": 0.702837198972702,
+      "relative_rms": 0.4674272428570985,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-44",
+      "max_abs": 1.6690540313720703,
+      "relative_rms": 0.4627347512740193,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-45",
+      "max_abs": 2.3325917720794678,
+      "relative_rms": 0.42777375328790407,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-46",
+      "max_abs": 2.6450546979904175,
+      "relative_rms": 0.44199612167004104,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-47",
+      "max_abs": 2.5619893074035645,
+      "relative_rms": 0.44266430870985524,
+      "different_values": 102400,
+      "values": 102400
+    }
+  ],
+  "weight_io": {
+    "decoded_bytes": 58555428352,
+    "quantized_bytes_read": 6378578952,
+    "dequant_seconds": 134.7699407095788,
+    "cache_hits": 0,
+    "cache_misses": 1030
+  },
+  "logit_parity": false,
+  "intermediate_parity": false,
+  "thresholds": {
+    "selected_logprob_nats_strictly_below": 0.02,
+    "relative_rms_strictly_below": 0.01
+  },
+  "native_library_sha256": "591ba4afee7f73981a4fb9044879cb60fc961c3b43888b2eca06ff3a379cbaee",
+  "native_recurrent": true,
+  "native_calls": {
+    "unary_0": 160,
+    "matmul_type_8": 196,
+    "unary_1": 4982,
+    "unary_2": 326,
+    "matmul_type_0": 264,
+    "matmul_type_2": 300,
+    "unary_6": 36,
+    "ssm_conv": 36,
+    "unary_3": 72,
+    "gated_delta_net": 36,
+    "unary_4": 108,
+    "matmul_type_22": 9400,
+    "matmul_type_42": 4800,
+    "unregistered_mm_or_mv": 48,
+    "fallback_dilated_conv": 1,
+    "matmul_type_21": 200,
+    "matmul_type_14": 1
+  },
+  "source_sha256": {
+    "experiments/002-parity/full_probe.py": "ab3a2b4b5fa997a6bc9b1adf047067cdc0d9e09bf4191b2dd1b2c0aa6cb5bd8d",
+    "src/ngramma_runtime/__init__.py": "fb03a4eb2bf710a5318117f943bbbeaec8b94dddb9684ba50cae0753b7fa8ca4",
+    "src/ngramma_runtime/_activation_reference.py": "618671c70a8269c333f07a4afc596a4f2e3119fae91355cf7a5f7ad20fb7c880",
+    "src/ngramma_runtime/_sequence.py": "eb67d866fc20eec1fe4e4d9cc7b14579f59fe3e09ff6a19149242677e0fefd67",
+    "src/ngramma_runtime/_table.py": "5a8eb0390b08bd91e08f7615049eff6abbfb1819b25e14be583e448a45f9a0e7",
+    "src/ngramma_runtime/_weights.py": "11222f1e58cbd60aa6fe84626a0912ea78a0578f0af0a7bd04869867e492eb84",
+    "src/ngramma_runtime/activation_reference.py": "cff5dddea58b2a536224501b0576f9c6f16f8c13a9ec64ba96cf4fd9dd4fc6f3",
+    "src/ngramma_runtime/artifacts.py": "d9b26ac2a471364abf771a5bb6ede5612bb4650dd1e872741dac5cd38e8532c0",
+    "src/ngramma_runtime/environment.py": "7df6d516b826e7658face1a3741da697c4989d2af0067ea36c7a54e1302a9bd2",
+    "src/ngramma_runtime/native_forward.py": "c6aa1285fc7c9c37e435da256be0fb24cf9f32b4e1cb1ffac99ffac8c37c21b5",
+    "src/ngramma_runtime/resources.py": "2404ebf4e6d7deb864a7393595b3a64121fd631aadb622f3cba42a9676a872eb",
+    "src/ngramma_runtime/sequence.py": "f7f98da817a1743c4bee5672525461aef38a6ebf6b880c14a8457b39a0734036",
+    "src/ngramma_runtime/table.py": "ecda1dc6893104e511498b1737cd3891fd0b9c992a2c2b1c670541a6cb7ed1c9",
+    "src/ngramma_runtime/weights.py": "d75422a723754da31b5b2df6c940ce242763924efdea5cba8de7c22472821d82",
+    "src/ngramma_runtime/native/ggml_forward.cpp": "9dc66c02e180ef19e91aa90f07fa1250be7ba9a1f45aaf360757e8a365515572"
+  },
+  "dependency_sha256": {
+    "libflash-memory-dequant.so": "c5aaa5c647292739144e1f761caa88dbc3f67ec34c112eed0b6d53da4fa1ef01",
+    "libggml-base.so": "8c6dd2c346e0d2b94a15499c6eccc40b73be9f175f4733e76c31656ddc776fa9",
+    "libggml-cpu.so": "501229e5937a6f9c0e6397ac6e67a7bf3242779a92639b119a970d2b1e4a352c",
+    "libggml-cuda.so": "64b56fed5626104a2d7d3b7009fcb1c5978fb2f36898ed9865994e3253ffcd5c",
+    "libggml-rpc.so": "fe861d0885bcd416ed642547d73965f7242e89baf6c4b2ac40aec067d0d46c2a",
+    "libggml.so": "8a98a858030637ff98f7aebb60fa36f75b07e0bdb28ced0741df9a9e1584521e",
+    "libllama-cli-impl.so": "72cec08d581328b03480c590cae907786608ce68524f6f19add8ed6b1b656e56",
+    "libllama-common.so": "96ced3d2c5a2ba247f377db43a2eff917e57e25ce9b7939ead7b682178ab75cd",
+    "libllama-server-impl.so": "af193269774994efadaa95c50934a9624daa93004e7e2332b99ef9216d6c289e",
+    "libllama.so": "86d051fe73cbf5ddbfbfa11c6ea43e7172ce5dbca77199a3bdf1b06c38a088b5",
+    "libmtmd.so": "94335326aded12b94cd75f516863982e0e8c687b1e2a1b317e03661f8edf10ff"
+  },
+  "reference_sha256": {
+    "tokens.json": "26dfebea482a0f01576c1cfd29e01585b0b8f76fc9f760aef9a3ff8fd1791206",
+    "tensors.json": "1a4e5d68486482f4c5cfd3a46951b42ec0c1a016000d752ead2fa4f50ccdce6d",
+    "logits.f32": "c822d10a471e7b9db09492edf17c782271b2284b30ee731cc13505a9d8869c48"
+  },
+  "diagnostic_only": true,
+  "admitted_for_gradients": false,
+  "note": "One short CPU sequence. Native operators have no backward implementation. This is not broad forward or training qualification.",
+  "source_hash_scope": "Workspace at report write, not an import snapshot. The native adapter and C++ source were extended during this control; the loaded raw-path library is identified by native_library_sha256. Subsequent runs snapshot sources before initialization and include a native build record."
+}

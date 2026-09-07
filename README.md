@@ -48,9 +48,16 @@ python3 scripts/plot_results.py
 
 ## Research status
 
+[Experiment 002 is in progress](experiments/002-parity/REPORT.md). Native CPU
+operations make the first hyper-connection stages exact on the original fixture,
+but the full-model control still fails. The repository now includes a configurable
+[forward diagnostic harness](docs/runtime.md), deeper component probes, and
+optional native fixture tests. These are numerical research tools; no rows have
+been trained.
+
 The experimental prototype recorded 22 guard and plumbing tests passing; these were not real-model gradient validation. The checker in this publication is a separate evidence audit. No teacher model was called and no selected rows were optimized on correction examples. Only a manually specified diagnostic perturbation was evaluated.
 
-The next experiment should isolate the complete first-layer numerical mismatch, establish agreement through the full short sequence, then test directional gradients. A broader development-only task search is also needed before testing the behavioral hypothesis. See the [source audit](docs/source-audit.md), [architecture audit](docs/architecture-audit.md), and [experiment protocol](docs/experiment-protocol.md).
+The active experiment is isolating matrix-kernel and recurrent-operation differences before repeating full short-sequence agreement and testing directional gradients. A broader development-only task search is also needed before testing the behavioral hypothesis. See the [source audit](docs/source-audit.md), [architecture audit](docs/architecture-audit.md), and [experiment protocol](docs/experiment-protocol.md).
 
 ## Attribution
 

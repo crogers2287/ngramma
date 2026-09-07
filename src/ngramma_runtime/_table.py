@@ -75,4 +75,3 @@ class ModelTable(PleTable):
                 raise ValueError("Row is out of range or in table padding")
             result.append(self.read_rows(h, int(row - self.head_offsets[h]), 1)[0])
         return np.asarray(result, dtype=np.float32).reshape(-1, self.dim)
-

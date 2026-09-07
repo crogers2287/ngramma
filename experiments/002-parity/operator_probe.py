@@ -11,6 +11,10 @@ def main():
     parser.add_argument('--manifest', type=Path, required=True)
     parser.add_argument('--reference', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--native-library', type=Path)
+    parser.add_argument('--native-mode', choices=['primitives','matmul','all'], default='all')
+    parser.add_argument('--native-recurrent', action='store_true')
+    parser.add_argument('--native-repack', action='store_true')
     args = parser.parse_args()
     import numpy as np
     import torch
@@ -26,7 +30,15 @@ def main():
     torch.set_num_interop_threads(1)
     identity = json.loads(args.manifest.read_text())
     paths = [x['path'] for x in identity['shards']]
-    weights = EngineWeights(paths, ram_cache_bytes=2 << 30)
+    if args.native_library:
+        from ngramma_runtime.native_forward import NativeEngineWeights, NativeForward
+        weights = NativeEngineWeights(paths, ram_cache_bytes=2 << 30)
+        native = NativeForward(weights, args.native_library,
+            primitives=args.native_mode!='matmul', matmul=args.native_mode!='primitives',
+            recurrent=args.native_recurrent, repack=args.native_repack)
+    else:
+        weights = EngineWeights(paths, ram_cache_bytes=2 << 30)
+        native = None
     hp = Hparams.from_gguf_paths(paths[0], paths[1])
     meta = json.loads((args.reference/'tensors.json').read_text())
     tokens = json.loads((args.reference/'tokens.json').read_text())
@@ -66,7 +78,10 @@ def main():
         return mixed, inject
 
     start = time.monotonic()
-    with torch.no_grad(), ActivationReference(weights):
+    from contextlib import nullcontext
+    # Primitive-only trials retain the historical rounded-activation matmul.
+    rounded = ActivationReference(weights) if native is None or args.native_mode=='primitives' else nullcontext()
+    with torch.no_grad(), rounded, native if native is not None else nullcontext():
         x = torch.from_numpy(weights.embedding_rows(tokens)).unsqueeze(1).repeat(1, hp.hc_mult, 1)
         compare('embedding', x, ref('hc_init'))
         mixed, inject = mix_stages(x, 'attn', 0, 'chained/attention_mix')
@@ -100,6 +115,12 @@ def main():
               'routing_equal': bool(torch.equal(routing, expected_routing)),
               'metrics': results, 'source_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
               'reference_metadata_sha256': hashlib.sha256((args.reference/'tensors.json').read_bytes()).hexdigest(),
+              'native_mode':args.native_mode if native is not None else None,
+              'native_calls':dict(native.calls) if native is not None else {},
+              'native_recurrent':args.native_recurrent,
+              'native_repack':args.native_repack,
+              'native_build_record':native.build_record if native is not None else None,
+              'native_library_sha256':native.library_sha256 if native is not None else None,
               'diagnostic_only': True, 'training_qualified': False}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2)+'\n')

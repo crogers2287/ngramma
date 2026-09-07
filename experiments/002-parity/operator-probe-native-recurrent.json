@@ -1,0 +1,163 @@
+{
+  "schema": "ngramma-operator-probe/v1",
+  "tokens": [
+    9419,
+    11,
+    1814,
+    0,
+    220,
+    17,
+    478,
+    220,
+    17,
+    283
+  ],
+  "identity_sha256": "af848e254fb9a6ca6be56b8f14f1d369a6e705c3363c4c4ac6e5f0cc7e652f87",
+  "seconds": 12.251259915996343,
+  "routing_equal": true,
+  "metrics": {
+    "embedding": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    "chained/attention_mix/norm": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    "chained/attention_mix/gate": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    "chained/attention_mix/mixed": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 25600
+    },
+    "chained/attention_mix/inject": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 40
+    },
+    "chained/attention_output": {
+      "max_abs": 1.0222196578979492e-05,
+      "relative_rms": 5.7308393479615916e-06,
+      "different_values": 23720,
+      "values": 25600
+    },
+    "exact_input/attention_output": {
+      "max_abs": 1.0222196578979492e-05,
+      "relative_rms": 5.7308393479615916e-06,
+      "different_values": 23720,
+      "values": 25600
+    },
+    "chained/attention_combine": {
+      "max_abs": 1.1119991540908813e-06,
+      "relative_rms": 4.912416443403345e-06,
+      "different_values": 84273,
+      "values": 102400
+    },
+    "exact_input/attention_combine": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    "chained/ffn_mix/norm": {
+      "max_abs": 0.0003733634948730469,
+      "relative_rms": 6.8713020482391585e-06,
+      "different_values": 82184,
+      "values": 102400
+    },
+    "chained/ffn_mix/gate": {
+      "max_abs": 0.010998666286468506,
+      "relative_rms": 0.0004571277240756899,
+      "different_values": 10102,
+      "values": 102400
+    },
+    "chained/ffn_mix/mixed": {
+      "max_abs": 0.015743732452392578,
+      "relative_rms": 0.0006109642563387752,
+      "different_values": 22352,
+      "values": 25600
+    },
+    "chained/ffn_mix/inject": {
+      "max_abs": 3.24249267578125e-05,
+      "relative_rms": 3.5347659377293894e-07,
+      "different_values": 30,
+      "values": 40
+    },
+    "exact_input/ffn_mix/norm": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    "exact_input/ffn_mix/gate": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    "exact_input/ffn_mix/mixed": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 25600
+    },
+    "exact_input/ffn_mix/inject": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 40
+    },
+    "chained/ffn_output": {
+      "max_abs": 0.0013539046049118042,
+      "relative_rms": 0.0009245881228707731,
+      "different_values": 22703,
+      "values": 25600
+    },
+    "chained/layer0_output": {
+      "max_abs": 0.000619255006313324,
+      "relative_rms": 0.0007218323298729956,
+      "different_values": 93520,
+      "values": 102400
+    },
+    "exact_input/final_combine": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    }
+  },
+  "source_sha256": "0e6fbc60bcabd35fcd038cafe306e5bdc31e636be329d0ae53893a230a3c22f8",
+  "reference_metadata_sha256": "949c651cecaffa445719cf6f1276b98c094ac7c84af7c083fc416575b7789b2f",
+  "native_mode": "all",
+  "native_calls": {
+    "unary_0": 5,
+    "matmul_type_8": 6,
+    "unary_1": 106,
+    "unary_2": 12,
+    "matmul_type_0": 9,
+    "matmul_type_2": 9,
+    "unary_6": 2,
+    "ssm_conv": 2,
+    "unary_3": 4,
+    "gated_delta_net": 2,
+    "unary_4": 2,
+    "matmul_type_22": 200,
+    "matmul_type_42": 100,
+    "unregistered_mm_or_mv": 1
+  },
+  "native_recurrent": true,
+  "native_library_sha256": "591ba4afee7f73981a4fb9044879cb60fc961c3b43888b2eca06ff3a379cbaee",
+  "diagnostic_only": true,
+  "training_qualified": false
+}

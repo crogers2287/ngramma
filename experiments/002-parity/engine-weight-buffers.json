@@ -1,0 +1,545 @@
+{
+  "schema": "ngramma-weight-buffer-capture/v1",
+  "capture": {
+    "tokens": [
+      9419,
+      11,
+      1814,
+      0,
+      220,
+      17,
+      478,
+      220,
+      17,
+      283
+    ],
+    "capture_prefixes": [
+      "linear_attn_qkv_mixed-0",
+      "z-0",
+      "linear_attn_out-0",
+      "hc_",
+      "l_last-0",
+      "ffn_out-0",
+      "ffn_moe_topk-0"
+    ],
+    "chunk_size": 32,
+    "threads": 8,
+    "device": "CPU",
+    "cache_type": "f32",
+    "repack": true,
+    "seconds": 17.776800630032085,
+    "identity_sha256": "af848e254fb9a6ca6be56b8f14f1d369a6e705c3363c4c4ac6e5f0cc7e652f87",
+    "lens_sha256": "11a3db16d25e64c6d2f47a0ee280176151b278b1ad384dfc7a399f0bcffaed91",
+    "tensors": 495,
+    "logits_sha256": "c822d10a471e7b9db09492edf17c782271b2284b30ee731cc13505a9d8869c48",
+    "metadata_sha256": "c59826cf160c37649c3fe3af84bc0040bc42cad24343b8688855c657da75c2b1"
+  },
+  "build": {
+    "binary_sha256": "11a3db16d25e64c6d2f47a0ee280176151b278b1ad384dfc7a399f0bcffaed91",
+    "source_sha256": "6dc4361d7ba58d20c22aba5633f535c5edb0e10e9e5de77a19b6463a1f20fa46",
+    "build_script_sha256": "e88077762743dc4ea6bd123e1cafd97b35f35591ecc431fda2a62aeb2efc3a0b",
+    "compiler": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "runtime_sha256": {
+      "libllama.so": "86d051fe73cbf5ddbfbfa11c6ea43e7172ce5dbca77199a3bdf1b06c38a088b5",
+      "libllama-common.so": "96ced3d2c5a2ba247f377db43a2eff917e57e25ce9b7939ead7b682178ab75cd",
+      "libggml.so": "8a98a858030637ff98f7aebb60fa36f75b07e0bdb28ced0741df9a9e1584521e",
+      "libggml-base.so": "8c6dd2c346e0d2b94a15499c6eccc40b73be9f175f4733e76c31656ddc776fa9"
+    }
+  },
+  "historical_logits_bit_equal": true,
+  "historical_logits_sha256": "c822d10a471e7b9db09492edf17c782271b2284b30ee731cc13505a9d8869c48",
+  "selected_operation_ancestors": {
+    "linear_attn_qkv_mixed-0": [
+      {
+        "buffer": "CPU_REPACK",
+        "name": "blk.0.attn_qkv.weight",
+        "shape": [
+          2560,
+          10240,
+          1,
+          1
+        ],
+        "type": 2
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "token_embd.weight",
+        "shape": [
+          2560,
+          248320,
+          1,
+          1
+        ],
+        "type": 14
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.hc_attn_norm.weight",
+        "shape": [
+          10240,
+          1,
+          1,
+          1
+        ],
+        "type": 0
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.hc_attn_up.weight",
+        "shape": [
+          320,
+          10240,
+          1,
+          1
+        ],
+        "type": 8
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.hc_attn_down.weight",
+        "shape": [
+          10240,
+          320,
+          1,
+          1
+        ],
+        "type": 8
+      }
+    ],
+    "z-0": [
+      {
+        "buffer": "CPU_REPACK",
+        "name": "blk.0.attn_gate.weight",
+        "shape": [
+          2560,
+          6144,
+          1,
+          1
+        ],
+        "type": 2
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "token_embd.weight",
+        "shape": [
+          2560,
+          248320,
+          1,
+          1
+        ],
+        "type": 14
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.hc_attn_norm.weight",
+        "shape": [
+          10240,
+          1,
+          1,
+          1
+        ],
+        "type": 0
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.hc_attn_up.weight",
+        "shape": [
+          320,
+          10240,
+          1,
+          1
+        ],
+        "type": 8
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.hc_attn_down.weight",
+        "shape": [
+          10240,
+          320,
+          1,
+          1
+        ],
+        "type": 8
+      }
+    ],
+    "linear_attn_out-0": [
+      {
+        "buffer": "CPU_REPACK",
+        "name": "blk.0.ssm_out.weight",
+        "shape": [
+          6144,
+          2560,
+          1,
+          1
+        ],
+        "type": 2
+      },
+      {
+        "buffer": "CPU_REPACK",
+        "name": "blk.0.attn_qkv.weight",
+        "shape": [
+          2560,
+          10240,
+          1,
+          1
+        ],
+        "type": 2
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "token_embd.weight",
+        "shape": [
+          2560,
+          248320,
+          1,
+          1
+        ],
+        "type": 14
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.hc_attn_norm.weight",
+        "shape": [
+          10240,
+          1,
+          1,
+          1
+        ],
+        "type": 0
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.hc_attn_up.weight",
+        "shape": [
+          320,
+          10240,
+          1,
+          1
+        ],
+        "type": 8
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.hc_attn_down.weight",
+        "shape": [
+          10240,
+          320,
+          1,
+          1
+        ],
+        "type": 8
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.ssm_conv1d.weight",
+        "shape": [
+          4,
+          10240,
+          1,
+          1
+        ],
+        "type": 0
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.ssm_alpha.weight",
+        "shape": [
+          2560,
+          48,
+          1,
+          1
+        ],
+        "type": 0
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.ssm_beta.weight",
+        "shape": [
+          2560,
+          48,
+          1,
+          1
+        ],
+        "type": 0
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.ssm_norm.weight",
+        "shape": [
+          128,
+          1,
+          1,
+          1
+        ],
+        "type": 0
+      },
+      {
+        "buffer": "CPU_REPACK",
+        "name": "blk.0.attn_gate.weight",
+        "shape": [
+          2560,
+          6144,
+          1,
+          1
+        ],
+        "type": 2
+      }
+    ],
+    "ffn_out-0": [
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.ffn_down_exps.weight",
+        "shape": [
+          640,
+          2560,
+          512,
+          1
+        ],
+        "type": 42
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.ffn_gate_exps.weight",
+        "shape": [
+          2560,
+          640,
+          512,
+          1
+        ],
+        "type": 22
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "token_embd.weight",
+        "shape": [
+          2560,
+          248320,
+          1,
+          1
+        ],
+        "type": 14
+      },
+      {
+        "buffer": "CPU_REPACK",
+        "name": "blk.0.ssm_out.weight",
+        "shape": [
+          6144,
+          2560,
+          1,
+          1
+        ],
+        "type": 2
+      },
+      {
+        "buffer": "CPU_REPACK",
+        "name": "blk.0.attn_qkv.weight",
+        "shape": [
+          2560,
+          10240,
+          1,
+          1
+        ],
+        "type": 2
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.hc_attn_norm.weight",
+        "shape": [
+          10240,
+          1,
+          1,
+          1
+        ],
+        "type": 0
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.hc_attn_up.weight",
+        "shape": [
+          320,
+          10240,
+          1,
+          1
+        ],
+        "type": 8
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.hc_attn_down.weight",
+        "shape": [
+          10240,
+          320,
+          1,
+          1
+        ],
+        "type": 8
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.ssm_conv1d.weight",
+        "shape": [
+          4,
+          10240,
+          1,
+          1
+        ],
+        "type": 0
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.ssm_alpha.weight",
+        "shape": [
+          2560,
+          48,
+          1,
+          1
+        ],
+        "type": 0
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.ssm_beta.weight",
+        "shape": [
+          2560,
+          48,
+          1,
+          1
+        ],
+        "type": 0
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.ssm_norm.weight",
+        "shape": [
+          128,
+          1,
+          1,
+          1
+        ],
+        "type": 0
+      },
+      {
+        "buffer": "CPU_REPACK",
+        "name": "blk.0.attn_gate.weight",
+        "shape": [
+          2560,
+          6144,
+          1,
+          1
+        ],
+        "type": 2
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.hc_attn_inject.weight",
+        "shape": [
+          10240,
+          4,
+          1,
+          1
+        ],
+        "type": 0
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.hc_ffn_norm.weight",
+        "shape": [
+          10240,
+          1,
+          1,
+          1
+        ],
+        "type": 0
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.hc_ffn_up.weight",
+        "shape": [
+          320,
+          10240,
+          1,
+          1
+        ],
+        "type": 8
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.hc_ffn_down.weight",
+        "shape": [
+          10240,
+          320,
+          1,
+          1
+        ],
+        "type": 8
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.ffn_gate_inp.weight",
+        "shape": [
+          2560,
+          512,
+          1,
+          1
+        ],
+        "type": 0
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.ffn_up_exps.weight",
+        "shape": [
+          2560,
+          640,
+          512,
+          1
+        ],
+        "type": 22
+      },
+      {
+        "buffer": "CPU_REPACK",
+        "name": "blk.0.ffn_down_shexp.weight",
+        "shape": [
+          640,
+          2560,
+          1,
+          1
+        ],
+        "type": 2
+      },
+      {
+        "buffer": "CPU_REPACK",
+        "name": "blk.0.ffn_gate_shexp.weight",
+        "shape": [
+          2560,
+          640,
+          1,
+          1
+        ],
+        "type": 2
+      },
+      {
+        "buffer": "CPU_REPACK",
+        "name": "blk.0.ffn_up_shexp.weight",
+        "shape": [
+          2560,
+          640,
+          1,
+          1
+        ],
+        "type": 2
+      },
+      {
+        "buffer": "CPU_Mapped",
+        "name": "blk.0.ffn_gate_inp_shexp.weight",
+        "shape": [
+          2560,
+          1,
+          1,
+          1
+        ],
+        "type": 0
+      }
+    ]
+  }
+}
