@@ -116,6 +116,7 @@
     "experiments/002-parity/review/hc-exact-fixture.json": "3b76598d3996cbff3e5bdd112d5be7bb53292b64436eeebbc17dc075b2d33431",
     "experiments/002-parity/review/hc_exact_fixture.py": "fb2b8bc0184ce0e647339217977381fb392fd3666eb127d24f843a91ef1ab840",
     "experiments/002-parity/review/numerical-review.md": "325cbd940b1f7c31320951734596c79a98b51302a9c8f6727b9ca00bb9d6c47c",
+    "experiments/003-attention/PLAN.md": "12d2c1c51586f8a5d85972e65730aeba59b7f3b659da919c4ec48b28a7de4be0",
     "figures/replica-drift.png": "53cc9910692d4ce2b6b4d65084369d92525266863a67a70b05290e3ccc0fd491",
     "figures/replica-drift.svg": "4ca8af8b9907f36c0ef2092d5b94863a453db5b449fe9dc72525a9bd91196b8c",
     "handoff.md": "2d6642427b92597a259f2924a49d49eccf5868f5b3c9c0f42341ecc333207b72",
