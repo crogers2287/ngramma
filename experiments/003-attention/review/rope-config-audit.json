@@ -1,0 +1,34 @@
+{
+  "schema": "ngramma-rope-metadata-audit/v1",
+  "identity_sha256": "af848e254fb9a6ca6be56b8f14f1d369a6e705c3363c4c4ac6e5f0cc7e652f87",
+  "metadata_shard_sha256": "a2d357ac63cd8f7aab93a2284cb0e01a5506a4a5f183cf2f3f47323cd20ca8db",
+  "metadata_fields": {
+    "qwen4exp.context_length": 262144,
+    "qwen4exp.rope.dimension_sections": [
+      11,
+      11,
+      10,
+      0
+    ],
+    "qwen4exp.rope.freq_base": 10000000.0,
+    "qwen4exp.rope.dimension_count": 64
+  },
+  "derived_engine_config": {
+    "mode": 40,
+    "n_dims": 64,
+    "sections": [
+      11,
+      11,
+      10,
+      0
+    ],
+    "freq_base": 10000000.0,
+    "n_ctx_orig": 262144,
+    "freq_scale": 1.0,
+    "ext_factor": 0.0,
+    "attn_factor": 1.0,
+    "beta_fast": 32.0,
+    "beta_slow": 1.0
+  },
+  "scope": "Metadata-only first-shard read and source-derived lens defaults; no weight tensor read or model execution."
+}

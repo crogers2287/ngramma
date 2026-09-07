@@ -1,0 +1,246 @@
+{
+  "schema": "ngramma-attention-stages/v1",
+  "identity_sha256": "af848e254fb9a6ca6be56b8f14f1d369a6e705c3363c4c4ac6e5f0cc7e652f87",
+  "tokens": [
+    9419,
+    11,
+    1814,
+    0,
+    220,
+    17,
+    478,
+    220,
+    17,
+    283
+  ],
+  "layer": 3,
+  "cache_slots": 256,
+  "query_heads": 24,
+  "kv_heads": 2,
+  "head_dim": 256,
+  "rope_dim": 64,
+  "rope_sections": [
+    11,
+    11,
+    10,
+    0
+  ],
+  "rope_freq_base": 10000000.0,
+  "native_rope": false,
+  "native_attention": true,
+  "metrics": {
+    "hc_mixed": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 25600
+    },
+    "hc_inject": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 40
+    },
+    "query_projection": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 122880
+    },
+    "query_split": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 61440
+    },
+    "query_norm": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 61440
+    },
+    "key_projection": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 5120
+    },
+    "key_norm": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 5120
+    },
+    "value_projection": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 5120
+    },
+    "query_rope": {
+      "max_abs": 2.384185791015625e-06,
+      "relative_rms": 4.1064104518255596e-08,
+      "different_values": 2480,
+      "values": 61440
+    },
+    "key_rope": {
+      "max_abs": 4.76837158203125e-07,
+      "relative_rms": 2.065423167464412e-08,
+      "different_values": 198,
+      "values": 5120
+    },
+    "chained/scores": {
+      "max_abs": 3.0517578125e-05,
+      "relative_rms": 7.522134153435184e-08,
+      "different_values": 1427,
+      "values": 2400
+    },
+    "chained/probabilities": {
+      "max_abs": 3.5762786865234375e-07,
+      "relative_rms": 1.6043027592424488e-07,
+      "different_values": 929,
+      "values": 2400
+    },
+    "chained/values": {
+      "max_abs": 9.5367431640625e-07,
+      "relative_rms": 1.482204644274599e-07,
+      "different_values": 36900,
+      "values": 61440
+    },
+    "exact_rotary_input/scores": {
+      "max_abs": 3.0517578125e-05,
+      "relative_rms": 7.455468144740827e-08,
+      "different_values": 1400,
+      "values": 2400
+    },
+    "exact_rotary_input/probabilities": {
+      "max_abs": 4.470348358154297e-07,
+      "relative_rms": 1.701553017722534e-07,
+      "different_values": 956,
+      "values": 2400
+    },
+    "exact_rotary_input/values": {
+      "max_abs": 9.5367431640625e-07,
+      "relative_rms": 1.5667419852620796e-07,
+      "different_values": 37856,
+      "values": 61440
+    },
+    "gate_input": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 61440
+    },
+    "gate_sigmoid": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 61440
+    },
+    "gated_output": {
+      "max_abs": 1.862645149230957e-07,
+      "relative_rms": 1.239452286668069e-07,
+      "different_values": 35912,
+      "values": 61440
+    },
+    "projected_output": {
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 25600
+    }
+  },
+  "engine_positive_probability_mask_matches_dense_causal": true,
+  "source_sha256": "5fae471e5b7905c925150462bf6e1722689ec830a730bbc73645493a8e613668",
+  "native_library_sha256": "870990f1962ce4b99d0a0a8b59d355df2cceceb11d3d4430e27618d18798f935",
+  "native_build_record": {
+    "schema_version": 1,
+    "library_sha256": "870990f1962ce4b99d0a0a8b59d355df2cceceb11d3d4430e27618d18798f935",
+    "sources": {
+      "ggml_forward.cpp": "804dc6e5de9e72281e78f42f36eccc0a552947b0bc86c805adf97abffb51f0c5",
+      "build_forward_bridge.py": "00de34b09584cc329f66ea79b6d42a4a8359ad7330cb41e3647d2305cfd30b93"
+    },
+    "headers": {
+      "ggml-alloc.h": "94e4cd069b9313b2ceb35dacec901981e0bb478d8bb31035b7126be091998c23",
+      "ggml-backend.h": "f9bafda615fafa73306bed0a2c3d5a459cba2c19c9d76e1dc0adc2b3fd0cb2c8",
+      "ggml-blas.h": "e76cb8594dc9866d99e7d63191b9fff6ab8b50244b4a28ce3af0f962964a6b5b",
+      "ggml-cann.h": "2cdb134f27fe5c4ec19d52f1eb58f5355aa42b8f54bf385f0e487501c5df7362",
+      "ggml-cpp.h": "bc15ba002c68685df23faae42df0d2b3d58032011f88b649021ab92485862c72",
+      "ggml-cpu.h": "316279e004cdeb8e6ef78599acb602bf79a8abdf897fed9fd1914808c1518c6e",
+      "ggml-cuda.h": "9cbfcea49f6da4d07f41dc22fa8dbf870825faaa2a68e34e65fe30ea6c41e042",
+      "ggml-et.h": "33118c0642b8059a99ea930fd4e4a045e78ccb41760b173ede221f1297c35977",
+      "ggml-hexagon.h": "b2c12bac390f14707b16bdd27c8c75ce4f075ed509c729ee28fd4f03b17e7375",
+      "ggml-metal.h": "322f36cd30f3e9e7aad7b5b9bc63078012fd0b7706ac4e24f5721b604f3d8980",
+      "ggml-opencl.h": "8e443e1aa9c8bc6e0cf116c4cc3f42f4858938fa15e65b06bc07b26686e1233a",
+      "ggml-openvino.h": "c2e3f301e28ad815b4285888aad6130808a77e6acb4e8b558de63a648cf9743e",
+      "ggml-opt.h": "3586de1bc8a934b5c72339e2b6937b0641e8f149b512231e666f67de0736eea2",
+      "ggml-rpc.h": "505c01e4575c06a3b01cdbbb5688368baaabf6223a36eeafd918057251da6e43",
+      "ggml-sycl.h": "58429f8045b335f5e740faa2198caf72ba3beb04df0eb970103b932340daca8b",
+      "ggml-virtgpu.h": "ed231e7db3f0f58b84073f5ee67f9ec9d63046d1a7ed091c36a6cfe9f685a463",
+      "ggml-vulkan.h": "7eae5dad2cc7bb4d3eca828539f441816d5fd59fdc7b224d49aa229fc7b7248c",
+      "ggml-webgpu.h": "a91d855313a9e85e75ba597ff869a267247dea936a2c0faef03aeb7f1ea6e79c",
+      "ggml-zdnn.h": "ee1d79c95ade45ba195a6b71f59a05c18617de4a596d2b2b03ecf38975a9a448",
+      "ggml-zendnn.h": "2cb034b842438281616ce647232d922fb224450323f0d422d2af567c334aa8ff",
+      "ggml.h": "b834c28904934a65dc2b53a0115ae50e33126cc305ae4489bb781ad880b09b5c",
+      "gguf.h": "e56714aab702e5ce62ee587a409643c08f7e93e8fbb77f48ef7cc85075f96fa4"
+    },
+    "linked_libraries": {
+      "libggml-cpu.so": "501229e5937a6f9c0e6397ac6e67a7bf3242779a92639b119a970d2b1e4a352c",
+      "libggml-base.so": "8c6dd2c346e0d2b94a15499c6eccc40b73be9f175f4733e76c31656ddc776fa9"
+    },
+    "compiler": {
+      "executable": "c++",
+      "version": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
+    },
+    "command": [
+      "c++",
+      "-std=c++17",
+      "-O2",
+      "-fPIC",
+      "-shared",
+      "-pthread",
+      "-I",
+      "<ENGINE_SOURCE>/ggml/include",
+      "<REPOSITORY>/src/ngramma_runtime/native/ggml_forward.cpp",
+      "-L",
+      "<RUNTIME>",
+      "-lggml-cpu",
+      "-lggml-base",
+      "-Wl,-z,defs",
+      "-Xlinker",
+      "-rpath",
+      "-Xlinker",
+      "<RUNTIME>",
+      "-o",
+      "<OUTPUT>"
+    ],
+    "qualification": "Compiled forward-only primitive bridge; no model-parity or gradient qualification"
+  },
+  "native_calls": {
+    "unary_0": 3,
+    "matmul_type_8": 2,
+    "buffer_CPU": 3,
+    "unary_1": 1,
+    "unary_2": 2,
+    "matmul_type_0": 1,
+    "matmul_type_2": 4,
+    "buffer_CPU_REPACK": 4
+  },
+  "attention_calls": {
+    "batched_matmul": 4,
+    "softmax_ext": 2
+  },
+  "rope_config": {
+    "mode": 40,
+    "original_context": 262144,
+    "frequency_scale": 1.0,
+    "extension_factor": 0.0,
+    "attention_factor": 1.0,
+    "beta_fast": 32.0,
+    "beta_slow": 1.0
+  },
+  "reference_metadata_sha256": "a3eaf8a8b6112cde496e6feaffe5d51fa249d6c2f57f8367b79a39e1b0e7dac1",
+  "seconds_including_initialization": 39.82835832401179,
+  "diagnostic_only": true,
+  "admitted_for_gradients": false
+}

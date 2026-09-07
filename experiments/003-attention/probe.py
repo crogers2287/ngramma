@@ -38,8 +38,11 @@ def main():
     hp = Hparams.from_gguf_paths(paths[0], paths[1])
     mode = NativeForward(weights, args.native_library, recurrent=True, repack=True, reductions=True)
     if args.native_rope or args.native_attention:
-        from ngramma_runtime.native_attention import AttentionOps
-        ops = AttentionOps(args.native_library, threads=4)
+        from ngramma_runtime.native_attention import AttentionOps, RopeConfig
+        from ngramma_runtime._table import field_value
+        model_metadata = {key: field_value(field) for key, field in weights.readers[0].fields.items()
+                          if key.startswith('qwen4exp.') or key == 'general.architecture'}
+        ops = AttentionOps(args.native_library, rope_config=RopeConfig.from_metadata(model_metadata), threads=4)
     else:
         ops = None
 
@@ -140,6 +143,7 @@ def main():
               'source_sha256':source_hash, 'native_library_sha256':mode.library_sha256,
               'native_build_record':mode.build_record, 'native_calls':dict(mode.calls),
               'attention_calls':dict(ops.calls) if ops else {},
+              'rope_config':ops.settings() if ops else None,
               'reference_metadata_sha256':file_hash(args.reference/'tensors.json'),
               'seconds_including_initialization':time.monotonic()-start,
               'diagnostic_only':True, 'admitted_for_gradients':False}
