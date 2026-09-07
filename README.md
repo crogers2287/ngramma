@@ -6,6 +6,11 @@ The project begins with [handoff.md](handoff.md), its original research specific
 
 The intended result is the original frozen model plus a small, versioned memory overlay. A teacher diagnoses failures and supplies independently verified corrections during improvement cycles. A numerical optimizer changes selected existing rows; the backbone, tokenizer, memory reader, and gates stay frozen. Ordinary inference and the primary evaluation use no teacher or extra lesson text.
 
+**Latest result:** the CPU forward reference now matches the real engine
+bit-for-bit on three short fixtures (39 tokens), through all 48 layers and every
+output logit. This fixes an important testing prerequisite. **No learned memory
+improvement has been demonstrated.** [Read experiment 003](experiments/003-attention/REPORT.md).
+
 This repository follows that research program independently of any particular host or orchestration setup. The handoff is preserved as the design record. Its proposed components and milestones are not claims of completed implementation.
 
 ## First experiment: September 7, 2026
@@ -49,19 +54,18 @@ python3 scripts/plot_results.py
 ## Research status
 
 [Experiment 003](experiments/003-attention/REPORT.md) now matches the CPU engine
-bit-for-bit through all 48 layers and every output logit on the original
-ten-token fixture. Native rotary arithmetic, padded attention, and preservation
-of the query tensor's memory layout resolve the remaining discrepancy. Maximum
-selected-token log-probability error falls from experiment 002's 0.906 nats to
-zero. A wider 17-token Unicode/chat control exposed a memory-gate rounding
-difference; correcting that calculation restores exact agreement on that
-sequence too. The failed controls remain published. The
+bit-for-bit through all 48 layers and every output logit on the original,
+Unicode/chat, and repeated-EOS fixtures. Native rotary arithmetic, padded
+attention, preservation of query memory layout, and a memory-gate scalar
+correction resolve the measured discrepancies. Original-sequence error falls
+from experiment 002's 0.906 nats to zero. The wider failed controls remain
+published alongside the corrections. The
 [forward diagnostic harness](docs/runtime.md) has no backward
 implementation; no rows have been trained.
 
 The experimental prototype recorded 22 guard and plumbing tests passing; these were not real-model gradient validation. The checker in this publication is a separate evidence audit. No teacher model was called and no selected rows were optimized on correction examples. Only a manually specified diagnostic perturbation was evaluated.
 
-Broader short-sequence checks and directional-gradient qualification remain
+Broader execution coverage and directional-gradient qualification remain
 prerequisites to training. A development-only task search is also needed to find
 a repeatable reminder advantage before testing the behavioral hypothesis. See
 the [source audit](docs/source-audit.md), [architecture audit](docs/architecture-audit.md),

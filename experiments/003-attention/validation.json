@@ -1,0 +1,29 @@
+{
+  "schema": "ngramma-cycle-validation/v1",
+  "python_version": "3.12.3",
+  "local_pytest": {
+    "command": "python3 -m pytest -q tests",
+    "research_dependencies_and_native_library_configured": true,
+    "passed": 249,
+    "failed": 0,
+    "pytest_warnings": 2,
+    "seconds": 3.88
+  },
+  "full_fixture_tokens": [
+    10,
+    17,
+    12
+  ],
+  "total_tokens": 39,
+  "all_intermediates_and_logits_bitwise_equal": true,
+  "same_runtime_external_sources_and_library": true,
+  "native_library_sha256": "0b3b9552c5cff85ec2246892cdee993c4f52fa5abc5e56f237c6ce7d95c13d34",
+  "record_sha256": {
+    "full-native-attention-ple-scale.json": "b8ba7a38fa6b123ae21b19006a0bbcc4f7e2d0bc153b4fab55dc3d14bb516407",
+    "full-unicode-chat-ple-scale.json": "2eba358154eecb42024aff7587ec92a7ae8d334ff1090c6f5624b081e27d8def",
+    "full-eos-repeat-ple-scale.json": "76f2c864d472a6eac669c5fa7472fa3c20903562846933249d24b8aa62cd9956"
+  },
+  "admitted_for_gradients": false,
+  "learned_overlay_produced": false,
+  "note": "Three fresh short CPU prefills. Numerical agreement and local fixture checks; no learned improvement or backward qualification."
+}

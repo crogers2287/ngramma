@@ -8,7 +8,7 @@ The current publication is a report, evidence archive, replay checker, and annot
 |---|---|---|
 | M0 — Audit and runnable baseline | Actual checkpoint/table metadata and hashes; actual-model diagnostic and synthetic tool runs; pinned source revisions | Partial. Exact model distribution/license and full dependency lock still need independent audit. Fresh portable build unqualified. |
 | M1 — Native lookup and no-op overlay | Three CPU sequences, 39 tokens; 624 matching row accesses per traced condition; empty and original-row overlays exact; invalid overlays rejected | Narrow CPU checks passed. Broader packed/batched/multi-turn coverage and GPU parity remain. |
-| M2 — Narrow differentiable edit | A manual perturbation reached the intended row and changed logits; native forward-only reference now matches all 48 layers on the original short fixture | Blocked at differentiable-forward and gradient qualification. The native reference has no backward implementation; the perturbation was not learned. |
+| M2 — Narrow differentiable edit | A manual perturbation reached the intended row and changed logits; native forward-only reference now matches all 48 layers and logits on three short fixtures (39 tokens) | Blocked at differentiable-forward and gradient qualification. The native reference has no backward implementation; the perturbation was not learned. |
 | M3 — Verified curriculum and selection | Five evaluated families, 47 episodes including repeats; independent state replay; observed-row index and 512 provisional candidates | Partial. No repeatable reminder advantage, verified teacher corrections, or influence/retention-qualified row selection. |
 | M4 — Complete short-sequence training | Shared-row sequence reference and loss/gate excerpts exist | Unqualified. No actual-model training, finite-difference qualification, development improvement, or forward/backward resource benchmark. |
 | M5 — Locked evaluation | Planned in the handoff | Not run. No locked learned candidate, training-seed comparison, sealed evaluation, or regression evidence. |
@@ -18,7 +18,7 @@ The current publication is a report, evidence archive, replay checker, and annot
 
 The handoff proposes a 50–100-family engineering pilot and a larger substantive study. Experiment 001 evaluated only five families, each with four variants. Its results cannot establish the power or generality of the proposed study. The pilot's sixth family stayed outside the reminder loop; its answers are not included in the public archive.
 
-The handoff's initial 128–256-token training range was a planning default. The sequence reference imposes a 128-token ceiling; the full numerical comparison covered only ten tokens. No completed training sequence was optimized.
+The handoff's initial 128–256-token training range was a planning default. The sequence reference imposes a 128-token ceiling; experiment 003's validated capture profile permits up to 32 tokens in one prefill, and its full comparisons cover three sequences of 10, 17, and 12 tokens. No completed training sequence was optimized.
 
 The initial reminder text was authored as part of the test harness. It was not obtained through the proposed teacher-correction pipeline. No teacher model was called. The stored partition name `train` is a planned split label, not evidence of actual training.
 
@@ -28,10 +28,11 @@ The handoff's desired deliverable—an immutable overlay that improves unseen ta
 
 ## Next research milestone
 
-[Experiment 003](../experiments/003-attention/REPORT.md) resolves the original
-ten-token CPU forward discrepancy: all 48 residuals and every output logit now
-match bit-for-bit. Rotary arithmetic, padded attention width, and stride-dependent
-CPU matrix dispatch were material. The original differentiable replica has not
+[Experiment 003](../experiments/003-attention/REPORT.md) resolves the measured
+CPU forward discrepancies on three short fixtures: all 48 residuals and every
+output logit match bit-for-bit over 39 tested tokens. Rotary arithmetic, padded
+attention width, stride-dependent CPU matrix dispatch, and PLE scalar arithmetic
+were material. The original differentiable replica has not
 thereby acquired a qualified gradient: these native operations have no backward
 implementation, so M2 and M4 remain unqualified.
 
@@ -40,7 +41,8 @@ and a new first difference in memory-bearing layer 1. Its exact memory gather
 does not establish exact downstream memory processing. This retained control
 limited the original ten-token success. A controlled change to the PLE scalar
 expression then restored the complete 17-token forward, including matching
-byte hashes for intermediates and logits. Wider execution modes remain open.
+byte hashes for intermediates and logits. Final EOS/repeat and original
+regression runs also pass with matching byte hashes. Wider execution modes remain open.
 
 Expand short-sequence coverage, then compare a differentiable implementation
 against the exact reference and validate directional gradients. Distinguish

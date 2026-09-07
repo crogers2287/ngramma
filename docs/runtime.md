@@ -225,6 +225,20 @@ On the original ten-token fixture, all 48 layer outputs and final logits match
 bit-for-bit. This native result supplies a forward reference; it has no backward
 path and does not qualify the original differentiable replica for training.
 
+The final experiment-003 command also enters `NativePleScale`. This context
+changes only the PLE gate's summed-dot scaling: FP32 reciprocal multiplication
+replaces division by the Python-derived square root. It requires one fresh
+PLE invocation and restores the original functions on exit. The independent
+component probe verifies the old transcription against upstream before comparing
+the scalar correction. This leaves all weights, n-gram rows, convolution,
+normalization, sigmoid, and addition order unchanged. Its full-run switch is
+`--native-ple-scale`; omit it to reproduce the retained wider-fixture failures.
+
+The final full runner records logical float32 byte hashes for all compared
+intermediates and logits, in addition to numeric errors. This distinguishes
+bitwise agreement from ordinary numeric equality, including signed-zero cases.
+Successful forward hashes still do not supply a backward implementation.
+
 Original integration code is covered by the repository MIT license. ENGRAFT
 interfaces derive from Copyright 2026 fulvian, Apache-2.0; see `NOTICE`,
 `licenses/ENGRAFT-Apache-2.0.txt`, and `licenses/ENGRAFT-NOTICE.txt`. ENGRAFT itself

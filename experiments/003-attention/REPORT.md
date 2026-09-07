@@ -1,17 +1,31 @@
-# Experiment 003: reproducing full-attention arithmetic
+# Experiment 003: exact CPU forward agreement on three short fixtures
 
-**The original ten-token and wider seventeen-token Unicode/chat sequences now
-match the CPU engine through all 48 layers and every output logit.** Selected-token
-log-probability error falls to zero. The work addresses a compatibility prerequisite of the
+**Three short fixtures, 39 tokens in total, now match the CPU engine bit-for-bit
+through all 48 layers and every output logit.** The final runs verify matching
+byte hashes as well as zero numerical error. The work addresses a compatibility prerequisite of the
 [original handoff](../../handoff.md); it does not train memory rows.
 
 ## Full-model result
+
+| Fixture | Tokens | Attention-only maximum selected-token error | Final maximum selected-token error | Final layer/logit byte agreement |
+|---|---:|---:|---:|---|
+| Original | 10 | 0 | 0 | All equal |
+| Unicode/chat markers | 17 | 0.148039 nats | 0 | All equal |
+| Repeated EOS and n-grams | 12 | 0.017462 nats | 0 | All equal |
+
+The final condition includes native rotary, padded/stride-preserving attention,
+and the PLE memory-gate scalar correction described below. Each fixture is one
+fresh full prefill. These are the existing compatibility token lists, not unseen
+behavioral tasks. Experiment 002's original-sequence error was 0.905555 nats.
+
+![Saved short-fixture errors before and after the memory-gate correction](figures/forward-agreement.png)
 
 The corrected native reference passes both unchanged numerical gates: maximum
 selected-token log-probability error strictly below 0.02 nats, and every measured
 intermediate relative RMS strictly below 0.01. PLE input, all 48 residuals, and
 the final logits are identical on the original fixture; top-token agreement is
-10/10. This is agreement with the reference model, not improved task accuracy.
+10/10 on the original fixture, 17/17 on Unicode/chat, and 12/12 on EOS/repeats.
+This is agreement with the reference model, not improved task accuracy.
 
 The run records all 12 full-attention calls, 24 rotary calls, 48 shared-gate
 vector projections, zero uncovered matrix/vector calls, and no source changes
@@ -31,8 +45,13 @@ below its 0.02 threshold. Both failed controls remain unchanged.
 The later memory-gate correction restores the complete Unicode/chat forward:
 all 49 measured PLE/residual tensors and the complete logit array have matching
 byte hashes. Top-token agreement is 17/17, both error measures are zero, and the
-run records one corrected PLE call. Forward time was 113.08 seconds after
-initialization; peak process RSS was 16.40 GiB.
+run records one corrected PLE call. The final repeated-EOS and original-sequence
+runs also match every intermediate and output byte. All three use the same
+source and native library, record one PLE correction, and report no source
+changes. Final forward times after initialization were 113.24, 113.08, and
+85.75 seconds for original, Unicode/chat, and EOS/repeats respectively. Peak RSS
+ranged from 14.94 to 16.40 GiB. Shared caches and host load make these observations
+unsuitable for attributing a speedup.
 
 ## Component findings
 
@@ -137,6 +156,12 @@ prefixes, multimodal positioning, GPU execution, 200k-context inference,
 backward computation, teacher examples, or learned memory overlay are qualified.
 No inference service or original model file was changed.
 
+The result covers only three short prefills and one checkpoint/CPU configuration.
+It does not establish model quality, learning, general sequence coverage, or a
+production-capable replacement engine. Broader lengths, chunking and state
+reuse remain additional forward checks. No optimization was performed and no
+learned memory overlay was produced.
+
 After independent review, subsequent full probes also bind the capture's
 recorded model/configuration to the supplied identity, reject nonfinite
 comparisons, hash every compared intermediate, and snapshot the external
@@ -151,7 +176,15 @@ local. The [reproduction instructions](REPRODUCE.md) describe model-dependent
 reruns. `python scripts/verify_attention_experiment.py` checks saved metric
 consistency and fixed-threshold decisions without rerunning model inference.
 
-## Next gate
+## Validation and next gate
+
+The local suite passes **249 checks**, including native synthetic operations,
+Python ABI and lifecycle boundaries, capture-identity rejection, and the earlier
+configuration/adapter checks. Two upstream SWIG deprecation warnings occur;
+they do not fail the tests. CI checks the evidence with the standard library,
+runs lightweight tests, and explicitly skips tests whose optional native or
+numerical dependencies are absent. Local native execution and public CI skips
+are distinct evidence.
 
 An exact forward-only reference provides a target for a differentiable sequence
 implementation. It supplies no derivative. The next experiment must check
@@ -160,3 +193,10 @@ routing from routing/quantization discontinuities, and compare the actual
 training forward to this reference. Numerical correctness still cannot establish
 the handoff's behavioral hypothesis: improvement on unseen ordinary-prompt tasks
 requires a verified curriculum, learned candidate, and independent evaluation.
+
+The [next-step audit](review/gradient-next-step.md) proposes a single-row
+directional-response experiment. Quantization makes this more subtle than
+checking whether an autograd tensor exists: adaptive quantizer scales may change
+even when integer codes stay fixed. Smooth-reference derivatives, deliberate
+surrogate gradients, and finite-step responses in the serving engine must be
+identified and measured separately. That experiment is planned, not executed.
