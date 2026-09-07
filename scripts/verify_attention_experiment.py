@@ -14,7 +14,7 @@ DIRECTORY = ROOT/'experiments/003-attention'
 COMPONENTS = {'baseline.json': (False, False), 'native-rope.json': (True, False),
               'native-attention.json': (False, True), 'combined.json': (True, True),
               'combined-strides.json': (True, True)}
-FULL_RESULTS = ('full-native-attention.json', 'full-unicode-chat.json', 'full-eos-repeat.json')
+FULL_RESULTS = ('full-native-attention.json', 'full-native-attention-provenance.json', 'full-unicode-chat.json', 'full-eos-repeat.json')
 METRICS = {'hc_mixed', 'hc_inject', 'query_projection', 'query_split', 'query_norm',
            'key_projection', 'key_norm', 'value_projection', 'query_rope', 'key_rope',
            'gate_input', 'gate_sigmoid', 'gated_output', 'projected_output',
@@ -121,6 +121,40 @@ def verify_full(record, identity):
     for digest in record['reference_sha256'].values():sha(digest)
 
 
+
+def verify_provenance(record):
+    """Validate embedded provenance relationships, without access to raw files."""
+    names = {'capture_identity', 'external_source_sha256', 'compared_tensor_sha256'}
+    present = names & record.keys()
+    if not present:
+        return  # Initial historical full run predates this additive evidence.
+    require(present == names, 'Incomplete enhanced capture/source provenance')
+    capture = record['capture_identity']
+    profile = {'identity_sha256': record['identity_sha256'], 'device': 'CPU',
+               'cache_type': 'f32', 'repack': True, 'flash_attention': False,
+               'rope_overrides': False, 'context': 128, 'batch': 32, 'microbatch': 32}
+    for key, expected in profile.items():
+        require(type(capture.get(key)) is type(expected) and capture[key] == expected,
+                f'Enhanced capture profile mismatch: {key}')
+    require(capture['tokens'] == record['tokens'] and len(record['tokens']) <= 32,
+            'Enhanced capture token identity mismatch')
+    require(type(capture['chunk_size']) is int and len(record['tokens']) <= capture['chunk_size'] <= 32,
+            'Enhanced capture must use one complete bounded prefill')
+    for key in ('lens_sha256', 'capture_script_sha256', 'metadata_sha256', 'logits_sha256'):
+        sha(capture[key])
+    require(capture['metadata_sha256'] == record['reference_sha256']['tensors.json'] and
+            capture['logits_sha256'] == record['reference_sha256']['logits.f32'],
+            'Enhanced capture/reference content hashes disagree')
+    compared = record['compared_tensor_sha256']
+    require(set(compared) == {'ple_embd', *[f'l_last-{i}' for i in range(48)]},
+            'Enhanced provenance must identify all 49 compared tensors')
+    for digest in compared.values():sha(digest)
+    external = record['external_source_sha256']
+    require(isinstance(external, dict) and all(any(key.startswith(prefix + '/') for key in external)
+            for prefix in ('engraft', 'gguf')), 'Missing external ENGRAFT/GGUF source identities')
+    for digest in external.values():sha(digest)
+
+
 def main():
     identity = json.loads((ROOT/'data/model-identity.json').read_text())['identity_sha256']
     tokens = json.loads((ROOT/'data/replica-quantized-parity.json').read_text())['tokens']
@@ -141,7 +175,7 @@ def main():
             print(f'{filename}: absent; no full-forward claim checked for this fixture')
             continue
         record = json.loads(path.read_text())
-        if filename == 'full-native-attention.json':
+        if filename in ('full-native-attention.json', 'full-native-attention-provenance.json'):
             require(record['tokens'] == tokens, 'Primary full-forward token sequence changed')
         else:
             case_name = filename.removeprefix('full-').removesuffix('.json')
@@ -149,6 +183,9 @@ def main():
             require(record['tokens'] == next(case['tokens'] for case in cases if case['name'] == case_name),
                     'Additional fixture token sequence changed')
         verify_full(record, identity)
+        verify_provenance(record)
+        if filename != 'full-native-attention.json':
+            require('capture_identity' in record, 'Enhanced run missing capture provenance')
         print(f'{filename}: saved metrics and fixed-threshold decisions internally consistent')
         count += 1
     print(f'PASS: {count} saved experiment-003 records checked. No raw tensor/logit comparison or inference rerun.')

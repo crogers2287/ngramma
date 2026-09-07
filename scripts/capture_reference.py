@@ -51,6 +51,9 @@ def main():
         raise RuntimeError('Reference capture failed; inspect local stderr and response logs')
     summary = {'tokens':tokens, 'capture_prefixes':args.capture, 'chunk_size':args.chunk_size,
                'threads':args.threads, 'device':'CPU', 'cache_type':'f32', 'repack':not args.no_repack,
+               'flash_attention':False, 'context':128, 'batch':32, 'microbatch':32,
+               'rope_overrides':False,
+               'capture_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                'seconds':time.monotonic()-start,
                'identity_sha256':identity['identity_sha256'],
                'lens_sha256':hashlib.sha256(binary.read_bytes()).hexdigest(),

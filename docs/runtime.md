@@ -191,6 +191,10 @@ abort the process and cannot be converted into Python exceptions by this bridge.
 | `ngramma_sum_rows` | F32 `[rows,width]` to F32 `[rows]`, retaining engine accumulation precision. |
 | `ngramma_ssm_conv` | Full history/input `[channels,tokens+kernel-1]`, weights `[channels,kernel]`, output `[tokens,channels]`; one sequence, dilation 1, no implicit padding or activation. |
 | `ngramma_gdn` | Unscaled q/k `[tokens,key_heads,dim]`, v/output `[tokens,value_heads,dim]`, log-decay g and sigmoid beta `[tokens,value_heads]`; one sequence, scalar gates, final state only. |
+| `ngramma_rope_multi` | F32 values/output `[tokens,heads,dim]`, I32 positions `[4,tokens]`, four I32 sections; explicit IMROPE settings, no frequency-factor tensor. |
+| `ngramma_batched_matmul` | F32 weights `[weight_heads,n,k]`, inputs `[input_heads,m,k]`, output `[input_heads,m,n]`; contiguous head-group broadcasting. |
+| `ngramma_attention_scores` | Keys `[key_heads,key_slots,dim]`, queries `[tokens,query_heads,dim]`, output `[query_heads,tokens,key_slots]`; preserves the engine's permuted query strides. |
+| `ngramma_softmax_ext` | Scores/output `[heads,tokens,key_slots]`, additive mask `[tokens,key_slots]`; native scale and mask, no ALiBi, sinks, or softcap. |
 
 GDN native state is `[value_heads,value_dim,key_dim]`, transposed relative to the
 replica's conceptual `[key_dim,value_dim]` state. The Python adapter handles this
@@ -199,6 +203,27 @@ mapping is `value_head % key_heads`. GGML computes `exp(g)` internally and appli
 `1/sqrt(dim)` after the state/query dot product. Output and new-state destinations
 must not overlap. These details are tested independently because different
 layouts or scaling order can create numerical divergence.
+
+Experiment 003 adds `AttentionOps` and `NativeAttentionReference`. The latter
+temporarily replaces the complete attention function in both ENGRAFT modules.
+It requires a fresh sequence and independently checked dense-causal probability
+support at every full-attention layer of that exact capture. It uses captured
+cache width but recomputes every attention value and keeps normal expert routing.
+It does not implement general QSA selection, multimodal positions, or reusable
+prefix caches. A contiguous query copy changes CPU kernel dispatch, so the score
+helper deliberately preserves the engine's physical `[tokens,heads,dim]` layout.
+
+Use [experiment 003's commands](../experiments/003-attention/REPRODUCE.md) for this
+composite path. The full runner binds the capture's model label and execution
+configuration, verifies metadata/logit hashes, records each compared intermediate
+hash, and snapshots both local and external ENGRAFT/GGUF Python sources. Its
+current capture profile admits one complete prefill of at most 32 tokens. The
+lower-level sequence ceiling of 128 is not a claim that every such sequence has
+been tested. Model-file authenticity still requires separate shard verification.
+
+On the original ten-token fixture, all 48 layer outputs and final logits match
+bit-for-bit. This native result supplies a forward reference; it has no backward
+path and does not qualify the original differentiable replica for training.
 
 Original integration code is covered by the repository MIT license. ENGRAFT
 interfaces derive from Copyright 2026 fulvian, Apache-2.0; see `NOTICE`,

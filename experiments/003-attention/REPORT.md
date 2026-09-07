@@ -19,6 +19,15 @@ during execution. Forward time after initialization was 89.14 seconds; peak
 process RSS was 14.98 GiB. These measurements share host/OS caches and are not
 controlled throughput benchmarks or estimates of backward cost.
 
+The first wider `unicode-chat` test does **not** pass: 17 tokens yield 16/17
+top-token agreement, maximum selected-token error **0.148039 nats**, and final
+layer relative RMS **0.290736**. Memory gather and layer 0 are exact. The first
+difference appears at memory-bearing layer 1, with maximum absolute error
+1.49e-8, then grows downstream. This failed control is retained in
+`full-unicode-chat.json`; it prevents claiming broad short-sequence agreement.
+The next component test isolates the memory gate's scale operation. Source and
+synthetic evidence identify it as a candidate, not yet a measured explanation.
+
 ## Component findings
 
 Experiment 002 first diverged at layer 3. Starting from the engine's saved
@@ -99,6 +108,14 @@ supports fresh, short, plain-text sequences on the tested CPU engine. No cached
 prefixes, multimodal positioning, GPU execution, 200k-context inference,
 backward computation, teacher examples, or learned memory overlay are qualified.
 No inference service or original model file was changed.
+
+After independent review, subsequent full probes also bind the capture's
+recorded model/configuration to the supplied identity, reject nonfinite
+comparisons, hash every compared intermediate, and snapshot the external
+ENGRAFT/GGUF Python sources. The initial ten-token run remains preserved; the
+additional provenance run uses a distinct filename. These checks authenticate
+recorded small artifacts, not the original multi-gigabyte model files, whose
+independent hash verification remains a separate prerequisite.
 
 Source, ablations, corrected measurements, and reproduction commands are
 committed in this directory. Raw model-derived tensors and binaries remain

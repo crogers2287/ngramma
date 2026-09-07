@@ -40,11 +40,20 @@ def main():
     from ngramma_runtime.sequence import SequenceReplica
     from ngramma_runtime.weights import EngineWeights
     from ngramma_runtime.activation_reference import ActivationReference
+    from ngramma_runtime.capture_identity import validate_capture
 
     root = Path(__file__).resolve().parents[2]
     sources = [Path(__file__), *sorted((root/'src/ngramma_runtime').rglob('*.py')),
                root/'src/ngramma_runtime/native/ggml_forward.cpp']
     source_hashes = {str(path.relative_to(root)): file_hash(path) for path in sources if path.is_file()}
+    import engraft
+    import gguf
+    external_sources = {}
+    for name, package in (('engraft', engraft), ('gguf', gguf)):
+        package_root = Path(package.__file__).resolve().parent
+        for path in sorted(package_root.rglob('*.py')):
+            external_sources[name+'/'+str(path.relative_to(package_root))] = path
+    external_hashes = {label: file_hash(path) for label, path in external_sources.items()}
     runtime = config().runtime
     dependency_hashes = {path.name: file_hash(path) for path in sorted(runtime.glob('*.so'))}
 
@@ -54,6 +63,7 @@ def main():
     start = time.monotonic()
     inventory = check_budget()
     identity = json.loads(args.manifest.read_text())
+    capture_identity = validate_capture(args.reference, identity['identity_sha256'])
     tokens = json.loads((args.reference/'tokens.json').read_text())
     metadata = json.loads((args.reference/'tensors.json').read_text())
     paths = [s['path'] for s in identity['shards']]
@@ -69,6 +79,7 @@ def main():
     hp = Hparams.from_gguf_paths(paths[0], paths[1])
     replica = SequenceReplica(hp, weights, table, max_tokens=128)
     metrics = []
+    compared_tensor_hashes = {}
     attention_mode = nullcontext()
     attention_ops = None
     layouts = None
@@ -87,6 +98,9 @@ def main():
             buffer=(args.reference/item['file']).read_bytes(), strides=tuple(reversed(item['strides'])))
         actual = actual.detach().numpy()
         expected = expected.reshape(actual.shape)
+        if not np.isfinite(actual).all() or not np.isfinite(expected).all():
+            raise ValueError('Nonfinite reference or actual intermediate values')
+        compared_tensor_hashes[name] = file_hash(args.reference/item['file'])
         difference = actual.astype(np.float64)-expected.astype(np.float64)
         result = {'name': name, 'max_abs': float(np.abs(difference).max()),
                   'relative_rms': float(np.sqrt(np.mean(difference**2))/max(np.sqrt(np.mean(expected.astype(np.float64)**2)), 1e-12)),
@@ -110,6 +124,8 @@ def main():
     expected = np.fromfile(args.reference/'logits.f32', dtype='<f4').reshape(len(tokens), -1)
     if tuple(logits.shape) != expected.shape:
         raise ValueError('Logit shapes do not match')
+    if not np.isfinite(logits.numpy()).all() or not np.isfinite(expected).all():
+        raise ValueError('Nonfinite reference or actual logits')
     selected = expected.argmax(axis=-1)
     with torch.no_grad():
         lp = torch.log_softmax(logits, -1).numpy()
@@ -118,8 +134,9 @@ def main():
     logit_difference = np.abs(logits.numpy()-expected)
     logit_pass = bool(selected_difference.max() < 0.02)
     intermediate_pass = bool(len(metrics) == hp.n_layer+1 and max(x['relative_rms'] for x in metrics) < 0.01)
-    changed_sources = [str(path.relative_to(root)) for path in sources if path.is_file()
-                       and file_hash(path) != source_hashes[str(path.relative_to(root))]]
+    changed_sources = [str(path.relative_to(root)) for path in sources if not path.is_file()
+                       or file_hash(path) != source_hashes[str(path.relative_to(root))]]
+    changed_sources += [label for label, path in external_sources.items() if not path.is_file() or file_hash(path) != external_hashes[label]]
     result = {'schema': 'ngramma-full-parity/v1', 'identity_sha256': identity['identity_sha256'],
               'tokens': tokens, 'threads': args.threads, 'cache_gib': args.cache_gib,
               'initialization_seconds': initialized-start, 'forward_seconds': finished-initialized,
@@ -144,6 +161,9 @@ def main():
               'native_calls': dict(mode.calls) if args.native_library else {},
               'native_misses': mode.misses if args.native_library else [],
               'source_sha256': source_hashes, 'dependency_sha256': dependency_hashes,
+              'external_source_sha256': external_hashes,
+              'compared_tensor_sha256': compared_tensor_hashes,
+              'capture_identity': capture_identity,
               'source_hash_scope': 'Before model initialization; native build identity is recorded separately.',
               'sources_changed_during_run': changed_sources,
               'reference_sha256': {name: file_hash(args.reference/name) for name in ('tokens.json','tensors.json','logits.f32')},
