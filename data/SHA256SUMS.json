@@ -4,7 +4,7 @@
   "files": {
     ".gitattributes": "10ad0b67ba061fd3990718e4db58cb842a657bd33ccd3d55235612746b537dc5",
     ".github/workflows/evidence.yml": "c9aad29dcf37a2f895d157402c54d695af6361d052e262ff3a4b06e7a1eff784",
-    ".gitignore": "9884db737f5af39b5e7d831ea563350873bb87294271eb3e9fbb1fd60c969fc5",
+    ".gitignore": "5dde8f9365bfb98834223f4d6238d3af1a1369416f1ce2a28e96a465d64a25bf",
     "CITATION.cff": "e451c7a2115792e72f8847621cd9f577409b8ceb5d58ab96a95e061f2932dd03",
     "LICENSE": "6ab58b6db170d2e1d540c004ca8d5736a17bd11e50f01d49da73ba9274a351e0",
     "NOTICE": "18b6e7447342984e8998aa548817950873f598b93f679756d5c160f80b25fb71",
@@ -84,12 +84,14 @@
     "docs/experiment-protocol.md": "ff2c235010aa5acb3ea99135cf3c96dd5bab259677775ff415572cc2db06d600",
     "docs/research-status.md": "4a5dfc473cab24b516fc5ffbc1526ab9cf2c79855c2930c9e90a8910bcb7e145",
     "docs/source-audit.md": "ee35102e9fd5ef83d66c0a8b734a363c93d2d861ef5cc2fc4d3f2c5c8b5f19a1",
+    "experiments/002-parity/PLAN.md": "3ce2d61290ed4e3e867eb316d4de99a5016d1176a1e6fdfec9ae560135c0d2b2",
     "figures/replica-drift.png": "53cc9910692d4ce2b6b4d65084369d92525266863a67a70b05290e3ccc0fd491",
     "figures/replica-drift.svg": "4ca8af8b9907f36c0ef2092d5b94863a453db5b449fe9dc72525a9bd91196b8c",
     "handoff.md": "2d6642427b92597a259f2924a49d49eccf5868f5b3c9c0f42341ecc333207b72",
     "licenses/ENGRAFT-Apache-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
     "licenses/ENGRAFT-NOTICE.txt": "7ecc7e2e3d192b80c17c1a8e1cefe4a77181434feba08d8705231493d853846f",
     "licenses/llama-cpp-MIT.txt": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d",
+    "pyproject.toml": "850005a2491122d8beb9ee5c7ad5e1f2ceb5664944d993526739bdf67384bd74",
     "reference/README.md": "cf50d0494d8e1a4a43eb94277cb1955cc2a1740f529dcd7923535ef7c8413b5a",
     "reference/engine/dequant.cpp": "7f78eba21bb85823bf0d4136943646580cdfa51c7c374769d1544cc70f288eae",
     "reference/engine/lens.cpp": "b8ae6f46fb1cafa2e32070e3a2e8108eb92da69a860a465d2688be81c4b725fa",
@@ -119,6 +121,18 @@
     "requirements-figures.txt": "be923c642695914a2c78b1fe8cd465496994e45d41c89ae86b5962883f01eb27",
     "scripts/plot_results.py": "916e921a298365bc42ba2ff6d7c983f3ae81832b8ee038045eedec5b1da660ac",
     "scripts/update_manifest.py": "3eadffdfc981857ce4d51364efcee18cb4a942472ba2c99d5d8e9bf6d1183253",
-    "scripts/verify_results.py": "f038c620d56951b9b9592c871560ce8f20413a42039e0dcdca975c0a7bd9b77d"
+    "scripts/verify_results.py": "f038c620d56951b9b9592c871560ce8f20413a42039e0dcdca975c0a7bd9b77d",
+    "src/ngramma_runtime/__init__.py": "fb03a4eb2bf710a5318117f943bbbeaec8b94dddb9684ba50cae0753b7fa8ca4",
+    "src/ngramma_runtime/_activation_reference.py": "b8164c869729873eea19b153d4a0e7155b4e6dfb1324ab3f70cdae921cda5c49",
+    "src/ngramma_runtime/_sequence.py": "eb67d866fc20eec1fe4e4d9cc7b14579f59fe3e09ff6a19149242677e0fefd67",
+    "src/ngramma_runtime/_table.py": "b1d88b29d74a53d71f52f5350c5986f5a4d8ca25363b1bdebda67e6bcd44df02",
+    "src/ngramma_runtime/_weights.py": "680319c4ce996badc583413d97c722ca622dc3e79a5ceec3c59c3e3728f03c7d",
+    "src/ngramma_runtime/activation_reference.py": "cff5dddea58b2a536224501b0576f9c6f16f8c13a9ec64ba96cf4fd9dd4fc6f3",
+    "src/ngramma_runtime/artifacts.py": "4d8cc0d586270e2456d74356994901effb2821deeff47d90b2cef7148d0fe9f5",
+    "src/ngramma_runtime/environment.py": "d30a6358a92eab37998dfc5bed272753084a98147f9baee4c354dbbeaadfb4be",
+    "src/ngramma_runtime/resources.py": "32ff8b75bc3e6bcf6d0f24786e961c598ae08ba21803fd72d8d7c6d896c3fb6c",
+    "src/ngramma_runtime/sequence.py": "f7f98da817a1743c4bee5672525461aef38a6ebf6b880c14a8457b39a0734036",
+    "src/ngramma_runtime/table.py": "ecda1dc6893104e511498b1737cd3891fd0b9c992a2c2b1c670541a6cb7ed1c9",
+    "src/ngramma_runtime/weights.py": "d75422a723754da31b5b2df6c940ce242763924efdea5cba8de7c22472821d82"
   }
 }
