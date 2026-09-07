@@ -32,15 +32,17 @@ class NativeEngineWeights(EngineWeights):
 
 
 class NativeForward(TorchDispatchMode):
-    def __init__(self, weights, library, *, primitives=True, matmul=True, recurrent=False, repack=False, threads=4):
+    def __init__(self, weights, library, *, primitives=True, matmul=True, recurrent=False, repack=False, reductions=False, threads=4):
         super().__init__()
         self.weights = weights
         self.primitives = primitives
         self.matmul = matmul
         self.recurrent = recurrent
         self.repack = repack
+        self.reductions = reductions
         self.threads = threads
         self.calls = Counter()
+        self.misses = []
         library = Path(library).resolve()
         self.library_sha256 = hashlib.sha256(library.read_bytes()).hexdigest()
         self.lib = ctypes.CDLL(str(library))
@@ -59,6 +61,9 @@ class NativeForward(TorchDispatchMode):
             ctypes.c_int64, ctypes.c_int64, ctypes.c_float, ctypes.c_int]
         self.lib.ngramma_unary.restype = ctypes.c_int
         self.lib.ngramma_last_error.restype = ctypes.c_char_p
+        if reductions:
+            self.lib.ngramma_sum_rows.argtypes = [ctypes.c_void_p]*2 + [ctypes.c_int64]*2 + [ctypes.c_int]
+            self.lib.ngramma_sum_rows.restype = ctypes.c_int
         if recurrent:
             self.lib.ngramma_ssm_conv.argtypes = [ctypes.c_void_p]*3 + [ctypes.c_int64]*3 + [ctypes.c_int]
             self.lib.ngramma_ssm_conv.restype = ctypes.c_int
@@ -71,9 +76,16 @@ class NativeForward(TorchDispatchMode):
             message = self.lib.ngramma_last_error()
             raise RuntimeError(message.decode() if message else f'Native graph failed: {status}')
 
+    @staticmethod
+    def validate_tensors(*values):
+        for value in values:
+            if value.requires_grad or value.device.type != 'cpu' or value.dtype != torch.float32:
+                raise ValueError('Native forward requires detached CPU float32 inputs')
+            if not value.numel():
+                raise ValueError('Native forward requires nonempty tensors')
+
     def unary(self, value, op, eps=0.0):
-        if value.requires_grad or value.device.type != 'cpu' or value.dtype != torch.float32:
-            raise ValueError('Native forward requires detached CPU float32 inputs')
+        self.validate_tensors(value)
         raw = value.detach().contiguous().numpy()
         output = np.empty_like(raw)
         self.checked(self.lib.ngramma_unary(op, raw.ctypes.data, output.ctypes.data,
@@ -100,9 +112,17 @@ class NativeForward(TorchDispatchMode):
             import engraft.replica.layers as layers
             original_conv = layers.causal_depthwise_conv
             def conv(value, history, weight, dilation=1):
+                self.validate_tensors(value, weight)
+                if history.dtype != torch.float32 or history.device.type != 'cpu' or history.requires_grad:
+                    raise ValueError('Native convolution requires detached CPU float32 history')
+                if value.ndim != 2 or weight.ndim != 2 or history.ndim != 2 or dilation < 1 or weight.shape[0] != value.shape[1] or history.shape[1] != value.shape[1] or history.shape[0] > (weight.shape[1]-1)*dilation:
+                    raise ValueError('Convolution input, history, and kernel shapes do not match')
                 if dilation != 1:
                     self.calls['fallback_dilated_conv'] += 1
                     return original_conv(value, history, weight, dilation)
+                missing = weight.shape[1]-1-history.shape[0]
+                if missing:
+                    history = torch.cat([torch.zeros((missing, value.shape[1]), dtype=value.dtype), history])
                 full = torch.cat([history, value]).T.contiguous().numpy()
                 kernel = weight.contiguous().numpy()
                 output = np.empty(value.shape, np.float32)
@@ -111,6 +131,9 @@ class NativeForward(TorchDispatchMode):
                 self.calls['ssm_conv'] += 1
                 return torch.from_numpy(output)
             def recurrence(q, k, v, g_log, beta, state):
+                self.validate_tensors(q, k, v, g_log, beta, state)
+                if q.ndim != 3 or k.shape != q.shape or v.ndim != 3 or v.shape[0] != q.shape[0] or v.shape[2] != q.shape[2] or v.shape[1] % q.shape[1] or tuple(g_log.shape) != tuple(v.shape[:2]) or beta.shape != g_log.shape or tuple(state.shape) != (v.shape[1],q.shape[2],q.shape[2]):
+                    raise ValueError('GDN token, head, dimension, gate, or state shapes do not match')
                 arrays = [x.contiguous().numpy() for x in (q,k,v,g_log,beta)]
                 s = state.transpose(-1,-2).contiguous().numpy()
                 output = np.empty(v.shape, np.float32)
@@ -133,6 +156,19 @@ class NativeForward(TorchDispatchMode):
 
     def __torch_dispatch__(self, func, types, args=(), kwargs=None):
         kwargs = kwargs or {}
+        if self.reductions and func == torch.ops.aten.sum.dim_IntList:
+            value, dims = args[:2]
+            keepdim = args[2] if len(args)>2 else kwargs.get('keepdim', False)
+            if tuple(dims) not in ((-1,), (value.ndim-1,)) or kwargs.get('dtype') not in (None, torch.float32):
+                raise ValueError('Native row sum supports the last float32 dimension only')
+            self.validate_tensors(value)
+            raw = value.contiguous().numpy()
+            output = np.empty(raw.shape[:-1], np.float32)
+            self.checked(self.lib.ngramma_sum_rows(raw.ctypes.data, output.ctypes.data,
+                raw.shape[-1], raw.size//raw.shape[-1], self.threads))
+            self.calls['sum_rows'] += 1
+            result = torch.from_numpy(output)
+            return result.unsqueeze(-1) if keepdim else result
         if self.primitives:
             unary_ops = {torch.ops.aten.silu.default:1, torch.ops.aten.sigmoid.default:2,
                          torch.ops.aten.exp.default:5}
@@ -150,12 +186,24 @@ class NativeForward(TorchDispatchMode):
                     raise ValueError('Native softplus supports default beta/threshold only')
                 return self.unary(args[0], 6)
         if self.matmul and func in (torch.ops.aten.mm.default, torch.ops.aten.mv.default):
+            vector_weight = False
             if func == torch.ops.aten.mm.default:
                 value, weight = args[:2]
             else:
                 weight, value = args[:2]
             record = self.weights.native_weight_views.get(weight.data_ptr())
+            if record is not None and record[0]() is None:
+                # Allocators reuse addresses. A dead decoded-weight entry must
+                # not hide the live vector weight on the other side of mv.
+                self.weights.native_weight_views.pop(weight.data_ptr(), None)
+                record = None
+            if self.reductions and func == torch.ops.aten.mv.default and record is None:
+                alternative = self.weights.native_weight_views.get(value.data_ptr())
+                if alternative is not None and len(alternative[3]) == 1:
+                    value, weight, record = weight, value, alternative
+                    vector_weight = True
             if record is not None and record[0]() is not None:
+                self.validate_tensors(value, weight)
                 _, raw_weights, qtype, shape = record
                 if len(shape)>2 or value.shape[-1] != shape[-1]:
                     raise ValueError('Unsupported transformed native weight view')
@@ -170,6 +218,10 @@ class NativeForward(TorchDispatchMode):
                 self.calls[f'matmul_type_{qtype}'] += 1
                 if self.repack:
                     self.calls['buffer_'+self.lib.ngramma_last_buffer_type().decode()] += 1
+                if vector_weight:
+                    self.calls['registered_vector_weight'] += 1
+                    return torch.from_numpy(output.reshape(-1))
                 return torch.from_numpy(output if value.ndim>1 else output.reshape(-1))
             self.calls['unregistered_mm_or_mv'] += 1
+            self.misses.append({'operator': str(func), 'argument_shapes': [list(x.shape) for x in args[:2]]})
         return func(*args, **kwargs)

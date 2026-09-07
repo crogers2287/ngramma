@@ -2,3 +2,5 @@
 reference/** -whitespace
 # Matplotlib emits whitespace inside SVG path data.
 figures/*.svg -whitespace
+experiments/**/figures/*.svg -whitespace
+experiments/**/patches/*.patch -whitespace

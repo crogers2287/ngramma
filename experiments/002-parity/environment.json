@@ -1,0 +1,16 @@
+{
+  "python": "3.12.3",
+  "platform": "Linux",
+  "architecture": "x86_64",
+  "packages": {
+    "numpy": "2.2.6",
+    "torch": "2.5.1+cu121",
+    "pytest": "9.0.2",
+    "matplotlib": "3.10.7"
+  },
+  "model_device": "CPU",
+  "replica_threads": 4,
+  "engine_threads": 8,
+  "teacher_training_calls": 0,
+  "note": "Actual installed versions for experiment 002; version ranges in pyproject.toml are not an exact dependency lock."
+}

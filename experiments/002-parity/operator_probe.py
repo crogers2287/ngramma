@@ -15,6 +15,7 @@ def main():
     parser.add_argument('--native-mode', choices=['primitives','matmul','all'], default='all')
     parser.add_argument('--native-recurrent', action='store_true')
     parser.add_argument('--native-repack', action='store_true')
+    parser.add_argument('--native-reductions', action='store_true')
     args = parser.parse_args()
     import numpy as np
     import torch
@@ -35,7 +36,7 @@ def main():
         weights = NativeEngineWeights(paths, ram_cache_bytes=2 << 30)
         native = NativeForward(weights, args.native_library,
             primitives=args.native_mode!='matmul', matmul=args.native_mode!='primitives',
-            recurrent=args.native_recurrent, repack=args.native_repack)
+            recurrent=args.native_recurrent, repack=args.native_repack, reductions=args.native_reductions)
     else:
         weights = EngineWeights(paths, ram_cache_bytes=2 << 30)
         native = None
@@ -119,6 +120,7 @@ def main():
               'native_calls':dict(native.calls) if native is not None else {},
               'native_recurrent':args.native_recurrent,
               'native_repack':args.native_repack,
+              'native_reductions':args.native_reductions,
               'native_build_record':native.build_record if native is not None else None,
               'native_library_sha256':native.library_sha256 if native is not None else None,
               'diagnostic_only': True, 'training_qualified': False}

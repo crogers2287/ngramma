@@ -1,0 +1,523 @@
+{
+  "schema": "ngramma-full-parity/v1",
+  "identity_sha256": "af848e254fb9a6ca6be56b8f14f1d369a6e705c3363c4c4ac6e5f0cc7e652f87",
+  "tokens": [
+    9419,
+    11,
+    1814,
+    0,
+    220,
+    17,
+    478,
+    220,
+    17,
+    283
+  ],
+  "threads": 4,
+  "cache_gib": 4,
+  "initialization_seconds": 59.414562143036164,
+  "forward_seconds": 166.30104625492822,
+  "peak_rss_gib": 14.997314453125,
+  "initial_available_gib": 111.82892608642578,
+  "max_logit_error": 6.02473258972168,
+  "mean_logit_error": 0.5585983395576477,
+  "selected_logprob_error_max": 1.0585123300552368,
+  "selected_logprob_error_by_position": [
+    0.06907832622528076,
+    0.045292019844055176,
+    0.11807325482368469,
+    0.2524803876876831,
+    0.6465334892272949,
+    0.06671088933944702,
+    0.03442186117172241,
+    1.0585123300552368,
+    0.09519216418266296,
+    0.10568705201148987
+  ],
+  "top1_agreement": 0.9,
+  "intermediates": [
+    {
+      "name": "ple_embd",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 25600
+    },
+    {
+      "name": "l_last-0",
+      "max_abs": 2.9802322387695312e-08,
+      "relative_rms": 5.6870683946229116e-08,
+      "different_values": 20417,
+      "values": 102400
+    },
+    {
+      "name": "l_last-1",
+      "max_abs": 5.960464477539063e-08,
+      "relative_rms": 8.823571898153636e-08,
+      "different_values": 58336,
+      "values": 102400
+    },
+    {
+      "name": "l_last-2",
+      "max_abs": 0.0002802181988954544,
+      "relative_rms": 0.0009603397339109573,
+      "different_values": 85527,
+      "values": 102400
+    },
+    {
+      "name": "l_last-3",
+      "max_abs": 0.0004074880853295326,
+      "relative_rms": 0.002222033923807266,
+      "different_values": 97433,
+      "values": 102400
+    },
+    {
+      "name": "l_last-4",
+      "max_abs": 0.007252026349306107,
+      "relative_rms": 0.016574640438607187,
+      "different_values": 102391,
+      "values": 102400
+    },
+    {
+      "name": "l_last-5",
+      "max_abs": 0.007494598627090454,
+      "relative_rms": 0.013347029189082836,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-6",
+      "max_abs": 0.01738521084189415,
+      "relative_rms": 0.023790206342577058,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-7",
+      "max_abs": 0.018919050693511963,
+      "relative_rms": 0.025231555492751405,
+      "different_values": 102398,
+      "values": 102400
+    },
+    {
+      "name": "l_last-8",
+      "max_abs": 0.01789066568017006,
+      "relative_rms": 0.0258738174825465,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-9",
+      "max_abs": 0.01778358593583107,
+      "relative_rms": 0.030585891963093602,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-10",
+      "max_abs": 0.017611384391784668,
+      "relative_rms": 0.03777334347400889,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-11",
+      "max_abs": 0.01722463220357895,
+      "relative_rms": 0.045346863444091855,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-12",
+      "max_abs": 0.019514404237270355,
+      "relative_rms": 0.05324216017917771,
+      "different_values": 102398,
+      "values": 102400
+    },
+    {
+      "name": "l_last-13",
+      "max_abs": 0.020990450866520405,
+      "relative_rms": 0.06389366692536812,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-14",
+      "max_abs": 0.02816725429147482,
+      "relative_rms": 0.07209734852705608,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-15",
+      "max_abs": 0.03443285450339317,
+      "relative_rms": 0.07730473598662888,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-16",
+      "max_abs": 0.0453483909368515,
+      "relative_rms": 0.08950087054917542,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-17",
+      "max_abs": 0.049045220017433167,
+      "relative_rms": 0.10320168874242465,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-18",
+      "max_abs": 0.04708646144717932,
+      "relative_rms": 0.11289737968854094,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-19",
+      "max_abs": 0.046683209016919136,
+      "relative_rms": 0.11639447613375507,
+      "different_values": 102399,
+      "values": 102400
+    },
+    {
+      "name": "l_last-20",
+      "max_abs": 0.04786445968784392,
+      "relative_rms": 0.1181922154593292,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-21",
+      "max_abs": 0.04846728523261845,
+      "relative_rms": 0.1299837050528373,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-22",
+      "max_abs": 0.04917361959815025,
+      "relative_rms": 0.13125196621667076,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-23",
+      "max_abs": 0.05441363714635372,
+      "relative_rms": 0.13832566722139952,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-24",
+      "max_abs": 0.05765461781993508,
+      "relative_rms": 0.14412086752721118,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-25",
+      "max_abs": 0.06659100949764252,
+      "relative_rms": 0.1519607509718169,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-26",
+      "max_abs": 0.07907893508672714,
+      "relative_rms": 0.16211042742876638,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-27",
+      "max_abs": 0.07157036289572716,
+      "relative_rms": 0.18306106403612435,
+      "different_values": 102399,
+      "values": 102400
+    },
+    {
+      "name": "l_last-28",
+      "max_abs": 0.08481914550065994,
+      "relative_rms": 0.20116436912197103,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-29",
+      "max_abs": 0.1159910261631012,
+      "relative_rms": 0.22791771958187887,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-30",
+      "max_abs": 0.18350954353809357,
+      "relative_rms": 0.2567769379856932,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-31",
+      "max_abs": 0.18365129828453064,
+      "relative_rms": 0.27396473849924396,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-32",
+      "max_abs": 0.22267450205981731,
+      "relative_rms": 0.3081310449304715,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-33",
+      "max_abs": 0.24796552956104279,
+      "relative_rms": 0.3293462695354177,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-34",
+      "max_abs": 0.268202006816864,
+      "relative_rms": 0.3421635617554579,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-35",
+      "max_abs": 0.2964143753051758,
+      "relative_rms": 0.3758402727462376,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-36",
+      "max_abs": 0.5190681368112564,
+      "relative_rms": 0.38284656594068595,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-37",
+      "max_abs": 0.5010310336947441,
+      "relative_rms": 0.39625626380756074,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-38",
+      "max_abs": 0.5038275681436062,
+      "relative_rms": 0.4007373755237367,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-39",
+      "max_abs": 0.6595019698143005,
+      "relative_rms": 0.42725836086919117,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-40",
+      "max_abs": 0.7909981310367584,
+      "relative_rms": 0.4405495947478032,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-41",
+      "max_abs": 0.7851409316062927,
+      "relative_rms": 0.4499602311779823,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-42",
+      "max_abs": 0.8353654742240906,
+      "relative_rms": 0.4439979733165737,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-43",
+      "max_abs": 0.8212660551071167,
+      "relative_rms": 0.4517468529824067,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-44",
+      "max_abs": 1.3446391075849533,
+      "relative_rms": 0.44312499981145215,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-45",
+      "max_abs": 2.119863986968994,
+      "relative_rms": 0.40338495184635353,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-46",
+      "max_abs": 2.2891311645507812,
+      "relative_rms": 0.4096486775197139,
+      "different_values": 102400,
+      "values": 102400
+    },
+    {
+      "name": "l_last-47",
+      "max_abs": 3.1286678314208984,
+      "relative_rms": 0.4105892958784594,
+      "different_values": 102400,
+      "values": 102400
+    }
+  ],
+  "weight_io": {
+    "decoded_bytes": 59518807552,
+    "quantized_bytes_read": 6452588552,
+    "dequant_seconds": 148.33611456432845,
+    "cache_hits": 0,
+    "cache_misses": 1030
+  },
+  "logit_parity": false,
+  "intermediate_parity": false,
+  "thresholds": {
+    "selected_logprob_nats_strictly_below": 0.02,
+    "relative_rms_strictly_below": 0.01
+  },
+  "native_library_sha256": "6215e7016b0b133c0699c35cc4f354ce9bb9c136d39b03878bb800cd5aba268d",
+  "native_recurrent": true,
+  "native_repack": true,
+  "native_build_record": {
+    "schema_version": 1,
+    "library_sha256": "6215e7016b0b133c0699c35cc4f354ce9bb9c136d39b03878bb800cd5aba268d",
+    "sources": {
+      "ggml_forward.cpp": "9dc66c02e180ef19e91aa90f07fa1250be7ba9a1f45aaf360757e8a365515572",
+      "build_forward_bridge.py": "00de34b09584cc329f66ea79b6d42a4a8359ad7330cb41e3647d2305cfd30b93"
+    },
+    "headers": {
+      "ggml-alloc.h": "94e4cd069b9313b2ceb35dacec901981e0bb478d8bb31035b7126be091998c23",
+      "ggml-backend.h": "f9bafda615fafa73306bed0a2c3d5a459cba2c19c9d76e1dc0adc2b3fd0cb2c8",
+      "ggml-blas.h": "e76cb8594dc9866d99e7d63191b9fff6ab8b50244b4a28ce3af0f962964a6b5b",
+      "ggml-cann.h": "2cdb134f27fe5c4ec19d52f1eb58f5355aa42b8f54bf385f0e487501c5df7362",
+      "ggml-cpp.h": "bc15ba002c68685df23faae42df0d2b3d58032011f88b649021ab92485862c72",
+      "ggml-cpu.h": "316279e004cdeb8e6ef78599acb602bf79a8abdf897fed9fd1914808c1518c6e",
+      "ggml-cuda.h": "9cbfcea49f6da4d07f41dc22fa8dbf870825faaa2a68e34e65fe30ea6c41e042",
+      "ggml-et.h": "33118c0642b8059a99ea930fd4e4a045e78ccb41760b173ede221f1297c35977",
+      "ggml-hexagon.h": "b2c12bac390f14707b16bdd27c8c75ce4f075ed509c729ee28fd4f03b17e7375",
+      "ggml-metal.h": "322f36cd30f3e9e7aad7b5b9bc63078012fd0b7706ac4e24f5721b604f3d8980",
+      "ggml-opencl.h": "8e443e1aa9c8bc6e0cf116c4cc3f42f4858938fa15e65b06bc07b26686e1233a",
+      "ggml-openvino.h": "c2e3f301e28ad815b4285888aad6130808a77e6acb4e8b558de63a648cf9743e",
+      "ggml-opt.h": "3586de1bc8a934b5c72339e2b6937b0641e8f149b512231e666f67de0736eea2",
+      "ggml-rpc.h": "505c01e4575c06a3b01cdbbb5688368baaabf6223a36eeafd918057251da6e43",
+      "ggml-sycl.h": "58429f8045b335f5e740faa2198caf72ba3beb04df0eb970103b932340daca8b",
+      "ggml-virtgpu.h": "ed231e7db3f0f58b84073f5ee67f9ec9d63046d1a7ed091c36a6cfe9f685a463",
+      "ggml-vulkan.h": "7eae5dad2cc7bb4d3eca828539f441816d5fd59fdc7b224d49aa229fc7b7248c",
+      "ggml-webgpu.h": "a91d855313a9e85e75ba597ff869a267247dea936a2c0faef03aeb7f1ea6e79c",
+      "ggml-zdnn.h": "ee1d79c95ade45ba195a6b71f59a05c18617de4a596d2b2b03ecf38975a9a448",
+      "ggml-zendnn.h": "2cb034b842438281616ce647232d922fb224450323f0d422d2af567c334aa8ff",
+      "ggml.h": "b834c28904934a65dc2b53a0115ae50e33126cc305ae4489bb781ad880b09b5c",
+      "gguf.h": "e56714aab702e5ce62ee587a409643c08f7e93e8fbb77f48ef7cc85075f96fa4"
+    },
+    "linked_libraries": {
+      "libggml-cpu.so": "501229e5937a6f9c0e6397ac6e67a7bf3242779a92639b119a970d2b1e4a352c",
+      "libggml-base.so": "8c6dd2c346e0d2b94a15499c6eccc40b73be9f175f4733e76c31656ddc776fa9"
+    },
+    "compiler": {
+      "executable": "c++",
+      "version": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
+    },
+    "command": [
+      "c++",
+      "-std=c++17",
+      "-O2",
+      "-fPIC",
+      "-shared",
+      "-pthread",
+      "-I",
+      "<ENGINE_SOURCE>/ggml/include",
+      "<REPOSITORY>/src/ngramma_runtime/native/ggml_forward.cpp",
+      "-L",
+      "<RUNTIME>",
+      "-lggml-cpu",
+      "-lggml-base",
+      "-Wl,-z,defs",
+      "-Xlinker",
+      "-rpath",
+      "-Xlinker",
+      "<RUNTIME>",
+      "-o",
+      "<OUTPUT>"
+    ],
+    "qualification": "Compiled forward-only primitive bridge; no model-parity or gradient qualification"
+  },
+  "native_calls": {
+    "unary_0": 160,
+    "matmul_type_8": 196,
+    "buffer_CPU": 14861,
+    "unary_1": 4982,
+    "unary_2": 326,
+    "matmul_type_0": 264,
+    "matmul_type_2": 300,
+    "buffer_CPU_REPACK": 300,
+    "unary_6": 36,
+    "ssm_conv": 36,
+    "unary_3": 72,
+    "gated_delta_net": 36,
+    "unary_4": 108,
+    "matmul_type_22": 9400,
+    "matmul_type_42": 4800,
+    "unregistered_mm_or_mv": 48,
+    "fallback_dilated_conv": 1,
+    "matmul_type_21": 200,
+    "matmul_type_14": 1
+  },
+  "source_sha256": {
+    "experiments/002-parity/full_probe.py": "32bf9254bc6cdaaf2d54d5a0c655f4d1b5c0826954c0c53f02bef204e2484fff",
+    "src/ngramma_runtime/__init__.py": "fb03a4eb2bf710a5318117f943bbbeaec8b94dddb9684ba50cae0753b7fa8ca4",
+    "src/ngramma_runtime/_activation_reference.py": "618671c70a8269c333f07a4afc596a4f2e3119fae91355cf7a5f7ad20fb7c880",
+    "src/ngramma_runtime/_sequence.py": "eb67d866fc20eec1fe4e4d9cc7b14579f59fe3e09ff6a19149242677e0fefd67",
+    "src/ngramma_runtime/_table.py": "5a8eb0390b08bd91e08f7615049eff6abbfb1819b25e14be583e448a45f9a0e7",
+    "src/ngramma_runtime/_weights.py": "11222f1e58cbd60aa6fe84626a0912ea78a0578f0af0a7bd04869867e492eb84",
+    "src/ngramma_runtime/activation_reference.py": "cff5dddea58b2a536224501b0576f9c6f16f8c13a9ec64ba96cf4fd9dd4fc6f3",
+    "src/ngramma_runtime/artifacts.py": "d9b26ac2a471364abf771a5bb6ede5612bb4650dd1e872741dac5cd38e8532c0",
+    "src/ngramma_runtime/environment.py": "7df6d516b826e7658face1a3741da697c4989d2af0067ea36c7a54e1302a9bd2",
+    "src/ngramma_runtime/native_forward.py": "30427a17555925a32cdb71d327496185fce8576737137ec1b2ec04743990f548",
+    "src/ngramma_runtime/resources.py": "2404ebf4e6d7deb864a7393595b3a64121fd631aadb622f3cba42a9676a872eb",
+    "src/ngramma_runtime/sequence.py": "f7f98da817a1743c4bee5672525461aef38a6ebf6b880c14a8457b39a0734036",
+    "src/ngramma_runtime/table.py": "ecda1dc6893104e511498b1737cd3891fd0b9c992a2c2b1c670541a6cb7ed1c9",
+    "src/ngramma_runtime/weights.py": "d75422a723754da31b5b2df6c940ce242763924efdea5cba8de7c22472821d82",
+    "src/ngramma_runtime/native/ggml_forward.cpp": "9dc66c02e180ef19e91aa90f07fa1250be7ba9a1f45aaf360757e8a365515572"
+  },
+  "dependency_sha256": {
+    "libflash-memory-dequant.so": "c5aaa5c647292739144e1f761caa88dbc3f67ec34c112eed0b6d53da4fa1ef01",
+    "libggml-base.so": "8c6dd2c346e0d2b94a15499c6eccc40b73be9f175f4733e76c31656ddc776fa9",
+    "libggml-cpu.so": "501229e5937a6f9c0e6397ac6e67a7bf3242779a92639b119a970d2b1e4a352c",
+    "libggml-cuda.so": "64b56fed5626104a2d7d3b7009fcb1c5978fb2f36898ed9865994e3253ffcd5c",
+    "libggml-rpc.so": "fe861d0885bcd416ed642547d73965f7242e89baf6c4b2ac40aec067d0d46c2a",
+    "libggml.so": "8a98a858030637ff98f7aebb60fa36f75b07e0bdb28ced0741df9a9e1584521e",
+    "libllama-cli-impl.so": "72cec08d581328b03480c590cae907786608ce68524f6f19add8ed6b1b656e56",
+    "libllama-common.so": "96ced3d2c5a2ba247f377db43a2eff917e57e25ce9b7939ead7b682178ab75cd",
+    "libllama-server-impl.so": "af193269774994efadaa95c50934a9624daa93004e7e2332b99ef9216d6c289e",
+    "libllama.so": "86d051fe73cbf5ddbfbfa11c6ea43e7172ce5dbca77199a3bdf1b06c38a088b5",
+    "libmtmd.so": "94335326aded12b94cd75f516863982e0e8c687b1e2a1b317e03661f8edf10ff"
+  },
+  "source_hash_scope": "Before model initialization; native build identity is recorded separately.",
+  "sources_changed_during_run": [],
+  "reference_sha256": {
+    "tokens.json": "26dfebea482a0f01576c1cfd29e01585b0b8f76fc9f760aef9a3ff8fd1791206",
+    "tensors.json": "1a4e5d68486482f4c5cfd3a46951b42ec0c1a016000d752ead2fa4f50ccdce6d",
+    "logits.f32": "c822d10a471e7b9db09492edf17c782271b2284b30ee731cc13505a9d8869c48"
+  },
+  "diagnostic_only": true,
+  "admitted_for_gradients": false,
+  "note": "One short CPU sequence. Native operators have no backward implementation. This is not broad forward or training qualification."
+}

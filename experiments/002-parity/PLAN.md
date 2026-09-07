@@ -1,6 +1,8 @@
 # Experiment 002: locate the remaining forward mismatch
 
-Status: in progress. Historical experiment 001 evidence stays unchanged.
+Status: first diagnostic cycle completed; full-model numerical gate still fails.
+Layers 0–2 match bit-for-bit on the original fixture. The next cycle starts at
+layer 3. Historical experiment 001 evidence stays unchanged.
 
 The first experiment matched native memory reads, but its full sequence reference
 still differed from inference. This experiment first locates the earliest

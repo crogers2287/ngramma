@@ -41,6 +41,21 @@ def pointers(*arrays):
     return [value.ctypes.data for value in arrays]
 
 
+@pytest.mark.parametrize('width', [3, 10, 160, 2560])
+def test_row_sum_precision(bridge, np, width):
+    if not hasattr(bridge, 'ngramma_sum_rows'):
+        pytest.skip('This recorded control library predates row-sum support')
+    bridge.ngramma_sum_rows.argtypes = [ct.c_void_p]*2 + [ct.c_int64]*2 + [ct.c_int]
+    bridge.ngramma_sum_rows.restype = ct.c_int
+    values = np.zeros((2, width), dtype=np.float32)
+    values[0, :3] = [1e8, 1, -1e8]
+    values[1] = np.linspace(-.3, .9, width, dtype=np.float32)
+    output = np.empty(2, dtype=np.float32)
+    okay(bridge, bridge.ngramma_sum_rows(*pointers(values, output), width, 2, 2))
+    np.testing.assert_array_equal(output, values.astype(np.float64).sum(-1).astype(np.float32))
+    assert output[0] == 1  # A float32 running sum loses this contribution.
+
+
 def okay(bridge, code):
     assert code == 0, bridge.ngramma_last_error().decode()
 

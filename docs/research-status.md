@@ -29,10 +29,12 @@ The handoff's desired deliverable—an immutable overlay that improves unseen ta
 ## Next research milestone
 
 [Experiment 002](../experiments/002-parity/REPORT.md) adds a configurable CPU
-forward harness and exact first-mixer diagnostics. Its latest full-model control
-still fails (8/10 top tokens; 2.704-nat maximum selected-token log-probability
-error). Native operations have no backward implementation; M2 and M4 remain
+forward harness and bit-identical outputs through layers 0–2, including the
+memory-bearing layer, on the original ten-token fixture. Its final full-model
+control still fails (9/10 top tokens; 0.906-nat maximum selected-token
+log-probability error). The first remaining difference appears at layer 3.
+Native operations have no backward implementation; M2 and M4 remain
 unqualified. Consult that report for current measurements rather than treating
 lower component error as model-level success.
 
-Resolve the complete first-layer numerical path and expand full forward checks. Then validate directional gradients in stable-routing cases and investigate routing/quantization boundaries. In independent task work, find a reminder advantage that repeats under a fixed protocol. These are prerequisites for M2/M3, not a request to skip directly to broad training.
+Isolate the layer-3 operations and expand full forward checks. Then validate directional gradients in stable-routing cases and investigate routing/quantization boundaries. In independent task work, find a reminder advantage that repeats under a fixed protocol. These are prerequisites for M2/M3, not a request to skip directly to broad training.

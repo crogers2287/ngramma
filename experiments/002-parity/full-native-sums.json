@@ -1,0 +1,526 @@
+{
+  "schema": "ngramma-full-parity/v1",
+  "identity_sha256": "af848e254fb9a6ca6be56b8f14f1d369a6e705c3363c4c4ac6e5f0cc7e652f87",
+  "tokens": [
+    9419,
+    11,
+    1814,
+    0,
+    220,
+    17,
+    478,
+    220,
+    17,
+    283
+  ],
+  "threads": 4,
+  "cache_gib": 4,
+  "initialization_seconds": 60.94754342595115,
+  "forward_seconds": 140.16510401200503,
+  "peak_rss_gib": 14.997493743896484,
+  "initial_available_gib": 119.01930236816406,
+  "max_logit_error": 5.799724578857422,
+  "mean_logit_error": 0.4170304834842682,
+  "selected_logprob_error_max": 0.9055547714233398,
+  "selected_logprob_error_by_position": [
+    0.0,
+    0.19535577297210693,
+    0.02108481526374817,
+    0.1369604468345642,
+    0.09122252464294434,
+    0.1181035041809082,
+    0.04423287883400917,
+    0.9055547714233398,
+    0.10757043957710266,
+    0.018288135528564453
+  ],
+  "top1_agreement": 0.9,
+  "intermediates": [
+    {
+      "name": "ple_embd",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 25600
+    },
+    {
+      "name": "l_last-0",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-1",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-2",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-3",
+      "max_abs": 0.00020238314755260944,
+      "relative_rms": 0.0005605580436522214,
+      "different_values": 30714,
+      "values": 102400
+    },
+    {
+      "name": "l_last-4",
+      "max_abs": 0.000783636118285358,
+      "relative_rms": 0.0017323288444263153,
+      "different_values": 30720,
+      "values": 102400
+    },
+    {
+      "name": "l_last-5",
+      "max_abs": 0.0008447989821434021,
+      "relative_rms": 0.0019875971076811117,
+      "different_values": 30720,
+      "values": 102400
+    },
+    {
+      "name": "l_last-6",
+      "max_abs": 0.0011797882616519928,
+      "relative_rms": 0.0026072776640757808,
+      "different_values": 30720,
+      "values": 102400
+    },
+    {
+      "name": "l_last-7",
+      "max_abs": 0.001674201339483261,
+      "relative_rms": 0.0034257572775155468,
+      "different_values": 40956,
+      "values": 102400
+    },
+    {
+      "name": "l_last-8",
+      "max_abs": 0.0028343647718429565,
+      "relative_rms": 0.0037806554479665783,
+      "different_values": 61435,
+      "values": 102400
+    },
+    {
+      "name": "l_last-9",
+      "max_abs": 0.0038956329226493835,
+      "relative_rms": 0.00709270752176502,
+      "different_values": 61439,
+      "values": 102400
+    },
+    {
+      "name": "l_last-10",
+      "max_abs": 0.00374290207400918,
+      "relative_rms": 0.007557052060591302,
+      "different_values": 61439,
+      "values": 102400
+    },
+    {
+      "name": "l_last-11",
+      "max_abs": 0.00791372382082045,
+      "relative_rms": 0.014864958719043711,
+      "different_values": 61440,
+      "values": 102400
+    },
+    {
+      "name": "l_last-12",
+      "max_abs": 0.007676262175664306,
+      "relative_rms": 0.01961366570099248,
+      "different_values": 61440,
+      "values": 102400
+    },
+    {
+      "name": "l_last-13",
+      "max_abs": 0.01301111001521349,
+      "relative_rms": 0.030551706892973752,
+      "different_values": 61440,
+      "values": 102400
+    },
+    {
+      "name": "l_last-14",
+      "max_abs": 0.016785621643066406,
+      "relative_rms": 0.03856443174425304,
+      "different_values": 61439,
+      "values": 102400
+    },
+    {
+      "name": "l_last-15",
+      "max_abs": 0.018846373073756695,
+      "relative_rms": 0.042825397844238014,
+      "different_values": 71675,
+      "values": 102400
+    },
+    {
+      "name": "l_last-16",
+      "max_abs": 0.02513281535357237,
+      "relative_rms": 0.05292309087477639,
+      "different_values": 92156,
+      "values": 102400
+    },
+    {
+      "name": "l_last-17",
+      "max_abs": 0.029980197548866272,
+      "relative_rms": 0.060186040392147915,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-18",
+      "max_abs": 0.028012149035930634,
+      "relative_rms": 0.06604315379473334,
+      "different_values": 92159,
+      "values": 102400
+    },
+    {
+      "name": "l_last-19",
+      "max_abs": 0.03304023016244173,
+      "relative_rms": 0.07057299405003443,
+      "different_values": 92158,
+      "values": 102400
+    },
+    {
+      "name": "l_last-20",
+      "max_abs": 0.032240882981568575,
+      "relative_rms": 0.0720117032848235,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-21",
+      "max_abs": 0.03206778131425381,
+      "relative_rms": 0.07696699006616761,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-22",
+      "max_abs": 0.033093320205807686,
+      "relative_rms": 0.07810071034648416,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-23",
+      "max_abs": 0.03566431859508157,
+      "relative_rms": 0.08454104307406166,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-24",
+      "max_abs": 0.04119749087840319,
+      "relative_rms": 0.08968501900001812,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-25",
+      "max_abs": 0.04835533816367388,
+      "relative_rms": 0.09828049711106783,
+      "different_values": 92159,
+      "values": 102400
+    },
+    {
+      "name": "l_last-26",
+      "max_abs": 0.07198545709252357,
+      "relative_rms": 0.10774279340917461,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-27",
+      "max_abs": 0.06943527422845364,
+      "relative_rms": 0.12205567089723676,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-28",
+      "max_abs": 0.0706221666187048,
+      "relative_rms": 0.13850879163278645,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-29",
+      "max_abs": 0.08283283933997154,
+      "relative_rms": 0.15775636067493898,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-30",
+      "max_abs": 0.1236591674387455,
+      "relative_rms": 0.18134696424894362,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-31",
+      "max_abs": 0.15885430574417114,
+      "relative_rms": 0.21021711210277375,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-32",
+      "max_abs": 0.19392666965723038,
+      "relative_rms": 0.22929217720415115,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-33",
+      "max_abs": 0.2206059768795967,
+      "relative_rms": 0.24849578238626066,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-34",
+      "max_abs": 0.2140096090734005,
+      "relative_rms": 0.26304141112628315,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-35",
+      "max_abs": 0.2608953267335892,
+      "relative_rms": 0.2896622068279114,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-36",
+      "max_abs": 0.5744157433509827,
+      "relative_rms": 0.3058545062476313,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-37",
+      "max_abs": 0.5765865445137024,
+      "relative_rms": 0.3205649813504745,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-38",
+      "max_abs": 0.5762651860713959,
+      "relative_rms": 0.3258751059857125,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-39",
+      "max_abs": 0.6597389206290245,
+      "relative_rms": 0.3411539824380516,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-40",
+      "max_abs": 0.6592759042978287,
+      "relative_rms": 0.35303858789644377,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-41",
+      "max_abs": 0.7200043499469757,
+      "relative_rms": 0.36379597056899193,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-42",
+      "max_abs": 0.7215909063816071,
+      "relative_rms": 0.36384995719671653,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-43",
+      "max_abs": 0.6791315674781799,
+      "relative_rms": 0.3682010729682977,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-44",
+      "max_abs": 1.1042959094047546,
+      "relative_rms": 0.3622799075561443,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-45",
+      "max_abs": 1.668325424194336,
+      "relative_rms": 0.33268638791375643,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-46",
+      "max_abs": 2.869385778903961,
+      "relative_rms": 0.3478133628610606,
+      "different_values": 92160,
+      "values": 102400
+    },
+    {
+      "name": "l_last-47",
+      "max_abs": 2.7912075221538544,
+      "relative_rms": 0.3454061505413067,
+      "different_values": 92160,
+      "values": 102400
+    }
+  ],
+  "weight_io": {
+    "decoded_bytes": 59007626752,
+    "quantized_bytes_read": 6413318152,
+    "dequant_seconds": 123.15012631996069,
+    "cache_hits": 0,
+    "cache_misses": 1030
+  },
+  "logit_parity": false,
+  "intermediate_parity": false,
+  "thresholds": {
+    "selected_logprob_nats_strictly_below": 0.02,
+    "relative_rms_strictly_below": 0.01
+  },
+  "native_library_sha256": "576e66e121b3ca8fd590bd6a707bc44e6a9e016404db79555ddbb11a02f0ddfe",
+  "native_recurrent": true,
+  "native_repack": true,
+  "native_reductions": true,
+  "native_build_record": {
+    "schema_version": 1,
+    "library_sha256": "576e66e121b3ca8fd590bd6a707bc44e6a9e016404db79555ddbb11a02f0ddfe",
+    "sources": {
+      "ggml_forward.cpp": "a275d135e65247dbfbc75003d5a6308e50a9705b4df4fec5f93982756aa53489",
+      "build_forward_bridge.py": "00de34b09584cc329f66ea79b6d42a4a8359ad7330cb41e3647d2305cfd30b93"
+    },
+    "headers": {
+      "ggml-alloc.h": "94e4cd069b9313b2ceb35dacec901981e0bb478d8bb31035b7126be091998c23",
+      "ggml-backend.h": "f9bafda615fafa73306bed0a2c3d5a459cba2c19c9d76e1dc0adc2b3fd0cb2c8",
+      "ggml-blas.h": "e76cb8594dc9866d99e7d63191b9fff6ab8b50244b4a28ce3af0f962964a6b5b",
+      "ggml-cann.h": "2cdb134f27fe5c4ec19d52f1eb58f5355aa42b8f54bf385f0e487501c5df7362",
+      "ggml-cpp.h": "bc15ba002c68685df23faae42df0d2b3d58032011f88b649021ab92485862c72",
+      "ggml-cpu.h": "316279e004cdeb8e6ef78599acb602bf79a8abdf897fed9fd1914808c1518c6e",
+      "ggml-cuda.h": "9cbfcea49f6da4d07f41dc22fa8dbf870825faaa2a68e34e65fe30ea6c41e042",
+      "ggml-et.h": "33118c0642b8059a99ea930fd4e4a045e78ccb41760b173ede221f1297c35977",
+      "ggml-hexagon.h": "b2c12bac390f14707b16bdd27c8c75ce4f075ed509c729ee28fd4f03b17e7375",
+      "ggml-metal.h": "322f36cd30f3e9e7aad7b5b9bc63078012fd0b7706ac4e24f5721b604f3d8980",
+      "ggml-opencl.h": "8e443e1aa9c8bc6e0cf116c4cc3f42f4858938fa15e65b06bc07b26686e1233a",
+      "ggml-openvino.h": "c2e3f301e28ad815b4285888aad6130808a77e6acb4e8b558de63a648cf9743e",
+      "ggml-opt.h": "3586de1bc8a934b5c72339e2b6937b0641e8f149b512231e666f67de0736eea2",
+      "ggml-rpc.h": "505c01e4575c06a3b01cdbbb5688368baaabf6223a36eeafd918057251da6e43",
+      "ggml-sycl.h": "58429f8045b335f5e740faa2198caf72ba3beb04df0eb970103b932340daca8b",
+      "ggml-virtgpu.h": "ed231e7db3f0f58b84073f5ee67f9ec9d63046d1a7ed091c36a6cfe9f685a463",
+      "ggml-vulkan.h": "7eae5dad2cc7bb4d3eca828539f441816d5fd59fdc7b224d49aa229fc7b7248c",
+      "ggml-webgpu.h": "a91d855313a9e85e75ba597ff869a267247dea936a2c0faef03aeb7f1ea6e79c",
+      "ggml-zdnn.h": "ee1d79c95ade45ba195a6b71f59a05c18617de4a596d2b2b03ecf38975a9a448",
+      "ggml-zendnn.h": "2cb034b842438281616ce647232d922fb224450323f0d422d2af567c334aa8ff",
+      "ggml.h": "b834c28904934a65dc2b53a0115ae50e33126cc305ae4489bb781ad880b09b5c",
+      "gguf.h": "e56714aab702e5ce62ee587a409643c08f7e93e8fbb77f48ef7cc85075f96fa4"
+    },
+    "linked_libraries": {
+      "libggml-cpu.so": "501229e5937a6f9c0e6397ac6e67a7bf3242779a92639b119a970d2b1e4a352c",
+      "libggml-base.so": "8c6dd2c346e0d2b94a15499c6eccc40b73be9f175f4733e76c31656ddc776fa9"
+    },
+    "compiler": {
+      "executable": "c++",
+      "version": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
+    },
+    "command": [
+      "c++",
+      "-std=c++17",
+      "-O2",
+      "-fPIC",
+      "-shared",
+      "-pthread",
+      "-I",
+      "<ENGINE_SOURCE>/ggml/include",
+      "<REPOSITORY>/src/ngramma_runtime/native/ggml_forward.cpp",
+      "-L",
+      "<RUNTIME>",
+      "-lggml-cpu",
+      "-lggml-base",
+      "-Wl,-z,defs",
+      "-Xlinker",
+      "-rpath",
+      "-Xlinker",
+      "<RUNTIME>",
+      "-o",
+      "<OUTPUT>"
+    ],
+    "qualification": "Compiled forward-only primitive bridge; no model-parity or gradient qualification"
+  },
+  "native_calls": {
+    "unary_0": 160,
+    "matmul_type_8": 196,
+    "buffer_CPU": 14909,
+    "unary_1": 4982,
+    "unary_2": 326,
+    "matmul_type_0": 312,
+    "matmul_type_2": 300,
+    "buffer_CPU_REPACK": 300,
+    "unary_6": 36,
+    "ssm_conv": 36,
+    "unary_3": 72,
+    "gated_delta_net": 36,
+    "unary_4": 108,
+    "sum_rows": 49,
+    "matmul_type_22": 9400,
+    "matmul_type_42": 4800,
+    "registered_vector_weight": 48,
+    "fallback_dilated_conv": 1,
+    "matmul_type_21": 200,
+    "matmul_type_14": 1
+  },
+  "native_misses": [],
+  "source_sha256": {
+    "experiments/002-parity/full_probe.py": "80254f4e955a24d5209430dbd6a42f0a5152d4ba1506026dda9fa5affb989f9d",
+    "src/ngramma_runtime/__init__.py": "fb03a4eb2bf710a5318117f943bbbeaec8b94dddb9684ba50cae0753b7fa8ca4",
+    "src/ngramma_runtime/_activation_reference.py": "618671c70a8269c333f07a4afc596a4f2e3119fae91355cf7a5f7ad20fb7c880",
+    "src/ngramma_runtime/_sequence.py": "eb67d866fc20eec1fe4e4d9cc7b14579f59fe3e09ff6a19149242677e0fefd67",
+    "src/ngramma_runtime/_table.py": "5a8eb0390b08bd91e08f7615049eff6abbfb1819b25e14be583e448a45f9a0e7",
+    "src/ngramma_runtime/_weights.py": "11222f1e58cbd60aa6fe84626a0912ea78a0578f0af0a7bd04869867e492eb84",
+    "src/ngramma_runtime/activation_reference.py": "cff5dddea58b2a536224501b0576f9c6f16f8c13a9ec64ba96cf4fd9dd4fc6f3",
+    "src/ngramma_runtime/artifacts.py": "d9b26ac2a471364abf771a5bb6ede5612bb4650dd1e872741dac5cd38e8532c0",
+    "src/ngramma_runtime/environment.py": "7df6d516b826e7658face1a3741da697c4989d2af0067ea36c7a54e1302a9bd2",
+    "src/ngramma_runtime/native_forward.py": "75c9388d02409b34a6d453af462ad7cb287f01f71f561e3fa21ab82ac5f8af10",
+    "src/ngramma_runtime/resources.py": "2404ebf4e6d7deb864a7393595b3a64121fd631aadb622f3cba42a9676a872eb",
+    "src/ngramma_runtime/sequence.py": "f7f98da817a1743c4bee5672525461aef38a6ebf6b880c14a8457b39a0734036",
+    "src/ngramma_runtime/table.py": "ecda1dc6893104e511498b1737cd3891fd0b9c992a2c2b1c670541a6cb7ed1c9",
+    "src/ngramma_runtime/weights.py": "d75422a723754da31b5b2df6c940ce242763924efdea5cba8de7c22472821d82",
+    "src/ngramma_runtime/native/ggml_forward.cpp": "a275d135e65247dbfbc75003d5a6308e50a9705b4df4fec5f93982756aa53489"
+  },
+  "dependency_sha256": {
+    "libflash-memory-dequant.so": "c5aaa5c647292739144e1f761caa88dbc3f67ec34c112eed0b6d53da4fa1ef01",
+    "libggml-base.so": "8c6dd2c346e0d2b94a15499c6eccc40b73be9f175f4733e76c31656ddc776fa9",
+    "libggml-cpu.so": "501229e5937a6f9c0e6397ac6e67a7bf3242779a92639b119a970d2b1e4a352c",
+    "libggml-cuda.so": "64b56fed5626104a2d7d3b7009fcb1c5978fb2f36898ed9865994e3253ffcd5c",
+    "libggml-rpc.so": "fe861d0885bcd416ed642547d73965f7242e89baf6c4b2ac40aec067d0d46c2a",
+    "libggml.so": "8a98a858030637ff98f7aebb60fa36f75b07e0bdb28ced0741df9a9e1584521e",
+    "libllama-cli-impl.so": "72cec08d581328b03480c590cae907786608ce68524f6f19add8ed6b1b656e56",
+    "libllama-common.so": "96ced3d2c5a2ba247f377db43a2eff917e57e25ce9b7939ead7b682178ab75cd",
+    "libllama-server-impl.so": "af193269774994efadaa95c50934a9624daa93004e7e2332b99ef9216d6c289e",
+    "libllama.so": "86d051fe73cbf5ddbfbfa11c6ea43e7172ce5dbca77199a3bdf1b06c38a088b5",
+    "libmtmd.so": "94335326aded12b94cd75f516863982e0e8c687b1e2a1b317e03661f8edf10ff"
+  },
+  "source_hash_scope": "Before model initialization; native build identity is recorded separately.",
+  "sources_changed_during_run": [],
+  "reference_sha256": {
+    "tokens.json": "26dfebea482a0f01576c1cfd29e01585b0b8f76fc9f760aef9a3ff8fd1791206",
+    "tensors.json": "1a4e5d68486482f4c5cfd3a46951b42ec0c1a016000d752ead2fa4f50ccdce6d",
+    "logits.f32": "c822d10a471e7b9db09492edf17c782271b2284b30ee731cc13505a9d8869c48"
+  },
+  "diagnostic_only": true,
+  "admitted_for_gradients": false,
+  "note": "One short CPU sequence. Native operators have no backward implementation. This is not broad forward or training qualification."
+}

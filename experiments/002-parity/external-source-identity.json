@@ -1,0 +1,49 @@
+{
+  "schema": "ngramma-external-python-source/v1",
+  "note": "External Python source files used throughout experiment 002; local paths omitted. These trees were read-only during the experiment. Native-library and header identities are recorded separately.",
+  "packages": {
+    "engraft": {
+      "__init__.py": "c1842d47c4709a1692abb92d72ee4669d0e714bae2bd907933319799eb969667",
+      "check.py": "dc498dbc1d0490181fcd1bb567ae111fb33a4658c12e6c9a1f8b454469dce4a5",
+      "config.py": "a44e314492263c7a8f2ca7ce05f6ea92f68b0e68bb689b01c0634aa529f2b722",
+      "engine.py": "9e1e2915b541cff4f5ab24588117cf068099c510431493668b1a6aa2dc1caf86",
+      "facts.py": "b909d396e3207073a17cd5d02e0a8980ca33e75d910eb924cda0dc03f5b4d2b5",
+      "lens.py": "f1bf4f329167107d625f9b6cfc0ced4722bd85f59e1807b4516ed9458b3bb0be",
+      "replica/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replica/descend.py": "f48ccba5b3bc182b0e9765e71fa7bc2cc046643f6a78d4d1dd13bff2d038839e",
+      "replica/graft.py": "82d575b0a4496100cc19f365b93d558a5e51c56f7946c06bafbf15d04afdb287",
+      "replica/hparams.py": "f9202a395ae515cba7a98d8d7ee062403c4b6e5c602f278f25b5ecd154882bd4",
+      "replica/layers.py": "53c16dc2f6bb3f842f076b0a6568315023b067dab8e71d699acc7ced0a1d9250",
+      "replica/model.py": "b03d6ec0ffc60e52aed5ee3054cc71a93e20639b3c7ace23f34406304af9b583",
+      "replica/validate.py": "c8c0c6c6a1793dc43e20af47c57fc35cb9d3fb4a0ecb3adf772b4eed8b68029c",
+      "replica/weights.py": "d2d9adc4fcf3a734f7196e7009702e0a6c22b2c6ec4980a4a45a770d17782af5",
+      "run.py": "53ce7eafef0d50ef0f0e62060a8d6d8844412e06fcc0e1f9765fc793da8509e5",
+      "table.py": "afc39a981bb3efd44e0d4a119b53d408b1f276bd6a417201dff85bed619acdab",
+      "testing/__init__.py": "c7e6e82771a0811a74814458e074c35ebaa49bd5510d844b36fefb8dfdee1e0e",
+      "testing/fake_lens.py": "0fbaa3f7f50fbac2326ddf2c0acda76ee133a096dea1fb6f5183babe197304c3",
+      "testing/fake_replica.py": "f6372cbbd6017ddb1ea58b33124fc367716714b500a13d1bc7dedb5eae963412",
+      "testing/fake_table.py": "cfc75593c1165330b93f1ed90bed3c35949fcdd6aba838ce433e85fb7f5aea71"
+    },
+    "gguf": {
+      "__init__.py": "3ccfc0104cd7ea88c6028743b7bf3f2c89b5f474425de03a217a6072320d7c2f",
+      "constants.py": "aa143b1142aff31cc16ea30bb1f4d7aaab66f1a9ac20e28ec7d548654e190367",
+      "gguf.py": "f0c0eeedad0911784b52ffed8e162a0eb5ae6d535ce35705bc16196e46597a72",
+      "gguf_reader.py": "d0ea743200e19d7ef0a4c969edcc4a6dba8e3656a790b217e3bdc7b31170718e",
+      "gguf_writer.py": "3f0f759149dbd9b1d860cc18667f6b3a4efd4bc25fb5449c07665482073363d8",
+      "lazy.py": "dbc98e3ee9ef8606df34e9d91f98ab29c2697e6824995f1dd8952938c135ad85",
+      "metadata.py": "7cedac3b8457271a3f58e5531a7e6958fdecb9ea072f7895ba5d7f6693c9db29",
+      "quants.py": "ed05409f14b0f8a58847c1c79c4efacb3b32ecae7911cedc7d0a299f39d2219a",
+      "scripts/gguf_convert_endian.py": "6be91de3af4d9b3fc2c90dafb3d1d8eed7e9dd72b3d6b52d245f005c76ece280",
+      "scripts/gguf_dump.py": "d8b8fc28e96d15d8a4d6f05cdff4a747f5a06f31172efee9dfc971998ed0203f",
+      "scripts/gguf_editor_gui.py": "6e9d70e850268fff5d4108d9ecbc2b4d90e70b61f08e71f7d37ac20916d854bb",
+      "scripts/gguf_extract_ple.py": "2740c58f77a637608ef232cc4fb1c727ff945fa98bf198df4fcc87f74984e258",
+      "scripts/gguf_hash.py": "9f277c9338d12a73857a4e54683d7da4d5de01531751f14401267c9289e4197f",
+      "scripts/gguf_new_metadata.py": "972499d35957b4721b9243828d5547d1c84def8d4e6fc641887c6578bf765255",
+      "scripts/gguf_set_metadata.py": "c8612a7109428a677ea55976dd5eeed6088934ddef7ef01246a5bc7a6e585b3b",
+      "scripts/gguf_split_ple_heads.py": "d946219c4daeafdad5cb157af1ef0fef07d4a032574dd64f469dbdb3d5ddb51c",
+      "tensor_mapping.py": "0bff4f10215bbf76dd0ab5762e3548f4929da6a8f0cdb51bfc8c675801ee0101",
+      "utility.py": "da920e2c62166ec9f30e407e9fb35ec29fda671310ffbf0f8ce856b62f1c70d7",
+      "vocab.py": "16cddd93700f86c8b72e6f9e741e2362189155b9f96aa9e3bbb0995060095f1a"
+    }
+  }
+}

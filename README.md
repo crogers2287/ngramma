@@ -49,8 +49,9 @@ python3 scripts/plot_results.py
 ## Research status
 
 [Experiment 002 is in progress](experiments/002-parity/REPORT.md). Native CPU
-operations make the first hyper-connection stages exact on the original fixture,
-but the full-model control still fails. The repository now includes a configurable
+operations make the first three layers bit-identical on the original ten-token
+fixture. Maximum selected-token log-probability error falls from 1.803 to 0.906
+nats, while the full-model control still fails its 0.02-nat gate. The repository now includes a configurable
 [forward diagnostic harness](docs/runtime.md), deeper component probes, and
 optional native fixture tests. These are numerical research tools; no rows have
 been trained.

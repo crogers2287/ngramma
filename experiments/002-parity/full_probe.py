@@ -15,10 +15,11 @@ def main():
     p.add_argument('--native-library', type=Path)
     p.add_argument('--native-recurrent', action='store_true')
     p.add_argument('--native-repack', action='store_true')
+    p.add_argument('--native-reductions', action='store_true')
     p.add_argument('--threads', type=int, default=4)
     p.add_argument('--cache-gib', type=float, default=4)
     args = p.parse_args()
-    if (args.native_recurrent or args.native_repack) and not args.native_library:
+    if (args.native_recurrent or args.native_repack or args.native_reductions) and not args.native_library:
         p.error('Native recurrent/repack flags require --native-library')
     if args.threads < 1 or not 0 <= args.cache_gib <= 16:
         p.error('Require positive threads and cache-gib between 0 and 16')
@@ -56,7 +57,7 @@ def main():
         from ngramma_runtime.native_forward import NativeEngineWeights, NativeForward
         weights = NativeEngineWeights(paths, ram_cache_bytes=int(args.cache_gib*(1 << 30)))
         mode = NativeForward(weights, args.native_library, threads=args.threads,
-                             recurrent=args.native_recurrent, repack=args.native_repack)
+                             recurrent=args.native_recurrent, repack=args.native_repack, reductions=args.native_reductions)
     else:
         weights = EngineWeights(paths, ram_cache_bytes=int(args.cache_gib*(1 << 30)))
         mode = ActivationReference(weights)
@@ -120,8 +121,10 @@ def main():
               'native_library_sha256': file_hash(args.native_library) if args.native_library else None,
               'native_recurrent': args.native_recurrent,
               'native_repack': args.native_repack,
+              'native_reductions': args.native_reductions,
               'native_build_record': mode.build_record if args.native_library else None,
               'native_calls': dict(mode.calls) if args.native_library else {},
+              'native_misses': mode.misses if args.native_library else [],
               'source_sha256': source_hashes, 'dependency_sha256': dependency_hashes,
               'source_hash_scope': 'Before model initialization; native build identity is recorded separately.',
               'sources_changed_during_run': changed_sources,

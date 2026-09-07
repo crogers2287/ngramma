@@ -137,6 +137,7 @@ replica = SequenceReplica(hp, weights, table, max_tokens=32)
 with torch.no_grad():
     with NativeForward(weights, os.environ["NGRAMMA_FORWARD_LIBRARY"],
                        primitives=True, matmul=True, recurrent=True,
+                       repack=True, reductions=True,
                        threads=2) as native:
         capture = {}
         logits = replica.full([1, 2, 3], capture=capture)
@@ -158,6 +159,13 @@ kernel and rounding order. Compare its buffer choice and token batching with
 the engine capture before treating the two as equivalent. The adjacent
 `.so.build.json` records source, headers, linked libraries, and compiler details;
 the Python adapter checks its library hash when that record exists.
+Set `reductions=True` for native last-axis row sums and the corrected native
+projection of registered one-dimensional weights, used by shared-expert gates.
+Both corrections are grouped in this diagnostic condition; compare component
+captures before attributing an effect to either one separately. The underlying
+row-sum kernel accumulates into double and returns float32. Short convolution
+history is left-padded for native dilation-1 calls; empty history is valid at
+sequence start.
 Dilation other than 1 falls back to the original convolution. Unregistered
 matrix operations remain on PyTorch. This is selective operator substitution,
 not complete engine execution, and does not establish model parity.
@@ -180,6 +188,7 @@ abort the process and cannot be converted into Python exceptions by this bridge.
 | `ngramma_matmul` | Source GGML weights `[n,k]`, F32 input `[m,k]`, F32 output `[m,n]`; source quantization block size must divide `k`. |
 | `ngramma_matmul_repack` | Same ABI; chooses supported CPU extra buffers, uploads original bytes through the backend, reports the selection via `ngramma_last_buffer_type`. |
 | `ngramma_unary` | F32 `[rows,width]`; op 0 RMSNorm, 1 SiLU, 2 sigmoid, 3 L2Norm, 4 softmax, 5 exp, 6 softplus. Normalization and softmax operate per row. |
+| `ngramma_sum_rows` | F32 `[rows,width]` to F32 `[rows]`, retaining engine accumulation precision. |
 | `ngramma_ssm_conv` | Full history/input `[channels,tokens+kernel-1]`, weights `[channels,kernel]`, output `[tokens,channels]`; one sequence, dilation 1, no implicit padding or activation. |
 | `ngramma_gdn` | Unscaled q/k `[tokens,key_heads,dim]`, v/output `[tokens,value_heads,dim]`, log-decay g and sigmoid beta `[tokens,value_heads]`; one sequence, scalar gates, final state only. |
 

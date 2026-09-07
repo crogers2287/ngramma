@@ -1,0 +1,11 @@
+{
+  "schema": "ngramma-aborted-forward/v1",
+  "stage": "PLE convolution at layer 1",
+  "error": "Adapter shape guard rejected valid empty history at the start of a sequence.",
+  "completed_layer0_max_abs": 0.0,
+  "completed_layer0_relative_rms": 0.0,
+  "native_adapter_sha256": "21dcaaca4725155c2d46cf581951db20181bc6336fbe7afcf9c64ace33f01d6a",
+  "complete_forward": false,
+  "admitted_for_gradients": false,
+  "resolution": "Preserve the original convolution semantics: accept short/empty history; explicitly left-pad before native dilation-1 calls and retain original handling for dilated convolution."
+}

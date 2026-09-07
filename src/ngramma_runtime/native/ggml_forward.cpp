@@ -180,6 +180,20 @@ int ngramma_unary(int op, const float * input, float * output,
 }
 
 
+// Sum float32 rows using the engine's accumulation precision and final cast.
+// Input [rows,width], output [rows].
+int ngramma_sum_rows(const float * input, float * output, int64_t width,
+                      int64_t rows, int threads) noexcept {
+    return guarded([&] {
+        dimensions(width, rows, threads);
+        require(input && output, "Null row-sum tensor buffer");
+        auto ctx = context();
+        auto * values = ggml_new_tensor_2d(ctx.get(), GGML_TYPE_F32, width, rows);
+        values->data = const_cast<float *>(input);
+        compute(ctx.get(), ggml_sum_rows(ctx.get(), values), output, threads);
+    });
+}
+
 // Depthwise causal window primitive, dilation=1, one sequence. The caller
 // prepends its own K-1 history values. F32 arrays: input[C,T+K-1],
 // kernel[C,K], output[T,C]. No implicit padding, reversal, bias, or activation.
