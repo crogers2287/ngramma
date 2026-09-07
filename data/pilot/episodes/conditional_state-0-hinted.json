@@ -1,0 +1,177 @@
+{
+  "task_id": "conditional_state/0",
+  "family_id": "conditional_state",
+  "variant_id": "0",
+  "partition": "train",
+  "condition": "hinted",
+  "success": true,
+  "grade": {
+    "success": true,
+    "state_correct": true,
+    "inventory_inspected": true,
+    "errors": [],
+    "actions": [
+      {
+        "entity_id": "device.bee012ba",
+        "state": "off",
+        "expected_version": 13,
+        "before": "on"
+      }
+    ],
+    "actual_state": {
+      "device.d0ae2141": "off",
+      "device.bee012ba": "off",
+      "device.3f17ad24": "off"
+    }
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are testing tools in a mock device environment. Complete the request with the provided tools, then give a brief result. Device IDs and versions must come from tools."
+    },
+    {
+      "role": "user",
+      "content": "Turn off any desk lamp that is currently on. Leave lamps that are off alone. Before acting, inspect the inventory. Use exact IDs and current versions. Check the room and preserve unrelated state."
+    },
+    {
+      "role": "assistant",
+      "content": "Let me inspect the inventory first.\n\n",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "list_devices",
+            "arguments": "{}"
+          },
+          "id": "3IRiFP3YmCT4dLIuiVlSsKEXKg8XJ1eI"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "3IRiFP3YmCT4dLIuiVlSsKEXKg8XJ1eI",
+      "content": "{\"devices\": [{\"entity_id\": \"device.d0ae2141\", \"label\": \"Desk lamp\", \"room\": \"office\", \"state\": \"off\", \"version\": 7}, {\"entity_id\": \"device.bee012ba\", \"label\": \"Desk lamp\", \"room\": \"bedroom\", \"state\": \"on\", \"version\": 13}, {\"entity_id\": \"device.3f17ad24\", \"label\": \"Ceiling lamp\", \"room\": \"office\", \"state\": \"off\", \"version\": 21}]}"
+    },
+    {
+      "role": "assistant",
+      "content": "The inventory shows three devices. Only one desk lamp is currently on: the bedroom desk lamp (device.bee012ba, version 13). The office desk lamp (device.d0ae2141) is already off, and the ceiling lamp (device.3f17ad24) is unrelated to the task and already off, so I'll leave it alone.\n\nI'll turn off the bedroom desk lamp using its exact ID and current version.\n\n",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "set_device",
+            "arguments": "{\"entity_id\":\"device.bee012ba\",\"state\":\"off\",\"expected_version\":13}"
+          },
+          "id": "dp8LfpoTfNcjkCRLnzUVsvQI1VsF7q9j"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "dp8LfpoTfNcjkCRLnzUVsvQI1VsF7q9j",
+      "content": "{\"ok\": true, \"device\": {\"entity_id\": \"device.bee012ba\", \"label\": \"Desk lamp\", \"room\": \"bedroom\", \"state\": \"off\", \"version\": 14}}"
+    },
+    {
+      "role": "assistant",
+      "content": "Task complete. The bedroom desk lamp (device.bee012ba) was turned off successfully, moving from version 13 to version 14. The office desk lamp was already off and was left untouched, and the ceiling lamp (device.3f17ad24) was unrelated to the request and preserved in its original state."
+    }
+  ],
+  "usage": [
+    {
+      "completion_tokens": 22,
+      "prompt_tokens": 453,
+      "total_tokens": 475,
+      "prompt_tokens_details": {
+        "cached_tokens": 402
+      }
+    },
+    {
+      "completion_tokens": 158,
+      "prompt_tokens": 617,
+      "total_tokens": 775,
+      "prompt_tokens_details": {
+        "cached_tokens": 474
+      }
+    },
+    {
+      "completion_tokens": 73,
+      "prompt_tokens": 840,
+      "total_tokens": 913,
+      "prompt_tokens_details": {
+        "cached_tokens": 774
+      }
+    }
+  ],
+  "seconds": 5.280040957964957,
+  "task_sha256": "e76ddaf051935c5cf3a8080ea4396710e94ed906574148f181ce5008b4d4e80e",
+  "teacher_used": false,
+  "training_eligible": false,
+  "response_metadata": [
+    {
+      "usage": {
+        "completion_tokens": 22,
+        "prompt_tokens": 453,
+        "total_tokens": 475,
+        "prompt_tokens_details": {
+          "cached_tokens": 402
+        }
+      },
+      "timings": {
+        "cache_n": 402,
+        "prompt_n": 51,
+        "prompt_ms": 387.532,
+        "prompt_per_token_ms": 7.5986666666666665,
+        "prompt_per_second": 131.60203544481487,
+        "predicted_n": 22,
+        "predicted_ms": 369.025,
+        "predicted_per_token_ms": 17.572619047619046,
+        "predicted_per_second": 56.906713637287446
+      },
+      "system_fingerprint": "b10809-5e085d12"
+    },
+    {
+      "usage": {
+        "completion_tokens": 158,
+        "prompt_tokens": 617,
+        "total_tokens": 775,
+        "prompt_tokens_details": {
+          "cached_tokens": 474
+        }
+      },
+      "timings": {
+        "cache_n": 474,
+        "prompt_n": 143,
+        "prompt_ms": 476.784,
+        "prompt_per_token_ms": 3.3341538461538462,
+        "prompt_per_second": 299.9261720191953,
+        "predicted_n": 158,
+        "predicted_ms": 2399.252,
+        "predicted_per_token_ms": 15.281859872611465,
+        "predicted_per_second": 65.43706121741276
+      },
+      "system_fingerprint": "b10809-5e085d12"
+    },
+    {
+      "usage": {
+        "completion_tokens": 73,
+        "prompt_tokens": 840,
+        "total_tokens": 913,
+        "prompt_tokens_details": {
+          "cached_tokens": 774
+        }
+      },
+      "timings": {
+        "cache_n": 774,
+        "prompt_n": 66,
+        "prompt_ms": 426.902,
+        "prompt_per_token_ms": 6.468212121212121,
+        "prompt_per_second": 154.602227209055,
+        "predicted_n": 73,
+        "predicted_ms": 1143.892,
+        "predicted_per_token_ms": 15.88738888888889,
+        "predicted_per_second": 62.94300510887391
+      },
+      "system_fingerprint": "b10809-5e085d12"
+    }
+  ]
+}

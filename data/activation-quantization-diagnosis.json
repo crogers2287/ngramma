@@ -1,0 +1,13 @@
+{
+  "fp32_replica": {
+    "max_abs": 0.4402437210083008,
+    "relative_rms": 0.014359168708324432
+  },
+  "with_engine_activation_quantization": {
+    "max_abs": 9.5367431640625e-07,
+    "relative_rms": 7.026072523785842e-08
+  },
+  "down_weight_type": 8,
+  "up_weight_type": 8,
+  "note": "Forward diagnostic only. Quantization introduces discontinuities; no straight-through gradient is accepted by this test."
+}

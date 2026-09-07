@@ -1,0 +1,27 @@
+--- a/engraft/replica/layers.py
++++ b/engraft/replica/layers.py
+@@ -63,9 +63,12 @@
+ 
+ 
+ def l2norm(x: torch.Tensor, eps: float, dim: int = -1) -> torch.Tensor:
+-    """True L2 norm (not RMS): x / sqrt(sum(x^2)+eps). `use_qk_l2norm_in_kernel=False`
+-    in the fork, applied outside with the model's eps."""
+-    return x * torch.rsqrt((x * x).sum(dim=dim, keepdim=True) + eps)
++    """Local compatibility fix: ggml uses x/max(sqrt(sum(x*x)), eps).
++
++    Adding epsilon under the square root changes small recurrent Q/K vectors.
++    Reference: pinned ggml-cpu/ops.cpp ggml_compute_forward_l2_norm_f32.
++    """
++    return x / (x * x).sum(dim=dim, keepdim=True).sqrt().clamp_min(eps)
+ 
+ 
+ # --------------------------------------------------------------------------
+@@ -485,7 +488,7 @@
+     conv_out = causal_depthwise_conv(normed_flat, hist_flat, w.conv1d, dilation=hparams.ple_ngram_size)
+     conv_out = F.silu(conv_out).reshape(t_len, hc, n_embd)
+ 
+-    out = hidden + gated + conv_out
++    out = hidden + (gated + conv_out)
+ 
+     kern = w.conv1d.shape[1]
+     hist_len = (kern - 1) * hparams.ple_ngram_size

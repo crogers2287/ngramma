@@ -1,0 +1,121 @@
+{
+  "task_id": "missing_target/1",
+  "family_id": "missing_target",
+  "variant_id": "1",
+  "partition": "development",
+  "condition": "hinted",
+  "success": true,
+  "grade": {
+    "success": true,
+    "state_correct": true,
+    "inventory_inspected": true,
+    "errors": [],
+    "actions": [],
+    "actual_state": {
+      "device.090f7ee1": "off",
+      "device.faffc678": "on",
+      "device.4539e552": "off"
+    }
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are testing tools in a mock device environment. Complete the request with the provided tools, then give a brief result. Device IDs and versions must come from tools."
+    },
+    {
+      "role": "user",
+      "content": "Please use the available tools for this request: Turn on the garage lamp if it exists. If it is absent, report that and change nothing. Before acting, inspect the inventory. Use exact IDs and current versions. Check the room and preserve unrelated state."
+    },
+    {
+      "role": "assistant",
+      "content": "I'll inspect the device inventory before acting.\n\n",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "list_devices",
+            "arguments": "{}"
+          },
+          "id": "5oKRjMsbk7oZNMP2T7A47v3PPp2Ez7zJ"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "5oKRjMsbk7oZNMP2T7A47v3PPp2Ez7zJ",
+      "content": "{\"devices\": [{\"entity_id\": \"device.090f7ee1\", \"label\": \"Desk lamp\", \"room\": \"office\", \"state\": \"off\", \"version\": 8}, {\"entity_id\": \"device.faffc678\", \"label\": \"Desk lamp\", \"room\": \"bedroom\", \"state\": \"on\", \"version\": 14}, {\"entity_id\": \"device.4539e552\", \"label\": \"Ceiling lamp\", \"room\": \"office\", \"state\": \"off\", \"version\": 22}]}"
+    },
+    {
+      "role": "assistant",
+      "content": "The inventory contains no device labeled \"Garage lamp\" (or any device in a garage room). The three devices are Desk lamp (office), Desk lamp (bedroom), and Ceiling lamp (office). Since the requested device does not exist, I will change nothing, as instructed.\n\n**Result:** No garage lamp exists in the inventory, so no changes were made. All existing devices retain their original states and versions:\n- Desk lamp (office) — off, v8\n- Desk lamp (bedroom) — on, v14\n- Ceiling lamp (office) — off, v22\n\nUnrelated state preserved; no tool call needed to act, since the target is absent."
+    }
+  ],
+  "usage": [
+    {
+      "completion_tokens": 24,
+      "prompt_tokens": 465,
+      "total_tokens": 489,
+      "prompt_tokens_details": {
+        "cached_tokens": 402
+      }
+    },
+    {
+      "completion_tokens": 144,
+      "prompt_tokens": 633,
+      "total_tokens": 777,
+      "prompt_tokens_details": {
+        "cached_tokens": 488
+      }
+    }
+  ],
+  "seconds": 3.4977213230449706,
+  "task_sha256": "3c5fbcf523928aaf389fc9a78bff6b18f3b760053f29c66e711edc3ce3cd1e15",
+  "teacher_used": false,
+  "training_eligible": false,
+  "response_metadata": [
+    {
+      "usage": {
+        "completion_tokens": 24,
+        "prompt_tokens": 465,
+        "total_tokens": 489,
+        "prompt_tokens_details": {
+          "cached_tokens": 402
+        }
+      },
+      "timings": {
+        "cache_n": 402,
+        "prompt_n": 63,
+        "prompt_ms": 412.868,
+        "prompt_per_token_ms": 6.553460317460317,
+        "prompt_per_second": 152.5911429318814,
+        "predicted_n": 24,
+        "predicted_ms": 389.728,
+        "predicted_per_token_ms": 16.944695652173912,
+        "predicted_per_second": 59.01551851547746
+      },
+      "system_fingerprint": "b10809-5e085d12"
+    },
+    {
+      "usage": {
+        "completion_tokens": 144,
+        "prompt_tokens": 633,
+        "total_tokens": 777,
+        "prompt_tokens_details": {
+          "cached_tokens": 488
+        }
+      },
+      "timings": {
+        "cache_n": 488,
+        "prompt_n": 145,
+        "prompt_ms": 473.41,
+        "prompt_per_token_ms": 3.264896551724138,
+        "prompt_per_second": 306.288418073129,
+        "predicted_n": 144,
+        "predicted_ms": 2193.542,
+        "predicted_per_token_ms": 15.339454545454545,
+        "predicted_per_second": 65.19136629250774
+      },
+      "system_fingerprint": "b10809-5e085d12"
+    }
+  ]
+}

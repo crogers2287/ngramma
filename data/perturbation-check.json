@@ -1,0 +1,10 @@
+{
+  "row": 167282821,
+  "hits": 1,
+  "gather_exactly_matches_overlay": true,
+  "unselected_gather_values_unchanged": true,
+  "logits_changed": true,
+  "max_logit_change": 5.288764953613281,
+  "diagnostic_only": true,
+  "improvement_claimed": false
+}

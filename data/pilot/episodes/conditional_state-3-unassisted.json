@@ -1,0 +1,177 @@
+{
+  "task_id": "conditional_state/3",
+  "family_id": "conditional_state",
+  "variant_id": "3",
+  "partition": "train",
+  "condition": "unassisted",
+  "success": true,
+  "grade": {
+    "success": true,
+    "state_correct": true,
+    "inventory_inspected": true,
+    "errors": [],
+    "actions": [
+      {
+        "entity_id": "device.c4b90f6e",
+        "state": "off",
+        "expected_version": 16,
+        "before": "on"
+      }
+    ],
+    "actual_state": {
+      "device.ec7e87a8": "off",
+      "device.c4b90f6e": "off",
+      "device.55d5d8f2": "off"
+    }
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are testing tools in a mock device environment. Complete the request with the provided tools, then give a brief result. Device IDs and versions must come from tools."
+    },
+    {
+      "role": "user",
+      "content": "Please use the available tools for this request: Turn off any desk lamp that is currently on. Leave lamps that are off alone."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "list_devices",
+            "arguments": "{}"
+          },
+          "id": "dJH3cURPTSkCxnYEjqytelMGKcttvcG8"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "dJH3cURPTSkCxnYEjqytelMGKcttvcG8",
+      "content": "{\"devices\": [{\"entity_id\": \"device.ec7e87a8\", \"label\": \"Desk lamp\", \"room\": \"office\", \"state\": \"off\", \"version\": 10}, {\"entity_id\": \"device.c4b90f6e\", \"label\": \"Desk lamp\", \"room\": \"bedroom\", \"state\": \"on\", \"version\": 16}, {\"entity_id\": \"device.55d5d8f2\", \"label\": \"Ceiling lamp\", \"room\": \"office\", \"state\": \"off\", \"version\": 24}]}"
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "set_device",
+            "arguments": "{\"entity_id\":\"device.c4b90f6e\",\"state\":\"off\",\"expected_version\":16}"
+          },
+          "id": "MEVXbrbe8N7nYbiN7BsiPWNjBROqkElh"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "MEVXbrbe8N7nYbiN7BsiPWNjBROqkElh",
+      "content": "{\"ok\": true, \"device\": {\"entity_id\": \"device.c4b90f6e\", \"label\": \"Desk lamp\", \"room\": \"bedroom\", \"state\": \"off\", \"version\": 17}}"
+    },
+    {
+      "role": "assistant",
+      "content": "All desk lamps are now off. Only the bedroom desk lamp was on, and I turned it off. The office desk lamp was already off, so I left it alone."
+    }
+  ],
+  "usage": [
+    {
+      "completion_tokens": 14,
+      "prompt_tokens": 440,
+      "total_tokens": 454,
+      "prompt_tokens_details": {
+        "cached_tokens": 402
+      }
+    },
+    {
+      "completion_tokens": 61,
+      "prompt_tokens": 600,
+      "total_tokens": 661,
+      "prompt_tokens_details": {
+        "cached_tokens": 453
+      }
+    },
+    {
+      "completion_tokens": 36,
+      "prompt_tokens": 728,
+      "total_tokens": 764,
+      "prompt_tokens_details": {
+        "cached_tokens": 660
+      }
+    }
+  ],
+  "seconds": 3.5542762570548803,
+  "task_sha256": "1169d3641f21a66946eb424df3b38ff54f0afb09f4c17d59ca191ab4e30a6715",
+  "teacher_used": false,
+  "training_eligible": false,
+  "response_metadata": [
+    {
+      "usage": {
+        "completion_tokens": 14,
+        "prompt_tokens": 440,
+        "total_tokens": 454,
+        "prompt_tokens_details": {
+          "cached_tokens": 402
+        }
+      },
+      "timings": {
+        "cache_n": 402,
+        "prompt_n": 38,
+        "prompt_ms": 370.977,
+        "prompt_per_token_ms": 9.762552631578947,
+        "prompt_per_second": 102.4322262566143,
+        "predicted_n": 14,
+        "predicted_ms": 252.726,
+        "predicted_per_token_ms": 19.440461538461538,
+        "predicted_per_second": 51.439107966730774
+      },
+      "system_fingerprint": "b10809-5e085d12"
+    },
+    {
+      "usage": {
+        "completion_tokens": 61,
+        "prompt_tokens": 600,
+        "total_tokens": 661,
+        "prompt_tokens_details": {
+          "cached_tokens": 453
+        }
+      },
+      "timings": {
+        "cache_n": 453,
+        "prompt_n": 147,
+        "prompt_ms": 468.534,
+        "prompt_per_token_ms": 3.1873061224489794,
+        "prompt_per_second": 313.7445734994686,
+        "predicted_n": 61,
+        "predicted_ms": 963.774,
+        "predicted_per_token_ms": 16.0629,
+        "predicted_per_second": 62.25525901300512
+      },
+      "system_fingerprint": "b10809-5e085d12"
+    },
+    {
+      "usage": {
+        "completion_tokens": 36,
+        "prompt_tokens": 728,
+        "total_tokens": 764,
+        "prompt_tokens_details": {
+          "cached_tokens": 660
+        }
+      },
+      "timings": {
+        "cache_n": 660,
+        "prompt_n": 68,
+        "prompt_ms": 422.191,
+        "prompt_per_token_ms": 6.208691176470587,
+        "prompt_per_second": 161.06454187796518,
+        "predicted_n": 36,
+        "predicted_ms": 595.436,
+        "predicted_per_token_ms": 17.012457142857144,
+        "predicted_per_second": 58.7804566737651
+      },
+      "system_fingerprint": "b10809-5e085d12"
+    }
+  ]
+}

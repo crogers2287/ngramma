@@ -1,0 +1,29 @@
+Ngramma: teacher-guided refinement of existing n-gram memory
+Copyright (c) 2026 crogers2287
+
+Original report, analysis code, and original reference additions are provided
+under the MIT License in LICENSE, subject to retained third-party notices.
+
+This independent study is not an official Qwen, ENGRAFT, llama.cpp, or model
+provider publication. It was implemented and written with AI assistance.
+
+Third-party sources:
+
+1. ENGRAFT, Copyright 2026 fulvian, Apache License 2.0.
+   https://github.com/fulvian/engraft-ngram
+   Pinned commit: 028129c9c5c50fddb09b1503f6ccae07349b9831
+   The ENGRAFT patch and reference integration derive from this work.
+   License and original notice: licenses/ENGRAFT-Apache-2.0.txt and
+   licenses/ENGRAFT-NOTICE.txt. Upstream notice paths describe the upstream
+   repository, not additional files supplied here.
+   Local changes align L2 normalization and PLE residual-addition ordering.
+
+2. llama.cpp, Copyright (c) 2023-2026 The ggml authors, MIT License.
+   Public source parent: LaurentZuijdwijk/llama.cpp at
+   5e085d123eead2e89b5c19f824fccb05727da6a2.
+   Engine translation units and patches incorporate this work.
+   License: licenses/llama-cpp-MIT.txt.
+
+No model weights or table-vector overlays are distributed. This repository's
+code license does not relicense underlying models or third-party materials.
+Saved model outputs are evidence of the reported synthetic evaluation.

@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.env
+*.gguf
+*.npy
+*.npz
+*.f32
+*.fml
+*.so*
+*.o
+runtime/
+build/

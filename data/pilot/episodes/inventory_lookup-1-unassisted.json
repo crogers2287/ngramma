@@ -1,0 +1,177 @@
+{
+  "task_id": "inventory_lookup/1",
+  "family_id": "inventory_lookup",
+  "variant_id": "1",
+  "partition": "train",
+  "condition": "unassisted",
+  "success": true,
+  "grade": {
+    "success": true,
+    "state_correct": true,
+    "inventory_inspected": true,
+    "errors": [],
+    "actions": [
+      {
+        "entity_id": "device.e118256f",
+        "state": "on",
+        "expected_version": 8,
+        "before": "off"
+      }
+    ],
+    "actual_state": {
+      "device.e118256f": "on",
+      "device.3d5e2c02": "on",
+      "device.d8d8adf6": "off"
+    }
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are testing tools in a mock device environment. Complete the request with the provided tools, then give a brief result. Device IDs and versions must come from tools."
+    },
+    {
+      "role": "user",
+      "content": "Please use the available tools for this request: Turn on the desk lamp in the office."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "list_devices",
+            "arguments": "{}"
+          },
+          "id": "kS3ivcPD8SYaxzUQ3vlXovb4ol8a9EF8"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "kS3ivcPD8SYaxzUQ3vlXovb4ol8a9EF8",
+      "content": "{\"devices\": [{\"entity_id\": \"device.e118256f\", \"label\": \"Desk lamp\", \"room\": \"office\", \"state\": \"off\", \"version\": 8}, {\"entity_id\": \"device.3d5e2c02\", \"label\": \"Desk lamp\", \"room\": \"bedroom\", \"state\": \"on\", \"version\": 14}, {\"entity_id\": \"device.d8d8adf6\", \"label\": \"Ceiling lamp\", \"room\": \"office\", \"state\": \"off\", \"version\": 22}]}"
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "set_device",
+            "arguments": "{\"entity_id\":\"device.e118256f\",\"state\":\"on\",\"expected_version\":8}"
+          },
+          "id": "hvozq2H7NanXTGBaSdfArH0HDMzh3bue"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "hvozq2H7NanXTGBaSdfArH0HDMzh3bue",
+      "content": "{\"ok\": true, \"device\": {\"entity_id\": \"device.e118256f\", \"label\": \"Desk lamp\", \"room\": \"office\", \"state\": \"on\", \"version\": 9}}"
+    },
+    {
+      "role": "assistant",
+      "content": "The desk lamp in the office is now turned on. ✅\n\n- **Device:** Desk lamp (office) — `device.e118256f`\n- **State:** off → on (version 8 → 9)\n\nThe bedroom desk lamp and office ceiling lamp were left unchanged, as they weren't part of the request."
+    }
+  ],
+  "usage": [
+    {
+      "completion_tokens": 14,
+      "prompt_tokens": 432,
+      "total_tokens": 446,
+      "prompt_tokens_details": {
+        "cached_tokens": 402
+      }
+    },
+    {
+      "completion_tokens": 60,
+      "prompt_tokens": 590,
+      "total_tokens": 650,
+      "prompt_tokens_details": {
+        "cached_tokens": 445
+      }
+    },
+    {
+      "completion_tokens": 73,
+      "prompt_tokens": 715,
+      "total_tokens": 788,
+      "prompt_tokens_details": {
+        "cached_tokens": 649
+      }
+    }
+  ],
+  "seconds": 4.078077436075546,
+  "task_sha256": "e8c8f7c0f9b025de517f4b705ce46c3ea87453914a4ea14f4a8fd451230d341a",
+  "teacher_used": false,
+  "training_eligible": false,
+  "response_metadata": [
+    {
+      "usage": {
+        "completion_tokens": 14,
+        "prompt_tokens": 432,
+        "total_tokens": 446,
+        "prompt_tokens_details": {
+          "cached_tokens": 402
+        }
+      },
+      "timings": {
+        "cache_n": 402,
+        "prompt_n": 30,
+        "prompt_ms": 362.218,
+        "prompt_per_token_ms": 12.073933333333335,
+        "prompt_per_second": 82.82305131164105,
+        "predicted_n": 14,
+        "predicted_ms": 246.282,
+        "predicted_per_token_ms": 18.944769230769232,
+        "predicted_per_second": 52.78501879958746
+      },
+      "system_fingerprint": "b10809-5e085d12"
+    },
+    {
+      "usage": {
+        "completion_tokens": 60,
+        "prompt_tokens": 590,
+        "total_tokens": 650,
+        "prompt_tokens_details": {
+          "cached_tokens": 445
+        }
+      },
+      "timings": {
+        "cache_n": 445,
+        "prompt_n": 145,
+        "prompt_ms": 469.272,
+        "prompt_per_token_ms": 3.2363586206896553,
+        "prompt_per_second": 308.98924291242605,
+        "predicted_n": 60,
+        "predicted_ms": 909.93,
+        "predicted_per_token_ms": 15.422542372881354,
+        "predicted_per_second": 64.84015253920631
+      },
+      "system_fingerprint": "b10809-5e085d12"
+    },
+    {
+      "usage": {
+        "completion_tokens": 73,
+        "prompt_tokens": 715,
+        "total_tokens": 788,
+        "prompt_tokens_details": {
+          "cached_tokens": 649
+        }
+      },
+      "timings": {
+        "cache_n": 649,
+        "prompt_n": 66,
+        "prompt_ms": 393.565,
+        "prompt_per_token_ms": 5.96310606060606,
+        "prompt_per_second": 167.69783898466582,
+        "predicted_n": 73,
+        "predicted_ms": 1183.759,
+        "predicted_per_token_ms": 16.441097222222222,
+        "predicted_per_second": 60.82319120699399
+      },
+      "system_fingerprint": "b10809-5e085d12"
+    }
+  ]
+}

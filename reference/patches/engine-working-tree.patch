@@ -1,0 +1,652 @@
+diff --git a/common/speculative.cpp b/common/speculative.cpp
+index a8c6d564..de978ede 100644
+--- a/common/speculative.cpp
++++ b/common/speculative.cpp
+@@ -2653,6 +2653,18 @@ common_speculative_init_result::common_speculative_init_result(
+ 
+     if (spec_mtp) {
+         cparams.ctx_type = LLAMA_CONTEXT_TYPE_MTP;
++        // The draft can prefill in smaller microbatches than the target. Sharing
++        // the target's large microbatch otherwise wastes scarce draft-device VRAM.
++        if (const char * value = getenv("LLAMA_MTP_UBATCH")) {
++            char * end = nullptr;
++            const long ubatch = strtol(value, &end, 10);
++            if (end == value || *end != '\0' || ubatch < 1 || ubatch > cparams.n_batch) {
++                LOG_ERR("%s: invalid LLAMA_MTP_UBATCH '%s'\n", __func__, value);
++                return;
++            }
++            cparams.n_ubatch = (uint32_t) ubatch;
++            LOG_INF("%s: MTP microbatch override = %u\n", __func__, cparams.n_ubatch);
++        }
+     }
+ 
+     // the draft context holds as many tokens per sequence as the target context
+diff --git a/ggml/src/ggml-cuda/getrows.cu b/ggml/src/ggml-cuda/getrows.cu
+index 6b36b8fb..a2ec3ced 100644
+--- a/ggml/src/ggml-cuda/getrows.cu
++++ b/ggml/src/ggml-cuda/getrows.cu
+@@ -69,6 +69,28 @@ static __global__ void k_get_rows_kq(
+     }
+ }
+ 
++static __global__ void k_get_rows_narrow_f32(
++        const float * src0, const int32_t * src1, float * dst,
++        int64_t ne00, int64_t ne10, int64_t ne11, int64_t ne12,
++        size_t nb01, size_t nb02, size_t nb03,
++        size_t s10, size_t s11, size_t s12,
++        size_t s1, size_t s2, size_t s3) {
++    ggml_cuda_pdl_lc();
++    ggml_cuda_pdl_sync();
++    for (int64_t element = int64_t(blockIdx.x)*blockDim.x + threadIdx.x;
++         element < ne00*ne10*ne11*ne12; element += int64_t(gridDim.x)*blockDim.x) {
++        const int64_t row = element / ne00;
++        const int64_t column = element % ne00;
++        const int64_t i10 = row % ne10;
++        const int64_t z = row / ne10;
++        const int64_t i11 = z / ne12;
++        const int64_t i12 = z % ne12;
++        const int32_t i01 = src1[i10*s10 + i11*s11 + i12*s12];
++        const float * value = (const float *) ((const char *) src0 + i01*nb01 + i11*nb02 + i12*nb03);
++        dst[i10*s1 + i11*s2 + i12*s3 + column] = value[column];
++    }
++}
++
+ template<typename src0_t, typename dst_t>
+ static __global__ void k_get_rows_float(
+         const src0_t * src0_ptr, const int32_t * src1_ptr, dst_t * dst_ptr,
+@@ -254,6 +276,23 @@ static void get_rows_cuda_float(
+     GGML_ASSERT(ne11 <= std::numeric_limits<uint32_t>::max() / ne12);
+     const uint3 ne12_fdv = init_fastdiv_values(ne12);
+ 
++    if constexpr (std::is_same<src0_t, float>::value && std::is_same<dst_t, float>::value) {
++        static const bool scalar_enabled = [] {
++            const char * value = getenv("GGML_CUDA_GET_ROWS_SCALAR");
++            return value == nullptr || atoi(value) != 0;
++        }();
++        if (scalar_enabled && ne00 <= 32) {
++            // Share blocks across short rows, including QSA decode and speculative verification.
++            const int64_t blocks = (ne00*ne10*ne11*ne12 + CUDA_GET_ROWS_BLOCK_SIZE - 1)/CUDA_GET_ROWS_BLOCK_SIZE;
++            const dim3 grid(MIN(blocks, UINT16_MAX), 1, 1);
++            const ggml_cuda_kernel_launch_params params = {grid, block_dims, 0, stream};
++            ggml_cuda_kernel_launch(k_get_rows_narrow_f32, params,
++                src0_d, src1_d, dst_d, ne00, ne10, ne11, ne12,
++                nb01, nb02, nb03, s10, s11, s12, s1, s2, s3);
++            return;
++        }
++    }
++
+     if constexpr (std::is_same<src0_t, dst_t>::value) {
+         constexpr int VEC = 16 / sizeof(dst_t);
+         const int64_t ne00v = ne00 / VEC;
+diff --git a/ggml/src/ggml-cuda/sumrows.cu b/ggml/src/ggml-cuda/sumrows.cu
+index 0003658c..d96ee50f 100644
+--- a/ggml/src/ggml-cuda/sumrows.cu
++++ b/ggml/src/ggml-cuda/sumrows.cu
+@@ -1,7 +1,36 @@
+ #include "reduce_rows.cuh"
+ #include "sumrows.cuh"
+ 
++// QSA reduces four indexer heads for millions of rows during prefill. Give
++// each thread a whole row instead of launching one 32-thread block per row.
++static __global__ void sum_rows_f32_four(const float4 * x, float * dst, int64_t nrows) {
++    ggml_cuda_pdl_sync();
++    for (int64_t row = int64_t(blockIdx.x)*blockDim.x + threadIdx.x;
++         row < nrows; row += int64_t(gridDim.x)*blockDim.x) {
++        const float4 v = x[row];
++        // Same pairwise order as the original warp reduction for four values.
++        dst[row] = (v.x + v.z) + (v.y + v.w);
++    }
++}
++
++static bool sum_rows_four_cuda(const float * x, float * dst, int64_t ncols, int64_t nrows, cudaStream_t stream) {
++    static const bool enabled = [] {
++        const char * value = getenv("GGML_CUDA_SUM_ROWS_FOUR");
++        return value == nullptr || atoi(value) != 0;
++    }();
++    if (!enabled || ncols != 4 || nrows < 256 || (uintptr_t) x % alignof(float4) != 0) {
++        return false;
++    }
++    const dim3 blocks(MIN((nrows + 255)/256, UINT16_MAX), 1, 1);
++    const ggml_cuda_kernel_launch_params params = {blocks, dim3(256, 1, 1), 0, stream};
++    ggml_cuda_kernel_launch(sum_rows_f32_four, params, (const float4 *) x, dst, nrows);
++    return true;
++}
++
+ void sum_rows_f32_cuda(const float * x, float * dst, const int ncols, const int nrows, cudaStream_t stream) {
++    if (sum_rows_four_cuda(x, dst, ncols, nrows, stream)) {
++        return;
++    }
+     const int  id  = ggml_cuda_get_device();
+     const int  nsm = ggml_cuda_info().devices[id].nsm;
+     const dim3 block_nums(nrows, 1, 1);
+@@ -29,6 +58,10 @@ void ggml_cuda_op_sum_rows(ggml_backend_cuda_context & ctx, ggml_tensor * dst) {
+     const int64_t ncols = src0->ne[0];
+     const int64_t nrows = ggml_nrows(src0);
+ 
++    if (sum_rows_four_cuda(src0_d, dst_d, ncols, nrows, stream)) {
++        return;
++    }
++
+     const dim3 block_nums(nrows, 1, 1);
+ 
+     const int id  = ggml_cuda_get_device();
+diff --git a/ggml/src/ggml-cuda/top-k.cu b/ggml/src/ggml-cuda/top-k.cu
+index 9681cd29..f86719d7 100644
+--- a/ggml/src/ggml-cuda/top-k.cu
++++ b/ggml/src/ggml-cuda/top-k.cu
+@@ -48,6 +48,168 @@ static int next_power_of_2(int x) {
+ 
+ #endif                            // CUB_TOP_K_AVAILABLE
+ 
++#ifndef CUB_TOP_K_AVAILABLE
++// Radix selection from upstream PR #27466 / #28366.
++static __device__ __forceinline__ uint32_t top_k_float_to_ordered(float value) {
++    const uint32_t bits = __float_as_uint(value);
++    const uint32_t mask = (uint32_t) (-(int32_t) (bits >> 31)) | 0x80000000U;
++    return bits ^ mask;
++}
++
++struct top_k_radix_state {
++    uint32_t prefix;
++    uint32_t prefix_mask;
++    int rank;
++    int greater_count;
++    int equal_count;
++};
++
++static __global__ void top_k_radix_init(top_k_radix_state * states, int nrows, int k) {
++    const int row = blockIdx.x * blockDim.x + threadIdx.x;
++    if (row < nrows) {
++        states[row] = {0, 0, k, 0, 0};
++    }
++}
++
++template<int BLOCK_SIZE, int RADIX_BITS>
++static __global__ void top_k_radix_histogram(
++        const float * __restrict__ src,
++        const top_k_radix_state * __restrict__ states,
++        int * __restrict__ block_histograms,
++        int ncols,
++        int blocks_per_row,
++        int shift) {
++    constexpr int NBINS = 1 << RADIX_BITS;
++
++    const int row = blockIdx.x / blocks_per_row;
++    const int row_block = blockIdx.x % blocks_per_row;
++    const int tid = threadIdx.x;
++    const float * row_src = src + (size_t) row * ncols;
++    __shared__ int histogram[NBINS];
++
++    histogram[tid] = 0;
++    __syncthreads();
++
++    const top_k_radix_state state = states[row];
++    for (int col = row_block * BLOCK_SIZE + tid;
++         col < ncols;
++         col += blocks_per_row * BLOCK_SIZE) {
++        const uint32_t key = top_k_float_to_ordered(row_src[col]);
++        if ((key & state.prefix_mask) == state.prefix) {
++            atomicAdd(&histogram[(key >> shift) & (NBINS - 1)], 1);
++        }
++    }
++    __syncthreads();
++
++    const size_t histogram_offset =
++        ((size_t) row * blocks_per_row + row_block) * NBINS;
++    block_histograms[histogram_offset + tid] = histogram[tid];
++}
++
++template<int BLOCK_SIZE, int RADIX_BITS>
++static __global__ void top_k_radix_select(
++        const int * __restrict__ block_histograms,
++        top_k_radix_state * __restrict__ states,
++        int blocks_per_row,
++        int shift) {
++    constexpr int NBINS = 1 << RADIX_BITS;
++
++    const int row = blockIdx.x;
++    const int tid = threadIdx.x;
++    __shared__ int histogram[NBINS];
++
++    int count = 0;
++    for (int row_block = 0; row_block < blocks_per_row; ++row_block) {
++        const size_t offset = ((size_t) row * blocks_per_row + row_block) * NBINS;
++        count += block_histograms[offset + tid];
++    }
++    histogram[tid] = count;
++    __syncthreads();
++
++    if (tid == 0) {
++        top_k_radix_state state = states[row];
++        int bin = NBINS - 1;
++        while (bin > 0 && histogram[bin] < state.rank) {
++            state.rank -= histogram[bin--];
++        }
++        state.prefix |= (uint32_t) bin << shift;
++        state.prefix_mask |= (uint32_t) (NBINS - 1) << shift;
++        states[row] = state;
++    }
++}
++
++static __global__ void top_k_radix_reset_counters(top_k_radix_state * states, int nrows) {
++    const int row = blockIdx.x * blockDim.x + threadIdx.x;
++    if (row < nrows) {
++        states[row].greater_count = 0;
++        states[row].equal_count = 0;
++    }
++}
++
++template<int BLOCK_SIZE>
++static __global__ void top_k_radix_gather(
++        const float * __restrict__ src,
++        int * __restrict__ dst,
++        top_k_radix_state * __restrict__ states,
++        int ncols,
++        int k,
++        int blocks_per_row) {
++    const int row = blockIdx.x / blocks_per_row;
++    const int row_block = blockIdx.x % blocks_per_row;
++    const int tid = threadIdx.x;
++    const float * row_src = src + (size_t) row * ncols;
++    int * row_dst = dst + (size_t) row * k;
++    top_k_radix_state * state = &states[row];
++
++    for (int col = row_block * BLOCK_SIZE + tid;
++         col < ncols;
++         col += blocks_per_row * BLOCK_SIZE) {
++        const uint32_t key = top_k_float_to_ordered(row_src[col]);
++        if (key > state->prefix) {
++            const int pos = atomicAdd(&state->greater_count, 1);
++            row_dst[pos] = col;
++        } else if (key == state->prefix) {
++            const int pos = atomicAdd(&state->equal_count, 1);
++            if (pos < state->rank) {
++                row_dst[k - state->rank + pos] = col;
++            }
++        }
++    }
++}
++
++static void top_k_radix_cuda(
++        ggml_cuda_pool & pool,
++        const float * src, int * dst, int ncols, int nrows, int k, cudaStream_t stream) {
++    constexpr int BLOCK_SIZE = 256;
++    constexpr int RADIX_BITS = 8;
++    constexpr int NBINS = 1 << RADIX_BITS;
++    const int blocks_per_row = std::min((ncols + 1023) / 1024, 64);
++
++    ggml_cuda_pool_alloc<top_k_radix_state> states_alloc(pool, nrows);
++    ggml_cuda_pool_alloc<int> histograms_alloc(pool, (size_t) nrows * blocks_per_row * NBINS);
++    top_k_radix_state * states = states_alloc.get();
++    int * histograms = histograms_alloc.get();
++
++    top_k_radix_init<<<(nrows + BLOCK_SIZE - 1) / BLOCK_SIZE, BLOCK_SIZE, 0, stream>>>(states, nrows, k);
++
++    const dim3 row_grid(blocks_per_row * nrows);
++    for (int shift = 32 - RADIX_BITS; shift >= 0; shift -= RADIX_BITS) {
++        top_k_radix_histogram<BLOCK_SIZE, RADIX_BITS>
++            <<<row_grid, BLOCK_SIZE, 0, stream>>>(
++                src, states, histograms, ncols, blocks_per_row, shift);
++        top_k_radix_select<BLOCK_SIZE, RADIX_BITS>
++            <<<nrows, BLOCK_SIZE, 0, stream>>>(histograms, states, blocks_per_row, shift);
++    }
++
++    top_k_radix_reset_counters
++        <<<(nrows + BLOCK_SIZE - 1) / BLOCK_SIZE, BLOCK_SIZE, 0, stream>>>(states, nrows);
++    top_k_radix_gather<BLOCK_SIZE>
++        <<<row_grid, BLOCK_SIZE, 0, stream>>>(
++            src, dst, states, ncols, k, blocks_per_row);
++}
++
++#endif
++
+ void ggml_cuda_op_top_k(ggml_backend_cuda_context & ctx, ggml_tensor * dst) {
+     const ggml_tensor * src0   = dst->src[0];
+     const float *       src0_d = (const float *) src0->data;
+@@ -63,6 +225,16 @@ void ggml_cuda_op_top_k(ggml_backend_cuda_context & ctx, ggml_tensor * dst) {
+     const int64_t    nrows = ggml_nrows(src0);
+     const int64_t    k     = dst->ne[0];
+     ggml_cuda_pool & pool  = ctx.pool();
++#ifndef CUB_TOP_K_AVAILABLE
++    static const bool use_radix = [] {
++        const char * value = getenv("GGML_CUDA_TOP_K_RADIX");
++        return value == nullptr || atoi(value) != 0;
++    }();
++    if (use_radix && ncols > 1024) {
++        top_k_radix_cuda(pool, src0_d, dst_d, (int) ncols, (int) nrows, (int) k, stream);
++        return;
++    }
++#endif
+ #ifdef CUB_TOP_K_AVAILABLE
+     // TODO: Switch to `DeviceSegmentedTopK` for multi-row TopK once implemented
+     // https://github.com/NVIDIA/cccl/issues/6391
+diff --git a/src/llama-kv-cache.cpp b/src/llama-kv-cache.cpp
+index ff76dcf8..cfb56744 100644
+--- a/src/llama-kv-cache.cpp
++++ b/src/llama-kv-cache.cpp
+@@ -81,6 +81,29 @@ llama_kv_cache::llama_kv_cache(
+     const  layer_reuse_cb & reuse,
+     const  layer_share_cb & share,
+              const char *   name_tag) :
++    llama_kv_cache(model, hparams, type_k, type_v, v_trans, offload, unified,
++                   kv_size, n_seq_max, n_pad, n_swa, swa_type, mem_other,
++                   filter, reuse, share, name_tag, false) {}
++
++llama_kv_cache::llama_kv_cache(
++        const llama_model & model,
++        const llama_hparams & hparams,
++                ggml_type   type_k,
++                ggml_type   type_v,
++                     bool   v_trans,
++                     bool   offload,
++                     bool   unified,
++                 uint32_t   kv_size,
++                 uint32_t   n_seq_max,
++                 uint32_t   n_pad,
++                 uint32_t   n_swa,
++           llama_swa_type   swa_type,
++           llama_memory_t   mem_other,
++    const layer_filter_cb & filter,
++    const  layer_reuse_cb & reuse,
++    const  layer_share_cb & share,
++             const char *   name_tag,
++                     bool   key_only) :
+     model(model), hparams(hparams), v_trans(v_trans),
+     n_seq_max(n_seq_max), n_stream(unified ? 1 : n_seq_max), n_pad(n_pad), n_swa(n_swa), swa_type(swa_type),
+     other(static_cast<llama_kv_cache *>(mem_other)),
+@@ -198,7 +221,7 @@ llama_kv_cache::llama_kv_cache(
+             n_embd_head_k_all = -1;
+         }
+ 
+-        if (!is_mla) {
++        if (!is_mla && !key_only) {
+             if (n_embd_head_v_all == 0) {
+                 n_embd_head_v_all = (int32_t) hparams.n_embd_head_v(il);
+             } else if (n_embd_head_v_all > 0 && n_embd_head_v_all != (int32_t) hparams.n_embd_head_v(il)) {
+@@ -229,7 +252,7 @@ llama_kv_cache::llama_kv_cache(
+         }
+ 
+         const bool has_k = true;
+-        const bool has_v = !is_mla;
++        const bool has_v = !is_mla && !key_only;
+ 
+         ggml_tensor * k = has_k ? ggml_new_tensor_3d(ctx, type_k, n_embd_k_gqa, kv_size, n_stream) : nullptr;
+         ggml_tensor * v = has_v ? ggml_new_tensor_3d(ctx, type_v, n_embd_v_gqa, kv_size, n_stream) : nullptr;
+diff --git a/src/llama-kv-cache.h b/src/llama-kv-cache.h
+index c4d8699d..f35c3e11 100644
+--- a/src/llama-kv-cache.h
++++ b/src/llama-kv-cache.h
+@@ -116,6 +116,27 @@ public:
+         // a model can hold more than one cache, so the tensor names have to stay unique
+                  const char *   name_tag = "");
+ 
++    // Key-only caches omit value tensors without changing model metadata.
++    llama_kv_cache(
++            const llama_model & model,
++          const llama_hparams & hparams,
++                    ggml_type   type_k,
++                    ggml_type   type_v,
++                         bool   v_trans,
++                         bool   offload,
++                         bool   unified,
++                     uint32_t   kv_size,
++                     uint32_t   n_seq_max,
++                     uint32_t   n_pad,
++                     uint32_t   n_swa,
++               llama_swa_type   swa_type,
++               llama_memory_t   mem_other,
++        const layer_filter_cb & filter,
++        const  layer_reuse_cb & reuse,
++        const  layer_share_cb & share,
++                 const char *   name_tag,
++                         bool   key_only);
++
+     ~llama_kv_cache() = default;
+ 
+     //
+diff --git a/src/llama-memory-hybrid-idx.cpp b/src/llama-memory-hybrid-idx.cpp
+index 4876915a..3814ccab 100644
+--- a/src/llama-memory-hybrid-idx.cpp
++++ b/src/llama-memory-hybrid-idx.cpp
+@@ -6,6 +6,7 @@
+ #include "llama-model.h"
+ 
+ #include "ggml-backend.h"
++#include "../ggml/src/ggml-backend-impl.h"
+ 
+ #include <algorithm>
+ #include <cassert>
+@@ -56,10 +57,12 @@ llama_memory_hybrid_idx::llama_memory_hybrid_idx(
+ 
+         LLAMA_LOG_INFO("%s: creating indexer KV cache, size = %u cells\n", __func__, kv_size);
+ 
++        const char * key_only_env = getenv("LLAMA_QSA_INDEX_KEYS_ONLY");
++        const bool key_only = key_only_env == nullptr || atoi(key_only_env) != 0;
+         return new llama_kv_cache(
+             model, hparams_idx, type_k, type_v, v_trans, offload, unified,
+             kv_size, n_seq_max, n_pad, n_swa, swa_type,
+-            nullptr, filter_idx, nullptr, nullptr, "idx_");
++            nullptr, filter_idx, nullptr, nullptr, "idx_", key_only);
+     }()) {
+     // [TAG_QSA_POOLED_CACHE] one f32 row per position block per QSA layer; single-stream
+     // memories only (a unified cache shares one stream; block rows are position-indexed,
+@@ -86,7 +89,10 @@ llama_memory_hybrid_idx::llama_memory_hybrid_idx(
+             };
+             pooled_ctx.reset(ggml_init(ip));
+ 
+-            ggml_backend_buffer_type_t buft = nullptr;
++            ggml_backend_buffer_type_t first_buft = nullptr;
++            std::vector<ggml_backend_buffer_t> buffers;
++            const char * local_env = getenv("LLAMA_QSA_POOLED_LOCAL");
++            const bool local = local_env == nullptr || atoi(local_env) != 0;
+             for (uint32_t il = 0; il < model.hparams.n_layer(); ++il) {
+                 // The idx cache is built with filter_idx = !is_recr(il), so get_k_storage is only
+                 // in range for those layers - match that predicate exactly rather than inferring the
+@@ -101,16 +107,29 @@ llama_memory_hybrid_idx::llama_memory_hybrid_idx(
+                 if (k == nullptr) {
+                     continue;
+                 }
+-                if (buft == nullptr) {
+-                    buft = ggml_backend_buffer_get_type(k->buffer);
++                auto buft = ggml_backend_buffer_get_type(k->buffer);
++                if (first_buft == nullptr) {
++                    first_buft = buft;
++                }
++                if (!local) {
++                    buft = first_buft;
+                 }
+                 ggml_tensor * t = ggml_new_tensor_2d(pooled_ctx.get(), GGML_TYPE_F32, idx_dim, pooled_rows);
+                 ggml_format_name(t, "idx_pooled_l%u", il);
++                // Keep the pooled cache on the same device as this layer's raw keys.
++                // Putting every layer on the first device makes a split model copy
++                // complete pooled-key tables across devices during every decode.
++                auto buffer = ggml_backend_buft_alloc_buffer(buft, ggml_backend_buft_get_alloc_size(buft, t));
++                GGML_ASSERT(buffer && "failed to allocate a pooled indexer key cache");
++                GGML_ASSERT(ggml_backend_tensor_alloc(buffer, t, ggml_backend_buffer_get_base(buffer)) == GGML_STATUS_SUCCESS);
++                ggml_backend_buffer_clear(buffer, 0);
++                buffers.push_back(buffer);
+                 pooled_k[(int32_t) il] = t;
++                LLAMA_LOG_INFO("%s: pooled layer %u on %s\n", __func__, il, ggml_backend_buft_name(buft));
+             }
+ 
+             if (!pooled_k.empty()) {
+-                pooled_buf.reset(ggml_backend_alloc_ctx_tensors_from_buft(pooled_ctx.get(), buft));
++                pooled_buf.reset(ggml_backend_multi_buffer_alloc_buffer(buffers.data(), buffers.size()));
+                 GGML_ASSERT(pooled_buf && "failed to allocate the pooled indexer key cache");
+                 // stale rows are read (and masked); they must be finite, never uninitialized
+                 ggml_backend_buffer_clear(pooled_buf.get(), 0);
+diff --git a/src/models/models.h b/src/models/models.h
+index e251ae8d..741ef46c 100644
+--- a/src/models/models.h
++++ b/src/models/models.h
+@@ -2338,6 +2338,22 @@ struct llama_model_qwen4exp : public llama_model_base {
+                           float   kq_scale,
+                             int   il);
+ 
++        // attention over the whole window, masked down to the selection
++        ggml_tensor * build_qsa_scan(
++        llm_graph_input_attn_kv * inp,
++                    ggml_tensor * q_cur,
++                    ggml_tensor * top_k,
++                          float   kq_scale,
++                            int   il);
++
++        // attention over the selected cells alone, gathered into a window per query
++        ggml_tensor * build_qsa_gather(
++        llm_graph_input_attn_kv * inp,
++                    ggml_tensor * q_cur,
++                    ggml_tensor * top_k,
++                          float   kq_scale,
++                            int   il);
++
+         // the QSA cache layout inputs do not depend on the layer, only on its compress ratio,
+         // so the layers sharing a ratio share one input set
+         std::map<uint32_t, llm_graph_input_qsa *> qsa_inps;
+diff --git a/src/models/qwen4exp.cpp b/src/models/qwen4exp.cpp
+index 5a941eab..0dc52597 100644
+--- a/src/models/qwen4exp.cpp
++++ b/src/models/qwen4exp.cpp
+@@ -1019,6 +1019,41 @@ ggml_tensor * llama_model_qwen4exp::graph::build_attn_qsa(
+         ggml_build_forward_expand(gf, mctx_cur->cpy_v(ctx0, v_cur, v_idxs, il));
+     }
+ 
++    const int64_t width = top_k->ne[0];
++    const int64_t n_tps = top_k->ne[1];
++    const int64_t n_kv  = mctx_cur->get_n_kv();
++
++    // the scan reads the window once for all the queries of a stream, the gather moves the
++    // selected cells twice, so the two meet at 2*n_tps*width == n_kv. the margin below keeps
++    // the win clear and the windows small enough to stay in the compute buffer of a decode
++    // graph. flash attention keeps the value side as rows, which is what the gather reads
++    static const bool gather_enabled = [] {
++        const char * value = getenv("QWEN4EXP_QSA_GATHER");
++        return value == nullptr || atoi(value) != 0;
++    }();
++    ggml_tensor * cur = gather_enabled && cparams.flash_attn && 4*n_tps*width < n_kv
++        ? build_qsa_gather(inp, q_cur, top_k, kq_scale, il)
++        : build_qsa_scan  (inp, q_cur, top_k, kq_scale, il);
++    cb(cur, "kqv_out", il);
++
++    // the rotation is its own inverse, so undo it on the value side of the output
++    if (inp->self_v_rot) {
++        cur = llama_mul_mat_hadamard(ctx0, cur, inp->self_v_rot);
++    }
++
++    return cur;
++}
++
++// The window stays whole and the mask hides every cell the selection leaves out.
++// The mask build below copies the MLA sparse path in llm_graph_context::build_attn.
++ggml_tensor * llama_model_qwen4exp::graph::build_qsa_scan(
++        llm_graph_input_attn_kv * inp,
++        ggml_tensor *             q_cur,
++        ggml_tensor *             top_k,
++        float                     kq_scale,
++        int                       il) {
++    const auto * mctx_cur = inp->mctx;
++
+     ggml_tensor * kq_mask = inp->get_kq_mask();
+ 
+     // prepare new kq mask - starts filled with -INFINITY
+@@ -1051,15 +1086,65 @@ ggml_tensor * llama_model_qwen4exp::graph::build_attn_qsa(
+     ggml_tensor * k = mctx_cur->get_k(ctx0, il);
+     ggml_tensor * v = mctx_cur->get_v(ctx0, il);
+ 
+-    ggml_tensor * cur = build_attn_mha(q, k, v, nullptr, kq_mask_top_k, nullptr, nullptr, kq_scale, il);
+-    cb(cur, "kqv_out", il);
++    return build_attn_mha(q, k, v, nullptr, kq_mask_top_k, nullptr, nullptr, kq_scale, il);
++}
+ 
+-    // the rotation is its own inverse, so undo it on the value side of the output
+-    if (inp->self_v_rot) {
+-        cur = llama_mul_mat_hadamard(ctx0, cur, inp->self_v_rot);
+-    }
++// The selected cells are gathered into a window of their own, one per query, so the key and
++// value traffic follows the budget instead of the whole cache. The queries then ride the stream
++// axis of the attention: each one carries the window its own selection named.
++ggml_tensor * llama_model_qwen4exp::graph::build_qsa_gather(
++        llm_graph_input_attn_kv * inp,
++        ggml_tensor *             q_cur,
++        ggml_tensor *             top_k,
++        float                     kq_scale,
++        int                       il) {
++    const auto * mctx_cur = inp->mctx;
+ 
+-    return cur;
++    const int64_t width    = top_k->ne[0];
++    const int64_t n_tps    = top_k->ne[1];
++    const int64_t n_stream = top_k->ne[3];
++    const int64_t n_q      = n_tps*n_stream;
++
++    ggml_tensor * k_all = mctx_cur->get_k(ctx0, il);
++    ggml_tensor * v_all = mctx_cur->get_v(ctx0, il);
++
++    const int64_t n_kv = k_all->ne[2];
++
++    // a cell holds its heads back to back, so one row of the gather is one whole cell
++    ggml_tensor * k_cells = ggml_view_3d(ctx0, k_all, k_all->ne[0]*k_all->ne[1], n_kv, n_stream,
++            k_all->nb[2], k_all->nb[3], 0);
++    ggml_tensor * v_cells = ggml_view_3d(ctx0, v_all, v_all->ne[0]*v_all->ne[1], n_kv, n_stream,
++            v_all->nb[2], v_all->nb[3], 0);
++
++    // a cell index names a cell of its own stream, and the ubatch lays the queries of a stream
++    // out contiguously, so the flat index of a window is the index of its query
++    ggml_tensor * idx_stream = ggml_reshape_2d(ctx0, top_k, width*n_tps, n_stream);
++
++    ggml_tensor * k_sel = ggml_get_rows(ctx0, k_cells, idx_stream);
++    ggml_tensor * v_sel = ggml_get_rows(ctx0, v_cells, idx_stream);
++
++    k_sel = ggml_reshape_4d(ctx0, k_sel, k_all->ne[0], k_all->ne[1], width, n_q);
++    v_sel = ggml_reshape_4d(ctx0, v_sel, v_all->ne[0], v_all->ne[1], width, n_q);
++    cb(k_sel, "qsa_k_sel", il);
++    cb(v_sel, "qsa_v_sel", il);
++
++    // gathering the attention mask at the selected cells leaves the same values the scan path
++    // would put there, so the window carries the reach of its query
++    ggml_tensor * kq_mask = inp->get_kq_mask();
++
++    GGML_ASSERT(kq_mask->nb[3] == kq_mask->nb[1]*n_tps);
++
++    ggml_tensor * mask_cells = ggml_view_3d(ctx0, kq_mask, 1, n_kv, n_q,
++            kq_mask->nb[0], kq_mask->nb[1], 0);
++
++    ggml_tensor * idx_query = ggml_reshape_3d(ctx0, top_k, width, n_q, 1);
++
++    ggml_tensor * mask = ggml_get_rows(ctx0, mask_cells, idx_query);
++
++    mask = ggml_cast(ctx0, ggml_reshape_4d(ctx0, mask, width, 1, 1, n_q), GGML_TYPE_F16);
++    cb(mask, "qsa_mask_sel", il);
++
++    return build_attn_mha(q_cur, k_sel, v_sel, nullptr, mask, nullptr, nullptr, kq_scale, il);
+ }
+ 
+ ggml_tensor * llama_model_qwen4exp::graph::build_layer_attn(
+diff --git a/tests/test-backend-ops.cpp b/tests/test-backend-ops.cpp
+index 35270c04..4882dfe1 100644
+--- a/tests/test-backend-ops.cpp
++++ b/tests/test-backend-ops.cpp
+@@ -8501,6 +8501,14 @@ static std::vector<std::unique_ptr<test_case>> make_test_cases_eval() {
+     }
+ 
+     test_cases.emplace_back(new test_get_rows(GGML_TYPE_F32, 1, 8, 2, 1, 1, false));
++    for (int n : {1, 3, 8, 31}) {
++        for (int r : {31, 257, 65537}) {
++            for (bool view : {false, true}) {
++                test_cases.emplace_back(new test_get_rows(GGML_TYPE_F32, n, 4096, r, 1, 1, view));
++                test_cases.emplace_back(new test_get_rows(GGML_TYPE_F32, n, 4096, r, 3, 2, view));
++            }
++        }
++    }
+     for (ggml_type type : all_types) {
+         for (int b : {1, 7}) {
+             for (bool v : {false, true}) {
+@@ -9886,6 +9894,9 @@ static std::vector<std::unique_ptr<test_case>> make_test_cases_eval() {
+     test_cases.emplace_back(new test_sum(GGML_TYPE_F32, { 33, 256, 1, 1 }));
+     test_cases.emplace_back(new test_sum(GGML_TYPE_F32, { 33, 256, 1, 1 }, { 1, 0, 2, 3 })); // sum dst not-contiguous
+     test_cases.emplace_back(new test_sum_rows());
++    for (int64_t rows : {255, 256, 257, 65537, 4194304}) {
++        test_cases.emplace_back(new test_sum_rows(GGML_TYPE_F32, {4, rows, 1, 1}));
++    }
+     test_cases.emplace_back(new test_sum_rows(GGML_TYPE_F32, { 11, 5, 6, 3 }, true, false));
+     test_cases.emplace_back(new test_sum_rows(GGML_TYPE_F32, { 11, 5, 6, 3 }, false, true));
+     test_cases.emplace_back(new test_sum_rows(GGML_TYPE_F32, { 11, 5, 6, 3 }, true, true));

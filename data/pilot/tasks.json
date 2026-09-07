@@ -1,0 +1,762 @@
+[
+  {
+    "task_id": "inventory_lookup/0",
+    "family_id": "inventory_lookup",
+    "variant_id": "0",
+    "partition": "train",
+    "usage": "evaluation_only",
+    "prompt": "Turn on the desk lamp in the office.",
+    "devices": [
+      {
+        "entity_id": "device.6a8048be",
+        "label": "Desk lamp",
+        "room": "office",
+        "state": "off",
+        "version": 7
+      },
+      {
+        "entity_id": "device.86f9b5d9",
+        "label": "Desk lamp",
+        "room": "bedroom",
+        "state": "on",
+        "version": 13
+      },
+      {
+        "entity_id": "device.34f00650",
+        "label": "Ceiling lamp",
+        "room": "office",
+        "state": "off",
+        "version": 21
+      }
+    ],
+    "expected_state": {
+      "device.6a8048be": "on",
+      "device.86f9b5d9": "on",
+      "device.34f00650": "off"
+    },
+    "family_definition": "inventory_lookup",
+    "dataset_version": "pilot-v1"
+  },
+  {
+    "task_id": "inventory_lookup/1",
+    "family_id": "inventory_lookup",
+    "variant_id": "1",
+    "partition": "train",
+    "usage": "evaluation_only",
+    "prompt": "Please use the available tools for this request: Turn on the desk lamp in the office.",
+    "devices": [
+      {
+        "entity_id": "device.e118256f",
+        "label": "Desk lamp",
+        "room": "office",
+        "state": "off",
+        "version": 8
+      },
+      {
+        "entity_id": "device.3d5e2c02",
+        "label": "Desk lamp",
+        "room": "bedroom",
+        "state": "on",
+        "version": 14
+      },
+      {
+        "entity_id": "device.d8d8adf6",
+        "label": "Ceiling lamp",
+        "room": "office",
+        "state": "off",
+        "version": 22
+      }
+    ],
+    "expected_state": {
+      "device.e118256f": "on",
+      "device.3d5e2c02": "on",
+      "device.d8d8adf6": "off"
+    },
+    "family_definition": "inventory_lookup",
+    "dataset_version": "pilot-v1"
+  },
+  {
+    "task_id": "inventory_lookup/2",
+    "family_id": "inventory_lookup",
+    "variant_id": "2",
+    "partition": "train",
+    "usage": "evaluation_only",
+    "prompt": "Turn on the desk lamp in the office.",
+    "devices": [
+      {
+        "entity_id": "device.85ac5b34",
+        "label": "Desk lamp",
+        "room": "office",
+        "state": "off",
+        "version": 9
+      },
+      {
+        "entity_id": "device.9aba9342",
+        "label": "Desk lamp",
+        "room": "bedroom",
+        "state": "on",
+        "version": 15
+      },
+      {
+        "entity_id": "device.3dda028e",
+        "label": "Ceiling lamp",
+        "room": "office",
+        "state": "off",
+        "version": 23
+      }
+    ],
+    "expected_state": {
+      "device.85ac5b34": "on",
+      "device.9aba9342": "on",
+      "device.3dda028e": "off"
+    },
+    "family_definition": "inventory_lookup",
+    "dataset_version": "pilot-v1"
+  },
+  {
+    "task_id": "inventory_lookup/3",
+    "family_id": "inventory_lookup",
+    "variant_id": "3",
+    "partition": "train",
+    "usage": "evaluation_only",
+    "prompt": "Please use the available tools for this request: Turn on the desk lamp in the office.",
+    "devices": [
+      {
+        "entity_id": "device.5f87f3c6",
+        "label": "Desk lamp",
+        "room": "office",
+        "state": "off",
+        "version": 10
+      },
+      {
+        "entity_id": "device.8e57b898",
+        "label": "Desk lamp",
+        "room": "bedroom",
+        "state": "on",
+        "version": 16
+      },
+      {
+        "entity_id": "device.bebfea57",
+        "label": "Ceiling lamp",
+        "room": "office",
+        "state": "off",
+        "version": 24
+      }
+    ],
+    "expected_state": {
+      "device.5f87f3c6": "on",
+      "device.8e57b898": "on",
+      "device.bebfea57": "off"
+    },
+    "family_definition": "inventory_lookup",
+    "dataset_version": "pilot-v1"
+  },
+  {
+    "task_id": "multi_target/0",
+    "family_id": "multi_target",
+    "variant_id": "0",
+    "partition": "train",
+    "usage": "evaluation_only",
+    "prompt": "Turn on both lamps in the office.",
+    "devices": [
+      {
+        "entity_id": "device.71edcadb",
+        "label": "Desk lamp",
+        "room": "office",
+        "state": "off",
+        "version": 7
+      },
+      {
+        "entity_id": "device.88fefc23",
+        "label": "Desk lamp",
+        "room": "bedroom",
+        "state": "on",
+        "version": 13
+      },
+      {
+        "entity_id": "device.eeca61a2",
+        "label": "Ceiling lamp",
+        "room": "office",
+        "state": "off",
+        "version": 21
+      }
+    ],
+    "expected_state": {
+      "device.71edcadb": "on",
+      "device.88fefc23": "on",
+      "device.eeca61a2": "on"
+    },
+    "family_definition": "multi_target",
+    "dataset_version": "pilot-v1"
+  },
+  {
+    "task_id": "multi_target/1",
+    "family_id": "multi_target",
+    "variant_id": "1",
+    "partition": "train",
+    "usage": "evaluation_only",
+    "prompt": "Please use the available tools for this request: Turn on both lamps in the office.",
+    "devices": [
+      {
+        "entity_id": "device.0695a550",
+        "label": "Desk lamp",
+        "room": "office",
+        "state": "off",
+        "version": 8
+      },
+      {
+        "entity_id": "device.3cd9d548",
+        "label": "Desk lamp",
+        "room": "bedroom",
+        "state": "on",
+        "version": 14
+      },
+      {
+        "entity_id": "device.cca6daeb",
+        "label": "Ceiling lamp",
+        "room": "office",
+        "state": "off",
+        "version": 22
+      }
+    ],
+    "expected_state": {
+      "device.0695a550": "on",
+      "device.3cd9d548": "on",
+      "device.cca6daeb": "on"
+    },
+    "family_definition": "multi_target",
+    "dataset_version": "pilot-v1"
+  },
+  {
+    "task_id": "multi_target/2",
+    "family_id": "multi_target",
+    "variant_id": "2",
+    "partition": "train",
+    "usage": "evaluation_only",
+    "prompt": "Turn on both lamps in the office.",
+    "devices": [
+      {
+        "entity_id": "device.fa7a2e2f",
+        "label": "Desk lamp",
+        "room": "office",
+        "state": "off",
+        "version": 9
+      },
+      {
+        "entity_id": "device.2988ed0f",
+        "label": "Desk lamp",
+        "room": "bedroom",
+        "state": "on",
+        "version": 15
+      },
+      {
+        "entity_id": "device.88870de2",
+        "label": "Ceiling lamp",
+        "room": "office",
+        "state": "off",
+        "version": 23
+      }
+    ],
+    "expected_state": {
+      "device.fa7a2e2f": "on",
+      "device.2988ed0f": "on",
+      "device.88870de2": "on"
+    },
+    "family_definition": "multi_target",
+    "dataset_version": "pilot-v1"
+  },
+  {
+    "task_id": "multi_target/3",
+    "family_id": "multi_target",
+    "variant_id": "3",
+    "partition": "train",
+    "usage": "evaluation_only",
+    "prompt": "Please use the available tools for this request: Turn on both lamps in the office.",
+    "devices": [
+      {
+        "entity_id": "device.b822a619",
+        "label": "Desk lamp",
+        "room": "office",
+        "state": "off",
+        "version": 10
+      },
+      {
+        "entity_id": "device.fd8205cd",
+        "label": "Desk lamp",
+        "room": "bedroom",
+        "state": "on",
+        "version": 16
+      },
+      {
+        "entity_id": "device.476e4f8f",
+        "label": "Ceiling lamp",
+        "room": "office",
+        "state": "off",
+        "version": 24
+      }
+    ],
+    "expected_state": {
+      "device.b822a619": "on",
+      "device.fd8205cd": "on",
+      "device.476e4f8f": "on"
+    },
+    "family_definition": "multi_target",
+    "dataset_version": "pilot-v1"
+  },
+  {
+    "task_id": "conditional_state/0",
+    "family_id": "conditional_state",
+    "variant_id": "0",
+    "partition": "train",
+    "usage": "evaluation_only",
+    "prompt": "Turn off any desk lamp that is currently on. Leave lamps that are off alone.",
+    "devices": [
+      {
+        "entity_id": "device.d0ae2141",
+        "label": "Desk lamp",
+        "room": "office",
+        "state": "off",
+        "version": 7
+      },
+      {
+        "entity_id": "device.bee012ba",
+        "label": "Desk lamp",
+        "room": "bedroom",
+        "state": "on",
+        "version": 13
+      },
+      {
+        "entity_id": "device.3f17ad24",
+        "label": "Ceiling lamp",
+        "room": "office",
+        "state": "off",
+        "version": 21
+      }
+    ],
+    "expected_state": {
+      "device.d0ae2141": "off",
+      "device.bee012ba": "off",
+      "device.3f17ad24": "off"
+    },
+    "family_definition": "conditional_state",
+    "dataset_version": "pilot-v1"
+  },
+  {
+    "task_id": "conditional_state/1",
+    "family_id": "conditional_state",
+    "variant_id": "1",
+    "partition": "train",
+    "usage": "evaluation_only",
+    "prompt": "Please use the available tools for this request: Turn off any desk lamp that is currently on. Leave lamps that are off alone.",
+    "devices": [
+      {
+        "entity_id": "device.e4daccc3",
+        "label": "Desk lamp",
+        "room": "office",
+        "state": "off",
+        "version": 8
+      },
+      {
+        "entity_id": "device.d4bf03af",
+        "label": "Desk lamp",
+        "room": "bedroom",
+        "state": "on",
+        "version": 14
+      },
+      {
+        "entity_id": "device.f8864642",
+        "label": "Ceiling lamp",
+        "room": "office",
+        "state": "off",
+        "version": 22
+      }
+    ],
+    "expected_state": {
+      "device.e4daccc3": "off",
+      "device.d4bf03af": "off",
+      "device.f8864642": "off"
+    },
+    "family_definition": "conditional_state",
+    "dataset_version": "pilot-v1"
+  },
+  {
+    "task_id": "conditional_state/2",
+    "family_id": "conditional_state",
+    "variant_id": "2",
+    "partition": "train",
+    "usage": "evaluation_only",
+    "prompt": "Turn off any desk lamp that is currently on. Leave lamps that are off alone.",
+    "devices": [
+      {
+        "entity_id": "device.dfc2ad6e",
+        "label": "Desk lamp",
+        "room": "office",
+        "state": "off",
+        "version": 9
+      },
+      {
+        "entity_id": "device.b029ff86",
+        "label": "Desk lamp",
+        "room": "bedroom",
+        "state": "on",
+        "version": 15
+      },
+      {
+        "entity_id": "device.9dcbe072",
+        "label": "Ceiling lamp",
+        "room": "office",
+        "state": "off",
+        "version": 23
+      }
+    ],
+    "expected_state": {
+      "device.dfc2ad6e": "off",
+      "device.b029ff86": "off",
+      "device.9dcbe072": "off"
+    },
+    "family_definition": "conditional_state",
+    "dataset_version": "pilot-v1"
+  },
+  {
+    "task_id": "conditional_state/3",
+    "family_id": "conditional_state",
+    "variant_id": "3",
+    "partition": "train",
+    "usage": "evaluation_only",
+    "prompt": "Please use the available tools for this request: Turn off any desk lamp that is currently on. Leave lamps that are off alone.",
+    "devices": [
+      {
+        "entity_id": "device.ec7e87a8",
+        "label": "Desk lamp",
+        "room": "office",
+        "state": "off",
+        "version": 10
+      },
+      {
+        "entity_id": "device.c4b90f6e",
+        "label": "Desk lamp",
+        "room": "bedroom",
+        "state": "on",
+        "version": 16
+      },
+      {
+        "entity_id": "device.55d5d8f2",
+        "label": "Ceiling lamp",
+        "room": "office",
+        "state": "off",
+        "version": 24
+      }
+    ],
+    "expected_state": {
+      "device.ec7e87a8": "off",
+      "device.c4b90f6e": "off",
+      "device.55d5d8f2": "off"
+    },
+    "family_definition": "conditional_state",
+    "dataset_version": "pilot-v1"
+  },
+  {
+    "task_id": "ambiguous_label/0",
+    "family_id": "ambiguous_label",
+    "variant_id": "0",
+    "partition": "development",
+    "usage": "evaluation_only",
+    "prompt": "Turn off the bedroom desk lamp. Leave the office desk lamp alone.",
+    "devices": [
+      {
+        "entity_id": "device.ad4b85af",
+        "label": "Desk lamp",
+        "room": "office",
+        "state": "off",
+        "version": 7
+      },
+      {
+        "entity_id": "device.8db580c3",
+        "label": "Desk lamp",
+        "room": "bedroom",
+        "state": "on",
+        "version": 13
+      },
+      {
+        "entity_id": "device.2b86c913",
+        "label": "Ceiling lamp",
+        "room": "office",
+        "state": "off",
+        "version": 21
+      }
+    ],
+    "expected_state": {
+      "device.ad4b85af": "off",
+      "device.8db580c3": "off",
+      "device.2b86c913": "off"
+    },
+    "family_definition": "ambiguous_label",
+    "dataset_version": "pilot-v1"
+  },
+  {
+    "task_id": "ambiguous_label/1",
+    "family_id": "ambiguous_label",
+    "variant_id": "1",
+    "partition": "development",
+    "usage": "evaluation_only",
+    "prompt": "Please use the available tools for this request: Turn off the bedroom desk lamp. Leave the office desk lamp alone.",
+    "devices": [
+      {
+        "entity_id": "device.ad6a1ba9",
+        "label": "Desk lamp",
+        "room": "office",
+        "state": "off",
+        "version": 8
+      },
+      {
+        "entity_id": "device.3304156f",
+        "label": "Desk lamp",
+        "room": "bedroom",
+        "state": "on",
+        "version": 14
+      },
+      {
+        "entity_id": "device.62cfdf4b",
+        "label": "Ceiling lamp",
+        "room": "office",
+        "state": "off",
+        "version": 22
+      }
+    ],
+    "expected_state": {
+      "device.ad6a1ba9": "off",
+      "device.3304156f": "off",
+      "device.62cfdf4b": "off"
+    },
+    "family_definition": "ambiguous_label",
+    "dataset_version": "pilot-v1"
+  },
+  {
+    "task_id": "ambiguous_label/2",
+    "family_id": "ambiguous_label",
+    "variant_id": "2",
+    "partition": "development",
+    "usage": "evaluation_only",
+    "prompt": "Turn off the bedroom desk lamp. Leave the office desk lamp alone.",
+    "devices": [
+      {
+        "entity_id": "device.7c149d5c",
+        "label": "Desk lamp",
+        "room": "office",
+        "state": "off",
+        "version": 9
+      },
+      {
+        "entity_id": "device.3a52456e",
+        "label": "Desk lamp",
+        "room": "bedroom",
+        "state": "on",
+        "version": 15
+      },
+      {
+        "entity_id": "device.0285f88e",
+        "label": "Ceiling lamp",
+        "room": "office",
+        "state": "off",
+        "version": 23
+      }
+    ],
+    "expected_state": {
+      "device.7c149d5c": "off",
+      "device.3a52456e": "off",
+      "device.0285f88e": "off"
+    },
+    "family_definition": "ambiguous_label",
+    "dataset_version": "pilot-v1"
+  },
+  {
+    "task_id": "ambiguous_label/3",
+    "family_id": "ambiguous_label",
+    "variant_id": "3",
+    "partition": "development",
+    "usage": "evaluation_only",
+    "prompt": "Please use the available tools for this request: Turn off the bedroom desk lamp. Leave the office desk lamp alone.",
+    "devices": [
+      {
+        "entity_id": "device.a214638b",
+        "label": "Desk lamp",
+        "room": "office",
+        "state": "off",
+        "version": 10
+      },
+      {
+        "entity_id": "device.22e3d66d",
+        "label": "Desk lamp",
+        "room": "bedroom",
+        "state": "on",
+        "version": 16
+      },
+      {
+        "entity_id": "device.c2a1c3be",
+        "label": "Ceiling lamp",
+        "room": "office",
+        "state": "off",
+        "version": 24
+      }
+    ],
+    "expected_state": {
+      "device.a214638b": "off",
+      "device.22e3d66d": "off",
+      "device.c2a1c3be": "off"
+    },
+    "family_definition": "ambiguous_label",
+    "dataset_version": "pilot-v1"
+  },
+  {
+    "task_id": "missing_target/0",
+    "family_id": "missing_target",
+    "variant_id": "0",
+    "partition": "development",
+    "usage": "evaluation_only",
+    "prompt": "Turn on the garage lamp if it exists. If it is absent, report that and change nothing.",
+    "devices": [
+      {
+        "entity_id": "device.d317c218",
+        "label": "Desk lamp",
+        "room": "office",
+        "state": "off",
+        "version": 7
+      },
+      {
+        "entity_id": "device.1807b053",
+        "label": "Desk lamp",
+        "room": "bedroom",
+        "state": "on",
+        "version": 13
+      },
+      {
+        "entity_id": "device.03208970",
+        "label": "Ceiling lamp",
+        "room": "office",
+        "state": "off",
+        "version": 21
+      }
+    ],
+    "expected_state": {
+      "device.d317c218": "off",
+      "device.1807b053": "on",
+      "device.03208970": "off"
+    },
+    "family_definition": "missing_target",
+    "dataset_version": "pilot-v1"
+  },
+  {
+    "task_id": "missing_target/1",
+    "family_id": "missing_target",
+    "variant_id": "1",
+    "partition": "development",
+    "usage": "evaluation_only",
+    "prompt": "Please use the available tools for this request: Turn on the garage lamp if it exists. If it is absent, report that and change nothing.",
+    "devices": [
+      {
+        "entity_id": "device.090f7ee1",
+        "label": "Desk lamp",
+        "room": "office",
+        "state": "off",
+        "version": 8
+      },
+      {
+        "entity_id": "device.faffc678",
+        "label": "Desk lamp",
+        "room": "bedroom",
+        "state": "on",
+        "version": 14
+      },
+      {
+        "entity_id": "device.4539e552",
+        "label": "Ceiling lamp",
+        "room": "office",
+        "state": "off",
+        "version": 22
+      }
+    ],
+    "expected_state": {
+      "device.090f7ee1": "off",
+      "device.faffc678": "on",
+      "device.4539e552": "off"
+    },
+    "family_definition": "missing_target",
+    "dataset_version": "pilot-v1"
+  },
+  {
+    "task_id": "missing_target/2",
+    "family_id": "missing_target",
+    "variant_id": "2",
+    "partition": "development",
+    "usage": "evaluation_only",
+    "prompt": "Turn on the garage lamp if it exists. If it is absent, report that and change nothing.",
+    "devices": [
+      {
+        "entity_id": "device.80c67b23",
+        "label": "Desk lamp",
+        "room": "office",
+        "state": "off",
+        "version": 9
+      },
+      {
+        "entity_id": "device.116e7031",
+        "label": "Desk lamp",
+        "room": "bedroom",
+        "state": "on",
+        "version": 15
+      },
+      {
+        "entity_id": "device.bdbbae7c",
+        "label": "Ceiling lamp",
+        "room": "office",
+        "state": "off",
+        "version": 23
+      }
+    ],
+    "expected_state": {
+      "device.80c67b23": "off",
+      "device.116e7031": "on",
+      "device.bdbbae7c": "off"
+    },
+    "family_definition": "missing_target",
+    "dataset_version": "pilot-v1"
+  },
+  {
+    "task_id": "missing_target/3",
+    "family_id": "missing_target",
+    "variant_id": "3",
+    "partition": "development",
+    "usage": "evaluation_only",
+    "prompt": "Please use the available tools for this request: Turn on the garage lamp if it exists. If it is absent, report that and change nothing.",
+    "devices": [
+      {
+        "entity_id": "device.d17c1bd6",
+        "label": "Desk lamp",
+        "room": "office",
+        "state": "off",
+        "version": 10
+      },
+      {
+        "entity_id": "device.48326c61",
+        "label": "Desk lamp",
+        "room": "bedroom",
+        "state": "on",
+        "version": 16
+      },
+      {
+        "entity_id": "device.e9e00522",
+        "label": "Ceiling lamp",
+        "room": "office",
+        "state": "off",
+        "version": 24
+      }
+    ],
+    "expected_state": {
+      "device.d17c1bd6": "off",
+      "device.48326c61": "on",
+      "device.e9e00522": "off"
+    },
+    "family_definition": "missing_target",
+    "dataset_version": "pilot-v1"
+  }
+]

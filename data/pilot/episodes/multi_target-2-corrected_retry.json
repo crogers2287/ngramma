@@ -1,0 +1,232 @@
+{
+  "task_id": "multi_target/2",
+  "family_id": "multi_target",
+  "variant_id": "2",
+  "partition": "train",
+  "condition": "corrected_retry",
+  "success": true,
+  "grade": {
+    "success": true,
+    "state_correct": true,
+    "inventory_inspected": true,
+    "errors": [],
+    "actions": [
+      {
+        "entity_id": "device.fa7a2e2f",
+        "state": "on",
+        "expected_version": 9,
+        "before": "off"
+      },
+      {
+        "entity_id": "device.88870de2",
+        "expected_version": 23,
+        "state": "on",
+        "before": "off"
+      }
+    ],
+    "actual_state": {
+      "device.fa7a2e2f": "on",
+      "device.2988ed0f": "on",
+      "device.88870de2": "on"
+    }
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are testing tools in a mock device environment. Complete the request with the provided tools, then give a brief result. Device IDs and versions must come from tools."
+    },
+    {
+      "role": "user",
+      "content": "Turn on both lamps in the office. Your earlier attempt failed these checks: {\"success\": false, \"state_correct\": false, \"inventory_inspected\": true, \"errors\": [], \"actions\": [{\"entity_id\": \"device.fa7a2e2f\", \"state\": \"on\", \"expected_version\": 9, \"before\": \"off\"}], \"actual_state\": {\"device.fa7a2e2f\": \"on\", \"device.2988ed0f\": \"on\", \"device.88870de2\": \"off\"}}. Start again from the original state."
+    },
+    {
+      "role": "assistant",
+      "content": "Let me start by checking the current state of all devices to get accurate IDs and versions.\n\n",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "list_devices",
+            "arguments": "{}"
+          },
+          "id": "aR2fYEUooIPrDalQTpt0iJ9H8LW6R8fj"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "aR2fYEUooIPrDalQTpt0iJ9H8LW6R8fj",
+      "content": "{\"devices\": [{\"entity_id\": \"device.fa7a2e2f\", \"label\": \"Desk lamp\", \"room\": \"office\", \"state\": \"off\", \"version\": 9}, {\"entity_id\": \"device.2988ed0f\", \"label\": \"Desk lamp\", \"room\": \"bedroom\", \"state\": \"on\", \"version\": 15}, {\"entity_id\": \"device.88870de2\", \"label\": \"Ceiling lamp\", \"room\": \"office\", \"state\": \"off\", \"version\": 23}]}"
+    },
+    {
+      "role": "assistant",
+      "content": "The office has two lamps: device.fa7a2e2f (Desk lamp) and device.88870de2 (Ceiling lamp). Both are currently off. I need to turn them both on. Let me do this in parallel since they are independent actions.\n\n",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "set_device",
+            "arguments": "{\"entity_id\":\"device.fa7a2e2f\",\"state\":\"on\",\"expected_version\":9}"
+          },
+          "id": "zqexTCufJsMiypu07nvU9tfRUp6PsFff"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "zqexTCufJsMiypu07nvU9tfRUp6PsFff",
+      "content": "{\"ok\": true, \"device\": {\"entity_id\": \"device.fa7a2e2f\", \"label\": \"Desk lamp\", \"room\": \"office\", \"state\": \"on\", \"version\": 10}}"
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "set_device",
+            "arguments": "{\"entity_id\":\"device.88870de2\",\"expected_version\":23,\"state\":\"on\"}"
+          },
+          "id": "MWotCT7swI7NmVJ0POM36piCFZKPImHb"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "MWotCT7swI7NmVJ0POM36piCFZKPImHb",
+      "content": "{\"ok\": true, \"device\": {\"entity_id\": \"device.88870de2\", \"label\": \"Ceiling lamp\", \"room\": \"office\", \"state\": \"on\", \"version\": 24}}"
+    },
+    {
+      "role": "assistant",
+      "content": "Both office lamps are now turned on:\n\n- **Desk lamp** (device.fa7a2e2f): on ✓\n- **Ceiling lamp** (device.88870de2): on ✓\n\nThe bedroom lamp (device.2988ed0f) remains untouched as it was already on and not part of the office."
+    }
+  ],
+  "usage": [
+    {
+      "completion_tokens": 33,
+      "prompt_tokens": 541,
+      "total_tokens": 574,
+      "prompt_tokens_details": {
+        "cached_tokens": 402
+      }
+    },
+    {
+      "completion_tokens": 118,
+      "prompt_tokens": 718,
+      "total_tokens": 836,
+      "prompt_tokens_details": {
+        "cached_tokens": 573
+      }
+    },
+    {
+      "completion_tokens": 61,
+      "prompt_tokens": 901,
+      "total_tokens": 962,
+      "prompt_tokens_details": {
+        "cached_tokens": 835
+      }
+    },
+    {
+      "completion_tokens": 76,
+      "prompt_tokens": 1029,
+      "total_tokens": 1105,
+      "prompt_tokens_details": {
+        "cached_tokens": 961
+      }
+    }
+  ],
+  "seconds": 6.800192363909446,
+  "task_sha256": "c81abbef95a213c7623f8e0accbc72645b7a7a1cb946faaaa04a49ab3886f5f3",
+  "teacher_used": false,
+  "training_eligible": false,
+  "response_metadata": [
+    {
+      "usage": {
+        "completion_tokens": 33,
+        "prompt_tokens": 541,
+        "total_tokens": 574,
+        "prompt_tokens_details": {
+          "cached_tokens": 402
+        }
+      },
+      "timings": {
+        "cache_n": 402,
+        "prompt_n": 139,
+        "prompt_ms": 493.288,
+        "prompt_per_token_ms": 3.5488345323741006,
+        "prompt_per_second": 281.7826502975949,
+        "predicted_n": 33,
+        "predicted_ms": 525.354,
+        "predicted_per_token_ms": 16.4173125,
+        "predicted_per_second": 60.91130932666354
+      },
+      "system_fingerprint": "b10809-5e085d12"
+    },
+    {
+      "usage": {
+        "completion_tokens": 118,
+        "prompt_tokens": 718,
+        "total_tokens": 836,
+        "prompt_tokens_details": {
+          "cached_tokens": 573
+        }
+      },
+      "timings": {
+        "cache_n": 573,
+        "prompt_n": 145,
+        "prompt_ms": 464.692,
+        "prompt_per_token_ms": 3.2047724137931035,
+        "prompt_per_second": 312.0346379967807,
+        "predicted_n": 118,
+        "predicted_ms": 1802.289,
+        "predicted_per_token_ms": 15.404179487179487,
+        "predicted_per_second": 64.91744664701388
+      },
+      "system_fingerprint": "b10809-5e085d12"
+    },
+    {
+      "usage": {
+        "completion_tokens": 61,
+        "prompt_tokens": 901,
+        "total_tokens": 962,
+        "prompt_tokens_details": {
+          "cached_tokens": 835
+        }
+      },
+      "timings": {
+        "cache_n": 835,
+        "prompt_n": 66,
+        "prompt_ms": 434.733,
+        "prompt_per_token_ms": 6.586863636363637,
+        "prompt_per_second": 151.81732235648087,
+        "predicted_n": 61,
+        "predicted_ms": 954.155,
+        "predicted_per_token_ms": 15.902583333333332,
+        "predicted_per_second": 62.882864943326815
+      },
+      "system_fingerprint": "b10809-5e085d12"
+    },
+    {
+      "usage": {
+        "completion_tokens": 76,
+        "prompt_tokens": 1029,
+        "total_tokens": 1105,
+        "prompt_tokens_details": {
+          "cached_tokens": 961
+        }
+      },
+      "timings": {
+        "cache_n": 961,
+        "prompt_n": 68,
+        "prompt_ms": 417.483,
+        "prompt_per_token_ms": 6.139455882352941,
+        "prompt_per_second": 162.88088377251287,
+        "predicted_n": 76,
+        "predicted_ms": 1202.67,
+        "predicted_per_token_ms": 16.035600000000002,
+        "predicted_per_second": 62.3612462271446
+      },
+      "system_fingerprint": "b10809-5e085d12"
+    }
+  ]
+}

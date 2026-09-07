@@ -1,0 +1,23 @@
+{
+  "engine_public_parent": "5e085d123eead2e89b5c19f824fccb05727da6a2",
+  "patches_apply_cleanly": true,
+  "reconstructed_engine_files_match_original_source": {
+    "common/speculative.cpp": "c9104f6d341e71f3c391d199027cd192868e6796d97b63e0d6585c37d701cdcd",
+    "ggml/src/ggml-cuda/getrows.cu": "2e30faae82f11d1ef5c25e67ec9337f20983856507b53f8734c6fc3b034d5f77",
+    "ggml/src/ggml-cuda/sumrows.cu": "e97547370aa7a3eaaf904f622dcb7d4ee8b3dffc719a7381659dbefb4fabda1e",
+    "ggml/src/ggml-cuda/top-k.cu": "5dbb022c962cdf5893e3956da4a2529f5fcb3a969ae88ac8fb5a101d136ac3be",
+    "src/llama-arch.cpp": "6cbda443b8ca0139ef135b67f9ee034ceb1de006b19bbf8a57fdd7569e1ffa06",
+    "src/llama-kv-cache.cpp": "ee0d2df9d32c3b95a06097d17599b76b555fccc801df8a2252ea0cbc42dd9c76",
+    "src/llama-kv-cache.h": "89388d7a767cd8de8fda3745d8dc954464f672142f8d50ecfcefe50e31d828db",
+    "src/llama-memory-hybrid-idx.cpp": "84cb14a096f9c1fd493bd28c0b5382c2cd3c830cec1d6ba3d204b74d8bb2aa1d",
+    "src/models/models.h": "d498448a2ddc9ca3a67e3e5e5ff78c92aaf45ba95c4f673ad871423e875130ae",
+    "src/models/qwen4exp.cpp": "2686073ca20caced83dd825745ecbbb1a40878ceabc4c7fd6cbb92129bd5fdc5",
+    "tests/CMakeLists.txt": "4f3e62373db2247af0b2e898eb132ef24f932d801e996965f93e26bad031b76c",
+    "tests/test-backend-ops.cpp": "542c77b5ba804a299f98d1a00e651e831dc2cedcaaf21917adcbc73c4500b45a"
+  },
+  "engraft_patch_matches_experiment": true,
+  "engraft_layers_sha256": "53c16dc2f6bb3f842f076b0a6568315023b067dab8e71d699acc7ced0a1d9250",
+  "fresh_build_tested": false,
+  "model_rerun_performed_for_publication": false,
+  "omitted_from_local_commit_patch": "Local operational Markdown notes; all source changes retained."
+}

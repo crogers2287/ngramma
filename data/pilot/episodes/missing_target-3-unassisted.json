@@ -1,0 +1,121 @@
+{
+  "task_id": "missing_target/3",
+  "family_id": "missing_target",
+  "variant_id": "3",
+  "partition": "development",
+  "condition": "unassisted",
+  "success": true,
+  "grade": {
+    "success": true,
+    "state_correct": true,
+    "inventory_inspected": true,
+    "errors": [],
+    "actions": [],
+    "actual_state": {
+      "device.d17c1bd6": "off",
+      "device.48326c61": "on",
+      "device.e9e00522": "off"
+    }
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are testing tools in a mock device environment. Complete the request with the provided tools, then give a brief result. Device IDs and versions must come from tools."
+    },
+    {
+      "role": "user",
+      "content": "Please use the available tools for this request: Turn on the garage lamp if it exists. If it is absent, report that and change nothing."
+    },
+    {
+      "role": "assistant",
+      "content": "I'll start by listing the devices to find the garage lamp.\n\n",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "list_devices",
+            "arguments": "{}"
+          },
+          "id": "fCmLKp9AJ03yolgaMS6VVYX8tAnqh2PO"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "fCmLKp9AJ03yolgaMS6VVYX8tAnqh2PO",
+      "content": "{\"devices\": [{\"entity_id\": \"device.d17c1bd6\", \"label\": \"Desk lamp\", \"room\": \"office\", \"state\": \"off\", \"version\": 10}, {\"entity_id\": \"device.48326c61\", \"label\": \"Desk lamp\", \"room\": \"bedroom\", \"state\": \"on\", \"version\": 16}, {\"entity_id\": \"device.e9e00522\", \"label\": \"Ceiling lamp\", \"room\": \"office\", \"state\": \"off\", \"version\": 24}]}"
+    },
+    {
+      "role": "assistant",
+      "content": "The garage lamp does not exist in the device list. The available devices are: Desk lamp (office), Desk lamp (bedroom), and Ceiling lamp (office). There is no device labeled \"Garage lamp\" or any device in a garage room.\n\nSince the garage lamp is absent, I will change nothing, as per the request.\n\n**Report:** The garage lamp does not exist in this environment. No changes were made."
+    }
+  ],
+  "usage": [
+    {
+      "completion_tokens": 28,
+      "prompt_tokens": 443,
+      "total_tokens": 471,
+      "prompt_tokens_details": {
+        "cached_tokens": 402
+      }
+    },
+    {
+      "completion_tokens": 89,
+      "prompt_tokens": 617,
+      "total_tokens": 706,
+      "prompt_tokens_details": {
+        "cached_tokens": 470
+      }
+    }
+  ],
+  "seconds": 2.7610871950164437,
+  "task_sha256": "cac96e3897c4bc19c57707bf77ce83990c7fb191e3ae48e95a84e761e414edb7",
+  "teacher_used": false,
+  "training_eligible": false,
+  "response_metadata": [
+    {
+      "usage": {
+        "completion_tokens": 28,
+        "prompt_tokens": 443,
+        "total_tokens": 471,
+        "prompt_tokens_details": {
+          "cached_tokens": 402
+        }
+      },
+      "timings": {
+        "cache_n": 402,
+        "prompt_n": 41,
+        "prompt_ms": 409.887,
+        "prompt_per_token_ms": 9.997243902439024,
+        "prompt_per_second": 100.02756857377766,
+        "predicted_n": 28,
+        "predicted_ms": 468.984,
+        "predicted_per_token_ms": 17.369777777777777,
+        "predicted_per_second": 57.57126042679494
+      },
+      "system_fingerprint": "b10809-5e085d12"
+    },
+    {
+      "usage": {
+        "completion_tokens": 89,
+        "prompt_tokens": 617,
+        "total_tokens": 706,
+        "prompt_tokens_details": {
+          "cached_tokens": 470
+        }
+      },
+      "timings": {
+        "cache_n": 470,
+        "prompt_n": 147,
+        "prompt_ms": 488.948,
+        "prompt_per_token_ms": 3.326176870748299,
+        "prompt_per_second": 300.64546741166754,
+        "predicted_n": 89,
+        "predicted_ms": 1364.349,
+        "predicted_per_token_ms": 15.503965909090908,
+        "predicted_per_second": 64.49962582887517
+      },
+      "system_fingerprint": "b10809-5e085d12"
+    }
+  ]
+}

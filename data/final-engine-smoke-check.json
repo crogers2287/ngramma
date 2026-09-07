@@ -1,0 +1,6 @@
+{
+  "passed": true,
+  "logits_exact": true,
+  "engine_sha256": "86d051fe73cbf5ddbfbfa11c6ea43e7172ce5dbca77199a3bdf1b06c38a088b5",
+  "metadata_override_refused": true
+}

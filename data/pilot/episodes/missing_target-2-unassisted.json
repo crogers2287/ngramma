@@ -1,0 +1,121 @@
+{
+  "task_id": "missing_target/2",
+  "family_id": "missing_target",
+  "variant_id": "2",
+  "partition": "development",
+  "condition": "unassisted",
+  "success": true,
+  "grade": {
+    "success": true,
+    "state_correct": true,
+    "inventory_inspected": true,
+    "errors": [],
+    "actions": [],
+    "actual_state": {
+      "device.80c67b23": "off",
+      "device.116e7031": "on",
+      "device.bdbbae7c": "off"
+    }
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are testing tools in a mock device environment. Complete the request with the provided tools, then give a brief result. Device IDs and versions must come from tools."
+    },
+    {
+      "role": "user",
+      "content": "Turn on the garage lamp if it exists. If it is absent, report that and change nothing."
+    },
+    {
+      "role": "assistant",
+      "content": "Let me check the device inventory first to see if the garage lamp exists.\n\n",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "list_devices",
+            "arguments": "{}"
+          },
+          "id": "lgoTpwaxmFFC6FX3VU32Uz360PHS5eU2"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "lgoTpwaxmFFC6FX3VU32Uz360PHS5eU2",
+      "content": "{\"devices\": [{\"entity_id\": \"device.80c67b23\", \"label\": \"Desk lamp\", \"room\": \"office\", \"state\": \"off\", \"version\": 9}, {\"entity_id\": \"device.116e7031\", \"label\": \"Desk lamp\", \"room\": \"bedroom\", \"state\": \"on\", \"version\": 15}, {\"entity_id\": \"device.bdbbae7c\", \"label\": \"Ceiling lamp\", \"room\": \"office\", \"state\": \"off\", \"version\": 23}]}"
+    },
+    {
+      "role": "assistant",
+      "content": "The garage lamp does not exist in the device inventory. The available devices are:\n\n- **Desk lamp** (office) — entity_id: `device.80c67b23`\n- **Desk lamp** (bedroom) — entity_id: `device.116e7031`\n- **Ceiling lamp** (office) — entity_id: `device.bdbbae7c`\n\nSince there is no \"garage lamp\" in the inventory, I will change nothing, as per the instructions."
+    }
+  ],
+  "usage": [
+    {
+      "completion_tokens": 30,
+      "prompt_tokens": 434,
+      "total_tokens": 464,
+      "prompt_tokens_details": {
+        "cached_tokens": 402
+      }
+    },
+    {
+      "completion_tokens": 115,
+      "prompt_tokens": 609,
+      "total_tokens": 724,
+      "prompt_tokens_details": {
+        "cached_tokens": 463
+      }
+    }
+  ],
+  "seconds": 3.0982806240208447,
+  "task_sha256": "7fbb870bdcc78c38a4e6b3cbfb94f6ed747cdfd5cf487bae4d98d7811a6ffdb4",
+  "teacher_used": false,
+  "training_eligible": false,
+  "response_metadata": [
+    {
+      "usage": {
+        "completion_tokens": 30,
+        "prompt_tokens": 434,
+        "total_tokens": 464,
+        "prompt_tokens_details": {
+          "cached_tokens": 402
+        }
+      },
+      "timings": {
+        "cache_n": 402,
+        "prompt_n": 32,
+        "prompt_ms": 354.881,
+        "prompt_per_token_ms": 11.09003125,
+        "prompt_per_second": 90.17107142957781,
+        "predicted_n": 30,
+        "predicted_ms": 478.681,
+        "predicted_per_token_ms": 16.506241379310346,
+        "predicted_per_second": 60.58314409805277
+      },
+      "system_fingerprint": "b10809-5e085d12"
+    },
+    {
+      "usage": {
+        "completion_tokens": 115,
+        "prompt_tokens": 609,
+        "total_tokens": 724,
+        "prompt_tokens_details": {
+          "cached_tokens": 463
+        }
+      },
+      "timings": {
+        "cache_n": 463,
+        "prompt_n": 146,
+        "prompt_ms": 474.82,
+        "prompt_per_token_ms": 3.2521917808219176,
+        "prompt_per_second": 307.4849416621035,
+        "predicted_n": 115,
+        "predicted_ms": 1742.766,
+        "predicted_per_token_ms": 15.28742105263158,
+        "predicted_per_second": 65.41325685720285
+      },
+      "system_fingerprint": "b10809-5e085d12"
+    }
+  ]
+}

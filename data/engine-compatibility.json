@@ -1,0 +1,99 @@
+{
+  "identity_sha256": "af848e254fb9a6ca6be56b8f14f1d369a6e705c3363c4c4ac6e5f0cc7e652f87",
+  "cases": [
+    [
+      "short",
+      10,
+      32
+    ],
+    [
+      "unicode-chat",
+      17,
+      5
+    ],
+    [
+      "eos-repeat",
+      12,
+      1
+    ]
+  ],
+  "conditions": {
+    "original": {
+      "seconds": 15.03882625605911,
+      "logit_comparisons": [],
+      "address_count": 0,
+      "passed": true
+    },
+    "disk": {
+      "seconds": 21.101997827994637,
+      "logit_comparisons": [
+        {
+          "case": "short",
+          "max_abs": 0.0,
+          "exact": true
+        },
+        {
+          "case": "unicode-chat",
+          "max_abs": 0.0,
+          "exact": true
+        },
+        {
+          "case": "eos-repeat",
+          "max_abs": 0.0,
+          "exact": true
+        }
+      ],
+      "address_count": 624,
+      "passed": true
+    },
+    "empty": {
+      "seconds": 253.95061365002766,
+      "logit_comparisons": [
+        {
+          "case": "short",
+          "max_abs": 0.0,
+          "exact": true
+        },
+        {
+          "case": "unicode-chat",
+          "max_abs": 0.0,
+          "exact": true
+        },
+        {
+          "case": "eos-repeat",
+          "max_abs": 0.0,
+          "exact": true
+        }
+      ],
+      "address_count": 624,
+      "passed": true
+    },
+    "original-rows": {
+      "seconds": 250.93311426904984,
+      "logit_comparisons": [
+        {
+          "case": "short",
+          "max_abs": 0.0,
+          "exact": true
+        },
+        {
+          "case": "unicode-chat",
+          "max_abs": 0.0,
+          "exact": true
+        },
+        {
+          "case": "eos-repeat",
+          "max_abs": 0.0,
+          "exact": true
+        }
+      ],
+      "address_count": 624,
+      "passed": true
+    }
+  },
+  "note": "Actual-model CPU f32 KV. This does not validate GPU training or production persistence.",
+  "empty_overlay": true,
+  "original_row_overlay": true,
+  "addresses": true,
+  "passed": true
+}

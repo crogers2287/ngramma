@@ -1,0 +1,12 @@
+{
+  "empty_overlay": true,
+  "original_row_overlay": true,
+  "addresses": true,
+  "identity_sha256": "af848e254fb9a6ca6be56b8f14f1d369a6e705c3363c4c4ac6e5f0cc7e652f87",
+  "intermediate_parity": false,
+  "logit_parity": false,
+  "directional_gradient": false,
+  "live_routing": false,
+  "training_enabled": false,
+  "reason": "Full forward parity failed; no full-model gradient qualification or teacher training permission"
+}

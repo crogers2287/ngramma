@@ -1,0 +1,76 @@
+diff --git a/src/llama-arch.cpp b/src/llama-arch.cpp
+index 4c074b4e..acfb74b1 100644
+--- a/src/llama-arch.cpp
++++ b/src/llama-arch.cpp
+@@ -1102,6 +1102,7 @@ bool llm_arch_supports_rs_rollback(const llm_arch & arch) {
+     switch (arch) {
+         case LLM_ARCH_QWEN35:
+         case LLM_ARCH_QWEN35MOE:
++        case LLM_ARCH_QWEN4EXP:
+         case LLM_ARCH_DEEPSEEK4:
+         case LLM_ARCH_NEMOTRON_H:
+         case LLM_ARCH_NEMOTRON_H_MOE:
+diff --git a/src/models/qwen4exp.cpp b/src/models/qwen4exp.cpp
+index b08b4f1f..5a941eab 100644
+--- a/src/models/qwen4exp.cpp
++++ b/src/models/qwen4exp.cpp
+@@ -1485,20 +1485,28 @@ ggml_tensor * llama_model_qwen4exp::graph::build_conv_state_at(
+ 
+     ggml_tensor * conv_input = ggml_concat(ctx0, state, ggml_transpose(ctx0, x), 0);
+ 
+-    // keep the last state_cols columns for the next ubatch
++    // [TAG_RECURRENT_ROLLBACK_SPLITS] keep the last state_cols columns once per rollback slot,
++    // slot s ending s tokens earlier so a rollback of s tokens reads a history that never saw them
+     const size_t row_size = ggml_row_size(conv_states_all->type, row_total);
++    const uint32_t mem_size = mctx_cur->get_size();
+ 
+-    ggml_tensor * tail = ggml_view_3d(ctx0, conv_input,
+-            state_cols, channels, n_seqs,
+-            conv_input->nb[1], conv_input->nb[2],
+-            ggml_row_size(conv_input->type, conv_input->ne[0] - state_cols));
++    const int64_t n_slots = (int64_t) cparams.n_rs_seq + 1;
+ 
+-    ggml_tensor * dst = ggml_view_2d(ctx0, conv_states_all,
+-            state_cols * channels, n_seqs,
+-            conv_states_all->nb[1],
+-            kv_head * row_size);
++    for (int64_t slot = 0; slot < n_slots; ++slot) {
++        const int64_t s_idx = std::max<int64_t>(0, conv_input->ne[0] - state_cols - slot);
+ 
+-    ggml_build_forward_expand(gf, ggml_cpy(ctx0, ggml_cont(ctx0, tail), dst));
++        ggml_tensor * tail = ggml_view_3d(ctx0, conv_input,
++                state_cols, channels, n_seqs,
++                conv_input->nb[1], conv_input->nb[2],
++                ggml_row_size(conv_input->type, s_idx));
++
++        ggml_tensor * dst = ggml_view_2d(ctx0, conv_states_all,
++                state_cols * channels, n_seqs,
++                conv_states_all->nb[1],
++                (slot * mem_size + kv_head) * row_size);
++
++        ggml_build_forward_expand(gf, ggml_cpy(ctx0, ggml_cont(ctx0, tail), dst));
++    }
+ 
+     return conv_input;
+ }
+diff --git a/tests/CMakeLists.txt b/tests/CMakeLists.txt
+index fe3d14ff..4543092a 100644
+--- a/tests/CMakeLists.txt
++++ b/tests/CMakeLists.txt
+@@ -239,6 +239,16 @@ if (NOT WIN32 OR NOT BUILD_SHARED_LIBS)
+         FIXTURES_REQUIRED generate-models
+     )
+ 
++    llama_test(
++        test-recurrent-state-rollback
++        NAME test-recurrent-state-rollback-qwen4exp
++        LABEL main
++        ARGS -m "${MODEL_DIR}/qwen4exp-moe.gguf"
++    )
++    set_tests_properties(test-recurrent-state-rollback-qwen4exp PROPERTIES
++        FIXTURES_REQUIRED generate-models
++    )
++
+     # Test state save/load functionality across all architectures, using the generated dummy models
+     llama_test(
+         test-save-load-state

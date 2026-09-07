@@ -1,0 +1,18 @@
+{
+  "transcripts": 20,
+  "retokenized_tokens": 16420,
+  "distinct_observed_rows": 25102,
+  "provisional_trigram_candidates": 512,
+  "trainable_selection_approved": false,
+  "missing_evidence": [
+    "gradient_direction_consistency",
+    "regression_ablation",
+    "delimiter_filter"
+  ],
+  "observed_usage_only": true,
+  "method": "Reconstructed complete transcripts through engine chat-template/tokenizer endpoints; includes generation-header suffix. Not exact generation token traces.",
+  "source_sha256": {
+    "row-usage-index.json": "ad009048b4b132666df6e1be07120fe61d83430de38da4172b2aacfb7f8ce146",
+    "transcript-tokens.json": "b70e12e5f01fde4739c6cbd4be4a70fbb1beb4df84713884665c646d06800452"
+  }
+}

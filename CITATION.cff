@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "Please cite this research snapshot if you use its findings, evidence, or diagnostics."
+title: "Ngramma: teacher-guided refinement of existing n-gram memory"
+type: software
+authors:
+  - name: "crogers2287"
+version: 0.1.0
+date-released: 2026-09-07
+url: "https://github.com/crogers2287/ngramma"
+repository-code: "https://github.com/crogers2287/ngramma"
+license: MIT
+abstract: >-
+  Research into making Flash Next's existing capabilities more reliable by
+  training sparse changes to its pretrained n-gram rows with a frozen backbone.
+  The first exploratory study evaluated overlay and trainer compatibility.
+  The inference overlay passed narrow CPU compatibility checks, while the
+  full sequence reference failed numerical agreement. No learned overlay
+  or reliable task improvement was demonstrated. The release contains the
+  report, numerical evidence, saved mock-tool episodes, replay verification,
+  and annotated experimental source.

@@ -1,0 +1,8 @@
+{
+  "source_relative_path": "flash_memory/tasks.py",
+  "source_sha256": "3a21610ace1696b7cda6760fe75e8f2f4db635b73083c4ad52f1a4d638ab172f",
+  "extraction": "MockDevices class unchanged; task generator omitted; evaluated families exported as tasks.json",
+  "tasks": 20,
+  "families": 5,
+  "usage": "Published evaluation-only tasks. They are public and must not be reused as a sealed test."
+}

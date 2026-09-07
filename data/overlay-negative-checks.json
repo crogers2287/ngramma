@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "case": "payload-corruption",
+      "rejected": true,
+      "message": "FML payload checksum mismatch"
+    },
+    {
+      "case": "truncated",
+      "rejected": true,
+      "message": "FML truncated or trailing payload"
+    },
+    {
+      "case": "wrong-dimension",
+      "rejected": true,
+      "message": "FML invalid geometry"
+    },
+    {
+      "case": "duplicate-row",
+      "rejected": true,
+      "message": "FML duplicate, unsorted, or negative row"
+    },
+    {
+      "case": "nonfinite-row",
+      "rejected": true,
+      "message": "FML nonfinite value"
+    },
+    {
+      "case": "wrong-checkpoint",
+      "rejected": true,
+      "message": "FML incompatible model shard: <MODEL_DIR>/Qwen3.8-Flash-Next-SAFE-Q4DENSE-HC8-00001-of-00003.gguf"
+    }
+  ]
+}

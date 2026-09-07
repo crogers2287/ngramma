@@ -1,0 +1,20 @@
+{
+  "unassisted": {
+    "tasks": 20,
+    "successes": 19,
+    "rate": 0.95
+  },
+  "hinted": {
+    "tasks": 20,
+    "successes": 20,
+    "rate": 1.0
+  },
+  "corrected_retry": {
+    "tasks": 1,
+    "successes": 1,
+    "rate": 1.0
+  },
+  "independent_families": 5,
+  "sealed_tasks_used": 0,
+  "training_data_generated": false
+}
