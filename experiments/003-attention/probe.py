@@ -15,7 +15,10 @@ def main():
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--native-rope', action='store_true')
     p.add_argument('--native-attention', action='store_true')
+    p.add_argument('--native-strides', action='store_true')
     args = p.parse_args()
+    if args.native_strides and not args.native_attention:
+        p.error('--native-strides requires --native-attention')
     import numpy as np
     import torch
     from ngramma_runtime.environment import worker_imports
@@ -33,6 +36,10 @@ def main():
     identity = json.loads(args.manifest.read_text())
     paths = [x['path'] for x in identity['shards']]
     source_hash = file_hash(Path(__file__))
+    root = Path(__file__).resolve().parents[2]
+    sources = [Path(__file__), *sorted((root/'src/ngramma_runtime').rglob('*.py')),
+               root/'src/ngramma_runtime/native/ggml_forward.cpp']
+    source_hashes = {str(path.relative_to(root)): file_hash(path) for path in sources}
     start = time.monotonic()
     weights = NativeEngineWeights(paths, ram_cache_bytes=2 << 30)
     hp = Hparams.from_gguf_paths(paths[0], paths[1])
@@ -101,7 +108,8 @@ def main():
             if args.native_attention:
                 kp = torch.zeros((slots,hk,d)); vp = torch.zeros_like(kp)
                 kp[:n], vp[:n] = key, value
-                scores = ops.matmul(kp.permute(1,0,2), query.permute(1,0,2))
+                scores = (ops.scores(kp.permute(1,0,2), query) if args.native_strides
+                          else ops.matmul(kp.permute(1,0,2), query.permute(1,0,2)))
                 probs = ops.softmax(scores, mask, 1/(d**.5))
                 out = ops.matmul(vp.permute(1,2,0), probs).permute(1,0,2)
             else:
@@ -139,8 +147,12 @@ def main():
               'head_dim':d, 'rope_dim':hp.rope_dim, 'rope_sections':list(hp.rope_sections),
               'rope_freq_base':hp.rope_freq_base, 'native_rope':args.native_rope,
               'native_attention':args.native_attention, 'metrics':metrics,
+              'native_strides':args.native_strides,
               'engine_positive_probability_mask_matches_dense_causal':bool(np.array_equal(engine_probs>0, expected_visibility)),
               'source_sha256':source_hash, 'native_library_sha256':mode.library_sha256,
+              'runtime_source_sha256':source_hashes,
+              'sources_changed_during_run':[str(path.relative_to(root)) for path in sources
+                  if file_hash(path) != source_hashes[str(path.relative_to(root))]],
               'native_build_record':mode.build_record, 'native_calls':dict(mode.calls),
               'attention_calls':dict(ops.calls) if ops else {},
               'rope_config':ops.settings() if ops else None,

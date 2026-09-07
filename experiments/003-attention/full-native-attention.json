@@ -1,0 +1,606 @@
+{
+  "schema": "ngramma-full-parity/v1",
+  "identity_sha256": "af848e254fb9a6ca6be56b8f14f1d369a6e705c3363c4c4ac6e5f0cc7e652f87",
+  "tokens": [
+    9419,
+    11,
+    1814,
+    0,
+    220,
+    17,
+    478,
+    220,
+    17,
+    283
+  ],
+  "threads": 4,
+  "cache_gib": 4,
+  "initialization_seconds": 62.380408874945715,
+  "forward_seconds": 89.1358045010129,
+  "peak_rss_gib": 14.983524322509766,
+  "initial_available_gib": 120.29286575317383,
+  "max_logit_error": 0.0,
+  "mean_logit_error": 0.0,
+  "selected_logprob_error_max": 0.0,
+  "selected_logprob_error_by_position": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "top1_agreement": 1.0,
+  "intermediates": [
+    {
+      "name": "ple_embd",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 25600
+    },
+    {
+      "name": "l_last-0",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-1",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-2",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-3",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-4",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-5",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-6",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-7",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-8",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-9",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-10",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-11",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-12",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-13",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-14",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-15",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-16",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-17",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-18",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-19",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-20",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-21",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-22",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-23",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-24",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-25",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-26",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-27",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-28",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-29",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-30",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-31",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-32",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-33",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-34",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-35",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-36",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-37",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-38",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-39",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-40",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-41",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-42",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-43",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-44",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-45",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-46",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    },
+    {
+      "name": "l_last-47",
+      "max_abs": 0.0,
+      "relative_rms": 0.0,
+      "different_values": 0,
+      "values": 102400
+    }
+  ],
+  "weight_io": {
+    "decoded_bytes": 59558129152,
+    "quantized_bytes_read": 6455609352,
+    "dequant_seconds": 72.32036343670916,
+    "cache_hits": 0,
+    "cache_misses": 1030
+  },
+  "logit_parity": true,
+  "intermediate_parity": true,
+  "thresholds": {
+    "selected_logprob_nats_strictly_below": 0.02,
+    "relative_rms_strictly_below": 0.01
+  },
+  "native_library_sha256": "0b3b9552c5cff85ec2246892cdee993c4f52fa5abc5e56f237c6ce7d95c13d34",
+  "native_attention": true,
+  "attention_calls": {
+    "rope_multi": 24,
+    "attention_scores_strided": 12,
+    "softmax_ext": 12,
+    "batched_matmul": 12
+  },
+  "rope_config": {
+    "mode": 40,
+    "original_context": 262144,
+    "frequency_scale": 1.0,
+    "extension_factor": 0.0,
+    "attention_factor": 1.0,
+    "beta_fast": 32.0,
+    "beta_slow": 1.0
+  },
+  "verified_attention_layouts": [
+    {
+      "layer": 3,
+      "cache_slots": 256,
+      "probability_sha256": "b0b317ca43efcb00a7eeeeb7d82c2bfcb98f9683e3b0c8220bffaf7f7c67489f"
+    },
+    {
+      "layer": 7,
+      "cache_slots": 256,
+      "probability_sha256": "ca80c518983f51c92909cdb904e19b4aa103917fb8f24b597712ca8bd51b2a0e"
+    },
+    {
+      "layer": 11,
+      "cache_slots": 256,
+      "probability_sha256": "7ecfdd79bf60b303284f46a4e6ce30761f1e986851ec6bc710412e78e57f51fb"
+    },
+    {
+      "layer": 15,
+      "cache_slots": 256,
+      "probability_sha256": "3761a6a04578d0a4e631e53791755b9892fd61d34dd50c4596e81284ef925375"
+    },
+    {
+      "layer": 19,
+      "cache_slots": 256,
+      "probability_sha256": "a64702c716d87991ef72d679d2dca905f5d18d86ce2920a703991811b6e04ee9"
+    },
+    {
+      "layer": 23,
+      "cache_slots": 256,
+      "probability_sha256": "b48b8e7382d2f8043dc8d72f586c0a9208250a1b3c901d6ae9f2493babc6830a"
+    },
+    {
+      "layer": 27,
+      "cache_slots": 256,
+      "probability_sha256": "6c9701fe6bdd25104adcd212dcfccec3af4168e0453b88b4ee17edc859e55e39"
+    },
+    {
+      "layer": 31,
+      "cache_slots": 256,
+      "probability_sha256": "f2d92fcb16799219defdfc00b7356d4f4b97b0886e11e6ad6ad764e0bf46a51f"
+    },
+    {
+      "layer": 35,
+      "cache_slots": 256,
+      "probability_sha256": "bac192d40cfea27e4e47ec4c3bcb06114ef1b5cef61e9f209edd474009688696"
+    },
+    {
+      "layer": 39,
+      "cache_slots": 256,
+      "probability_sha256": "e0115344990871cb85ad99f602110f9d71158a42f12ab52f5d02a8890aaee733"
+    },
+    {
+      "layer": 43,
+      "cache_slots": 256,
+      "probability_sha256": "466c9cbce2a4508908f3c3800595c26d4b36fbf68beb5e5918eb34445d2bfd2a"
+    },
+    {
+      "layer": 47,
+      "cache_slots": 256,
+      "probability_sha256": "1f8d9dfa2a739c3540be47ca319c2d8121a7a9048a891bdb0ce2020eb2dbf1bb"
+    }
+  ],
+  "native_recurrent": true,
+  "native_repack": true,
+  "native_reductions": true,
+  "native_build_record": {
+    "schema_version": 1,
+    "library_sha256": "0b3b9552c5cff85ec2246892cdee993c4f52fa5abc5e56f237c6ce7d95c13d34",
+    "sources": {
+      "ggml_forward.cpp": "b1a169e383c5a5474e42a811c5990ecf69787cc103cd2db75c817cdd92b7141e",
+      "build_forward_bridge.py": "00de34b09584cc329f66ea79b6d42a4a8359ad7330cb41e3647d2305cfd30b93"
+    },
+    "headers": {
+      "ggml-alloc.h": "94e4cd069b9313b2ceb35dacec901981e0bb478d8bb31035b7126be091998c23",
+      "ggml-backend.h": "f9bafda615fafa73306bed0a2c3d5a459cba2c19c9d76e1dc0adc2b3fd0cb2c8",
+      "ggml-blas.h": "e76cb8594dc9866d99e7d63191b9fff6ab8b50244b4a28ce3af0f962964a6b5b",
+      "ggml-cann.h": "2cdb134f27fe5c4ec19d52f1eb58f5355aa42b8f54bf385f0e487501c5df7362",
+      "ggml-cpp.h": "bc15ba002c68685df23faae42df0d2b3d58032011f88b649021ab92485862c72",
+      "ggml-cpu.h": "316279e004cdeb8e6ef78599acb602bf79a8abdf897fed9fd1914808c1518c6e",
+      "ggml-cuda.h": "9cbfcea49f6da4d07f41dc22fa8dbf870825faaa2a68e34e65fe30ea6c41e042",
+      "ggml-et.h": "33118c0642b8059a99ea930fd4e4a045e78ccb41760b173ede221f1297c35977",
+      "ggml-hexagon.h": "b2c12bac390f14707b16bdd27c8c75ce4f075ed509c729ee28fd4f03b17e7375",
+      "ggml-metal.h": "322f36cd30f3e9e7aad7b5b9bc63078012fd0b7706ac4e24f5721b604f3d8980",
+      "ggml-opencl.h": "8e443e1aa9c8bc6e0cf116c4cc3f42f4858938fa15e65b06bc07b26686e1233a",
+      "ggml-openvino.h": "c2e3f301e28ad815b4285888aad6130808a77e6acb4e8b558de63a648cf9743e",
+      "ggml-opt.h": "3586de1bc8a934b5c72339e2b6937b0641e8f149b512231e666f67de0736eea2",
+      "ggml-rpc.h": "505c01e4575c06a3b01cdbbb5688368baaabf6223a36eeafd918057251da6e43",
+      "ggml-sycl.h": "58429f8045b335f5e740faa2198caf72ba3beb04df0eb970103b932340daca8b",
+      "ggml-virtgpu.h": "ed231e7db3f0f58b84073f5ee67f9ec9d63046d1a7ed091c36a6cfe9f685a463",
+      "ggml-vulkan.h": "7eae5dad2cc7bb4d3eca828539f441816d5fd59fdc7b224d49aa229fc7b7248c",
+      "ggml-webgpu.h": "a91d855313a9e85e75ba597ff869a267247dea936a2c0faef03aeb7f1ea6e79c",
+      "ggml-zdnn.h": "ee1d79c95ade45ba195a6b71f59a05c18617de4a596d2b2b03ecf38975a9a448",
+      "ggml-zendnn.h": "2cb034b842438281616ce647232d922fb224450323f0d422d2af567c334aa8ff",
+      "ggml.h": "b834c28904934a65dc2b53a0115ae50e33126cc305ae4489bb781ad880b09b5c",
+      "gguf.h": "e56714aab702e5ce62ee587a409643c08f7e93e8fbb77f48ef7cc85075f96fa4"
+    },
+    "linked_libraries": {
+      "libggml-cpu.so": "501229e5937a6f9c0e6397ac6e67a7bf3242779a92639b119a970d2b1e4a352c",
+      "libggml-base.so": "8c6dd2c346e0d2b94a15499c6eccc40b73be9f175f4733e76c31656ddc776fa9"
+    },
+    "compiler": {
+      "executable": "c++",
+      "version": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
+    },
+    "command": [
+      "c++",
+      "-std=c++17",
+      "-O2",
+      "-fPIC",
+      "-shared",
+      "-pthread",
+      "-I",
+      "<ENGINE_SOURCE>/ggml/include",
+      "<REPOSITORY>/src/ngramma_runtime/native/ggml_forward.cpp",
+      "-L",
+      "<RUNTIME>",
+      "-lggml-cpu",
+      "-lggml-base",
+      "-Wl,-z,defs",
+      "-Xlinker",
+      "-rpath",
+      "-Xlinker",
+      "<RUNTIME>",
+      "-o",
+      "<OUTPUT>"
+    ],
+    "qualification": "Compiled forward-only primitive bridge; no model-parity or gradient qualification"
+  },
+  "native_calls": {
+    "unary_0": 160,
+    "matmul_type_8": 196,
+    "buffer_CPU": 14909,
+    "unary_1": 4982,
+    "unary_2": 326,
+    "matmul_type_0": 312,
+    "matmul_type_2": 300,
+    "buffer_CPU_REPACK": 300,
+    "unary_6": 36,
+    "ssm_conv": 36,
+    "unary_3": 72,
+    "gated_delta_net": 36,
+    "unary_4": 96,
+    "sum_rows": 49,
+    "matmul_type_22": 9400,
+    "matmul_type_42": 4800,
+    "registered_vector_weight": 48,
+    "fallback_dilated_conv": 1,
+    "matmul_type_21": 200,
+    "matmul_type_14": 1
+  },
+  "native_misses": [],
+  "source_sha256": {
+    "experiments/003-attention/full_probe.py": "00ba5ab32ad77b3d3a5041771452355ced35f1414669f18169b787fa6a2c1323",
+    "src/ngramma_runtime/__init__.py": "fb03a4eb2bf710a5318117f943bbbeaec8b94dddb9684ba50cae0753b7fa8ca4",
+    "src/ngramma_runtime/_activation_reference.py": "618671c70a8269c333f07a4afc596a4f2e3119fae91355cf7a5f7ad20fb7c880",
+    "src/ngramma_runtime/_sequence.py": "eb67d866fc20eec1fe4e4d9cc7b14579f59fe3e09ff6a19149242677e0fefd67",
+    "src/ngramma_runtime/_table.py": "5a8eb0390b08bd91e08f7615049eff6abbfb1819b25e14be583e448a45f9a0e7",
+    "src/ngramma_runtime/_weights.py": "11222f1e58cbd60aa6fe84626a0912ea78a0578f0af0a7bd04869867e492eb84",
+    "src/ngramma_runtime/activation_reference.py": "cff5dddea58b2a536224501b0576f9c6f16f8c13a9ec64ba96cf4fd9dd4fc6f3",
+    "src/ngramma_runtime/artifacts.py": "d9b26ac2a471364abf771a5bb6ede5612bb4650dd1e872741dac5cd38e8532c0",
+    "src/ngramma_runtime/attention_reference.py": "11bc6df4236e051bdc7baf05912b7392cbb0683526c416dcb956ccb003360d38",
+    "src/ngramma_runtime/environment.py": "7df6d516b826e7658face1a3741da697c4989d2af0067ea36c7a54e1302a9bd2",
+    "src/ngramma_runtime/native_attention.py": "81e8b3ab9fd7417a2bab17083172af2882231a0647777a6d98829bf386201209",
+    "src/ngramma_runtime/native_forward.py": "75c9388d02409b34a6d453af462ad7cb287f01f71f561e3fa21ab82ac5f8af10",
+    "src/ngramma_runtime/resources.py": "2404ebf4e6d7deb864a7393595b3a64121fd631aadb622f3cba42a9676a872eb",
+    "src/ngramma_runtime/sequence.py": "f7f98da817a1743c4bee5672525461aef38a6ebf6b880c14a8457b39a0734036",
+    "src/ngramma_runtime/table.py": "ecda1dc6893104e511498b1737cd3891fd0b9c992a2c2b1c670541a6cb7ed1c9",
+    "src/ngramma_runtime/weights.py": "d75422a723754da31b5b2df6c940ce242763924efdea5cba8de7c22472821d82",
+    "src/ngramma_runtime/native/ggml_forward.cpp": "b1a169e383c5a5474e42a811c5990ecf69787cc103cd2db75c817cdd92b7141e"
+  },
+  "dependency_sha256": {
+    "libflash-memory-dequant.so": "c5aaa5c647292739144e1f761caa88dbc3f67ec34c112eed0b6d53da4fa1ef01",
+    "libggml-base.so": "8c6dd2c346e0d2b94a15499c6eccc40b73be9f175f4733e76c31656ddc776fa9",
+    "libggml-cpu.so": "501229e5937a6f9c0e6397ac6e67a7bf3242779a92639b119a970d2b1e4a352c",
+    "libggml-cuda.so": "64b56fed5626104a2d7d3b7009fcb1c5978fb2f36898ed9865994e3253ffcd5c",
+    "libggml-rpc.so": "fe861d0885bcd416ed642547d73965f7242e89baf6c4b2ac40aec067d0d46c2a",
+    "libggml.so": "8a98a858030637ff98f7aebb60fa36f75b07e0bdb28ced0741df9a9e1584521e",
+    "libllama-cli-impl.so": "72cec08d581328b03480c590cae907786608ce68524f6f19add8ed6b1b656e56",
+    "libllama-common.so": "96ced3d2c5a2ba247f377db43a2eff917e57e25ce9b7939ead7b682178ab75cd",
+    "libllama-server-impl.so": "af193269774994efadaa95c50934a9624daa93004e7e2332b99ef9216d6c289e",
+    "libllama.so": "86d051fe73cbf5ddbfbfa11c6ea43e7172ce5dbca77199a3bdf1b06c38a088b5",
+    "libmtmd.so": "94335326aded12b94cd75f516863982e0e8c687b1e2a1b317e03661f8edf10ff"
+  },
+  "source_hash_scope": "Before model initialization; native build identity is recorded separately.",
+  "sources_changed_during_run": [],
+  "reference_sha256": {
+    "tokens.json": "26dfebea482a0f01576c1cfd29e01585b0b8f76fc9f760aef9a3ff8fd1791206",
+    "tensors.json": "ba0214957e27a154d27d216c61e823eaa6b0266a87bdb72f65edebb45a8770c1",
+    "logits.f32": "c822d10a471e7b9db09492edf17c782271b2284b30ee731cc13505a9d8869c48"
+  },
+  "diagnostic_only": true,
+  "admitted_for_gradients": false,
+  "note": "One short CPU sequence. Native operators have no backward implementation. This is not broad forward or training qualification."
+}

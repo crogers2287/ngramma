@@ -1,0 +1,28 @@
+{
+  "scope": "Saved Q/K/V activations and native CPU functions only; no model execution.",
+  "native_vec_dot_f32_exact_rotary": {
+    "max_abs": 0.0,
+    "different_values": 0,
+    "relative_rms": 0.0
+  },
+  "contiguous_batched_matmul_exact_rotary": {
+    "max_abs": 3.0517578125e-05,
+    "different_values": 1400,
+    "relative_rms": 7.455468144740827e-08
+  },
+  "preserved_query_strides_exact_rotary": {
+    "max_abs": 0.0,
+    "different_values": 0,
+    "relative_rms": 0.0
+  },
+  "native_softmax_after_exact_dots": {
+    "max_abs": 0.0,
+    "different_values": 0,
+    "relative_rms": 0.0
+  },
+  "native_values_after_exact_dots": {
+    "max_abs": 0.0,
+    "different_values": 0,
+    "relative_rms": 0.0
+  }
+}

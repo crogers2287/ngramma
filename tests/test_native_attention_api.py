@@ -148,3 +148,38 @@ def test_library_build_identity_mismatch_rejected(api,tmp_path):
     Path(str(linked)+'.build.json').write_text(json.dumps({'library_sha256':'0'*64}))
     with pytest.raises(ValueError,match='does not match its build record'):
         AttentionOps(linked,rope_config=ops.rope_config)
+
+
+@pytest.mark.parametrize('context',[True,False])
+def test_boolean_metadata_context_is_not_an_integer_context(api,context):
+    _,_,_,metadata=api
+    from ngramma_runtime.native_attention import RopeConfig
+    metadata=dict(metadata);metadata['qwen4exp.context_length']=context
+    with pytest.raises(ValueError,match='original training context'):
+        RopeConfig.from_metadata(metadata)
+
+
+@pytest.mark.parametrize('field,value',[('mode',True),('mode',2**32+40),
+    ('original_context',True),('original_context',2**32+4096)])
+def test_explicit_rope_config_cannot_wrap_c_int(api,field,value):
+    _,ops,_,_=api
+    from dataclasses import replace
+    from ngramma_runtime.native_attention import AttentionOps
+    with pytest.raises(ValueError,match='IMROPE mode 40'):
+        AttentionOps(os.environ['NGRAMMA_FORWARD_LIBRARY'],rope_config=replace(ops.rope_config,**{field:value}))
+
+
+@pytest.mark.parametrize('threads',[True,1.5,2**32+1,257,0])
+def test_thread_integer_boundary(api,threads):
+    _,ops,_,_=api
+    from ngramma_runtime.native_attention import AttentionOps
+    with pytest.raises(ValueError,match='thread count'):
+        AttentionOps(os.environ['NGRAMMA_FORWARD_LIBRARY'],rope_config=ops.rope_config,threads=threads)
+
+
+@pytest.mark.parametrize('dim',[True,4.,2**32+4])
+def test_rope_dimension_cannot_wrap_c_int(api,dim):
+    torch,ops,hp,_=api
+    invalid=SimpleNamespace(rope_sections=hp.rope_sections,rope_dim=dim,rope_freq_base=hp.rope_freq_base)
+    with torch.no_grad(),pytest.raises(ValueError,match='positive even integer'):
+        ops.rope(torch.ones(2,2,8),torch.zeros(2),invalid)

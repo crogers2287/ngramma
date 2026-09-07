@@ -330,6 +330,34 @@ int ngramma_batched_matmul(const float * weights, const float * inputs,
     });
 }
 
+// Attention QK with the engine's physical query layout preserved.
+// keys[Hw,N,D], queries[T,H,D], output[H,T,N], all contiguous caller arrays.
+// The logical Q matrix [D,T,H] is a permuted view of [D,H,T], not a
+// contiguous copy: CPU dispatch uses this distinction to select its dot kernel.
+int ngramma_attention_scores(const float * keys, const float * queries,
+                              float * output, int64_t dim, int64_t key_count,
+                              int64_t tokens, int64_t key_heads,
+                              int64_t query_heads, int threads) noexcept {
+    return guarded([&] {
+        dimensions(key_heads, key_count, threads);
+        dimensions(query_heads, tokens, threads);
+        dimensions(dim, key_heads * key_count, threads);
+        dimensions(dim, query_heads * tokens, threads);
+        dimensions(key_count, query_heads * tokens, threads);
+        require(query_heads % key_heads == 0, "Attention query heads must be divisible by key heads");
+        require(keys && queries && output, "Null attention score tensor buffer");
+        auto ctx = context();
+        auto * k = ggml_new_tensor_3d(ctx.get(), GGML_TYPE_F32, dim, key_count, key_heads);
+        auto * q = ggml_new_tensor_3d(ctx.get(), GGML_TYPE_F32, dim, query_heads, tokens);
+        k->data = const_cast<float *>(keys);
+        q->data = const_cast<float *>(queries);
+        q = ggml_permute(ctx.get(), q, 0, 2, 1, 3);
+        auto * result = ggml_mul_mat(ctx.get(), k, q);
+        ggml_mul_mat_set_prec(result, GGML_PREC_F32);
+        compute(ctx.get(), result, output, threads);
+    });
+}
+
 // scores/output[H,T,K], additive F32 mask[T,K] (broadcast to all heads).
 // Native scale then additive mask; max_bias=0; no sinks, softcap, or ALiBi.
 int ngramma_softmax_ext(const float * scores, const float * mask, float * output,

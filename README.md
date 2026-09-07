@@ -48,17 +48,21 @@ python3 scripts/plot_results.py
 
 ## Research status
 
-[Experiment 002 is in progress](experiments/002-parity/REPORT.md). Native CPU
-operations make the first three layers bit-identical on the original ten-token
-fixture. Maximum selected-token log-probability error falls from 1.803 to 0.906
-nats, while the full-model control still fails its 0.02-nat gate. The repository now includes a configurable
-[forward diagnostic harness](docs/runtime.md), deeper component probes, and
-optional native fixture tests. These are numerical research tools; no rows have
-been trained.
+[Experiment 003](experiments/003-attention/REPORT.md) now matches the CPU engine
+bit-for-bit through all 48 layers and every output logit on the original
+ten-token fixture. Native rotary arithmetic, padded attention, and preservation
+of the query tensor's memory layout resolve the remaining discrepancy. Maximum
+selected-token log-probability error falls from experiment 002's 0.906 nats to
+zero. The [forward diagnostic harness](docs/runtime.md) has no backward
+implementation; no rows have been trained.
 
 The experimental prototype recorded 22 guard and plumbing tests passing; these were not real-model gradient validation. The checker in this publication is a separate evidence audit. No teacher model was called and no selected rows were optimized on correction examples. Only a manually specified diagnostic perturbation was evaluated.
 
-The active experiment is isolating matrix-kernel and recurrent-operation differences before repeating full short-sequence agreement and testing directional gradients. A broader development-only task search is also needed before testing the behavioral hypothesis. See the [source audit](docs/source-audit.md), [architecture audit](docs/architecture-audit.md), and [experiment protocol](docs/experiment-protocol.md).
+Broader short-sequence checks and directional-gradient qualification remain
+prerequisites to training. A development-only task search is also needed to find
+a repeatable reminder advantage before testing the behavioral hypothesis. See
+the [source audit](docs/source-audit.md), [architecture audit](docs/architecture-audit.md),
+and [experiment protocol](docs/experiment-protocol.md).
 
 ## Attribution
 

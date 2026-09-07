@@ -66,6 +66,9 @@ class AttentionOps:
         self.lib.ngramma_batched_matmul.restype = ct.c_int
         self.lib.ngramma_softmax_ext.argtypes = [ct.c_void_p]*3 + [ct.c_int64]*3 + [ct.c_float, ct.c_int]
         self.lib.ngramma_softmax_ext.restype = ct.c_int
+        if hasattr(self.lib, 'ngramma_attention_scores'):
+            self.lib.ngramma_attention_scores.argtypes = [ct.c_void_p]*3 + [ct.c_int64]*5 + [ct.c_int]
+            self.lib.ngramma_attention_scores.restype = ct.c_int
 
     def checked(self, status):
         if status:
@@ -127,6 +130,23 @@ class AttentionOps:
         self.checked(self.lib.ngramma_softmax_ext(raw.ctypes.data, additive.ctypes.data,
             result.ctypes.data, *raw.shape, scale, self.threads))
         self.calls['softmax_ext'] += 1
+        return torch.from_numpy(result)
+
+    def scores(self, keys, queries):
+        """Preserve queries[T,H,D] before GGML's logical head/token permutation.
+
+        Copying to contiguous [H,T,D] would enable a different CPU GEMM kernel.
+        This interface keeps the engine's stride-dependent dispatch intact.
+        """
+        k, q = self.arrays(keys, queries)
+        if k.ndim != 3 or q.ndim != 3 or k.shape[2] != q.shape[2] or q.shape[1] % k.shape[0]:
+            raise ValueError('Expected keys[Hk,N,D], queries[T,Hq,D], Hq divisible by Hk')
+        hk, n, d = k.shape
+        t, hq, _ = q.shape
+        result = np.empty((hq,t,n), np.float32)
+        self.checked(self.lib.ngramma_attention_scores(k.ctypes.data, q.ctypes.data,
+            result.ctypes.data, d,n,t,hk,hq,self.threads))
+        self.calls['attention_scores_strided'] += 1
         return torch.from_numpy(result)
 
     def settings(self):

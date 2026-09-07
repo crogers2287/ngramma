@@ -1,0 +1,32 @@
+{
+  "tokens": [
+    9419,
+    11,
+    1814,
+    0,
+    220,
+    17,
+    478,
+    220,
+    17,
+    283
+  ],
+  "capture_prefixes": [
+    "ple_embd",
+    "l_last",
+    "kq_soft_max"
+  ],
+  "chunk_size": 32,
+  "threads": 8,
+  "device": "CPU",
+  "cache_type": "f32",
+  "repack": true,
+  "seconds": 13.621430657920428,
+  "identity_sha256": "af848e254fb9a6ca6be56b8f14f1d369a6e705c3363c4c4ac6e5f0cc7e652f87",
+  "lens_sha256": "11a3db16d25e64c6d2f47a0ee280176151b278b1ad384dfc7a399f0bcffaed91",
+  "tensors": 63,
+  "logits_sha256": "c822d10a471e7b9db09492edf17c782271b2284b30ee731cc13505a9d8869c48",
+  "metadata_sha256": "ba0214957e27a154d27d216c61e823eaa6b0266a87bdb72f65edebb45a8770c1",
+  "historical_logits_sha256": "c822d10a471e7b9db09492edf17c782271b2284b30ee731cc13505a9d8869c48",
+  "historical_logits_bit_equal": true
+}

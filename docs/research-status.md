@@ -8,7 +8,7 @@ The current publication is a report, evidence archive, replay checker, and annot
 |---|---|---|
 | M0 — Audit and runnable baseline | Actual checkpoint/table metadata and hashes; actual-model diagnostic and synthetic tool runs; pinned source revisions | Partial. Exact model distribution/license and full dependency lock still need independent audit. Fresh portable build unqualified. |
 | M1 — Native lookup and no-op overlay | Three CPU sequences, 39 tokens; 624 matching row accesses per traced condition; empty and original-row overlays exact; invalid overlays rejected | Narrow CPU checks passed. Broader packed/batched/multi-turn coverage and GPU parity remain. |
-| M2 — Narrow differentiable edit | A manual perturbation reached the intended row and changed logits | Blocked at forward agreement. The perturbation was not learned and does not meet M2's gradient-validation exit criterion. |
+| M2 — Narrow differentiable edit | A manual perturbation reached the intended row and changed logits; native forward-only reference now matches all 48 layers on the original short fixture | Blocked at differentiable-forward and gradient qualification. The native reference has no backward implementation; the perturbation was not learned. |
 | M3 — Verified curriculum and selection | Five evaluated families, 47 episodes including repeats; independent state replay; observed-row index and 512 provisional candidates | Partial. No repeatable reminder advantage, verified teacher corrections, or influence/retention-qualified row selection. |
 | M4 — Complete short-sequence training | Shared-row sequence reference and loss/gate excerpts exist | Unqualified. No actual-model training, finite-difference qualification, development improvement, or forward/backward resource benchmark. |
 | M5 — Locked evaluation | Planned in the handoff | Not run. No locked learned candidate, training-seed comparison, sealed evaluation, or regression evidence. |
@@ -28,13 +28,15 @@ The handoff's desired deliverable—an immutable overlay that improves unseen ta
 
 ## Next research milestone
 
-[Experiment 002](../experiments/002-parity/REPORT.md) adds a configurable CPU
-forward harness and bit-identical outputs through layers 0–2, including the
-memory-bearing layer, on the original ten-token fixture. Its final full-model
-control still fails (9/10 top tokens; 0.906-nat maximum selected-token
-log-probability error). The first remaining difference appears at layer 3.
-Native operations have no backward implementation; M2 and M4 remain
-unqualified. Consult that report for current measurements rather than treating
-lower component error as model-level success.
+[Experiment 003](../experiments/003-attention/REPORT.md) resolves the original
+ten-token CPU forward discrepancy: all 48 residuals and every output logit now
+match bit-for-bit. Rotary arithmetic, padded attention width, and stride-dependent
+CPU matrix dispatch were material. The original differentiable replica has not
+thereby acquired a qualified gradient: these native operations have no backward
+implementation, so M2 and M4 remain unqualified.
 
-Isolate the layer-3 operations and expand full forward checks. Then validate directional gradients in stable-routing cases and investigate routing/quantization boundaries. In independent task work, find a reminder advantage that repeats under a fixed protocol. These are prerequisites for M2/M3, not a request to skip directly to broad training.
+Expand short-sequence coverage, then compare a differentiable implementation
+against the exact reference and validate directional gradients. Distinguish
+stable routing from routing/quantization boundaries. In independent task work,
+find a reminder advantage that repeats under a fixed protocol. These remain
+prerequisites for M2/M3.
