@@ -14,6 +14,9 @@ jobs:
           python3 scripts/verify_attention_experiment.py
           python3 scripts/verify_row_response.py
           python3 experiments/005-behavior/score_results.py
+          python3 experiments/006-instruction-memory/verify_results.py
+          python3 experiments/006-instruction-memory/analyze_results.py --check experiments/006-instruction-memory/analysis.json
+          python3 experiments/006-instruction-memory/audit_addresses.py --check experiments/006-instruction-memory/address-audit.json
       - name: Install lightweight test dependency
         run: python3 -m pip install 'pytest>=8,<10' 'numpy>=1.26,<3'
       - name: Check runtime configuration and safe imports

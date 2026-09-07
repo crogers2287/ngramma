@@ -6,10 +6,12 @@ The project begins with [handoff.md](handoff.md), its original research specific
 
 The intended result is the original frozen model plus a small, versioned memory overlay. A teacher diagnoses failures and supplies independently verified corrections during improvement cycles. A numerical optimizer changes selected existing rows; the backbone, tokenizer, memory reader, and gates stay frozen. Ordinary inference and the primary evaluation use no teacher or extra lesson text.
 
-**Latest result:** [behavior discovery](experiments/005-behavior/REPORT.md) found
-a repeatable benefit from a stronger response-format instruction, but no
-qualifying content-reminder rescue. The real engine now supports bounded,
-unconstrained generated-answer tests. **No learned improvement has been demonstrated.**
+**Latest result:** [twelve instruction-memory edits](experiments/006-instruction-memory/REPORT.md)
+were tested on 288 generated answers. The best two each fixed two development
+failures and broke two correct controls. **None passed the fixed acceptance
+rule; no overlay was accepted or tested on holdout.** The preceding
+[format-reminder benefit](experiments/005-behavior/REPORT.md) remains a prompt
+result, not an improvement retained through these memory edits.
 
 The memory-edit workbench measures 19 edits of one existing
 row, with eight fresh full-engine controls. Small edits vanish at the activation
@@ -45,6 +47,10 @@ Use the [JSON example and schema](examples/memory-edit-workbench/README.md) to
 report experiments from your own implementation, build on the
 [checked row-patch utility](src/ngramma_runtime/row_patch.py), or use the
 [model-free overlay inspector](examples/memory-edit-workbench/README.md#inspect-an-overlay-without-a-model).
+The [portable row tracer](examples/row-addresses/README.md) also shows which
+global memory rows a saved prompt and decoded history address, without loading
+weights or installing NumPy/Torch. Multirow export is available through
+[MultiRowPatch](src/ngramma_runtime/multi_row_patch.py).
 See the [fixed experiment plan](experiments/004-row-response/PLAN.md) and
 [reproduction instructions](experiments/004-row-response/REPRODUCE.md).
 These are research tools; no trained overlay or capability improvement is
@@ -80,9 +86,10 @@ Python 3.10 or newer; no model, GPU, API key, or third-party Python package is n
 git clone https://github.com/crogers2287/ngramma.git
 cd ngramma
 python3 scripts/verify_results.py
+python3 experiments/006-instruction-memory/verify_results.py
 ```
 
-The command checks file hashes, replays all 47 saved mock-tool episodes against the original state verifier, recomputes the pilot and confirmation counts, and checks the numerical report's internal consistency. **It does not rerun model inference or independently reproduce saved tensor comparisons.**
+The first command checks file hashes, replays the original 47 mock-tool episodes, and checks numerical-report consistency. The second re-scores the instruction-memory candidates, checks zero controls and artifact bindings, and reapplies the fixed improvement/retention rule. **These checks do not rerun model inference or independently reproduce saved tensor comparisons.**
 
 To regenerate the figure:
 
@@ -103,11 +110,12 @@ published alongside the corrections. The
 [forward diagnostic harness](docs/runtime.md) has no backward
 implementation; no rows have been trained.
 
-The experimental prototype recorded 22 guard and plumbing tests passing; these were not real-model gradient validation. The checker in this publication is a separate evidence audit. No teacher model was called and no selected rows were optimized on correction examples. Only a manually specified diagnostic perturbation was evaluated.
+The initial prototype recorded 22 guard and plumbing tests passing; these were not real-model gradient validation. Later experiments add finite row edits and real generated-answer evaluation. No teacher-generated corrections have been used to train selected rows, and no learned overlay has qualified.
 
 Broader execution coverage and directional-gradient qualification remain
-prerequisites to training. A development-only task search is also needed to find
-a repeatable reminder advantage before testing the behavioral hypothesis. See
+prerequisites to gradient training. A repeated format-reminder benefit now
+provides a narrow behavioral target; a qualifying content-reminder rescue and
+broader independent-family evaluation remain open. See
 the [source audit](docs/source-audit.md), [architecture audit](docs/architecture-audit.md),
 and [experiment protocol](docs/experiment-protocol.md).
 
@@ -115,4 +123,4 @@ and [experiment protocol](docs/experiment-protocol.md).
 
 This work builds on [ENGRAFT](https://github.com/fulvian/engraft-ngram/tree/028129c9c5c50fddb09b1503f6ccae07349b9831) and a [llama.cpp fork](https://github.com/LaurentZuijdwijk/llama.cpp/tree/5e085d123eead2e89b5c19f824fccb05727da6a2). Our checkpoint layout, engine, and experimental objective differ from ENGRAFT's reported fact-grafting experiment; our parity failure is specific to the configuration tested here.
 
-The implementation and report were prepared with AI assistance. Results are tied to saved artifacts; the central hypothesis remains untested. See [NOTICE](NOTICE) for source attribution and [CITATION.cff](CITATION.cff) to cite this research snapshot.
+The implementation and report were prepared with AI assistance. Results are tied to saved artifacts; the central hypothesis remains unresolved. See [NOTICE](NOTICE) for source attribution and [CITATION.cff](CITATION.cff) to cite this research snapshot.

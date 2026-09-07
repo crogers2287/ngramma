@@ -1,15 +1,17 @@
 {
   "schema": "ngramma.test-run/v1",
-  "commit": "c03ce4b12832737932710b12a7a1ae107eed6874",
+  "source_commit": "6479e5b0a3b55383db3cff2d786c5c1a8b83a9c5",
+  "working_tree_completed_research_data": true,
+  "search_sha256": "ae8aa6c852309c995b79845e97a3efdac57125a448fcbcac8f789ff77b750f1b",
   "tests": 630,
   "failures": 0,
   "errors": 0,
   "skipped": 0,
-  "seconds": 21.503,
-  "xml_sha256": "2c025dd980082af6f833aefc55e044c8285443ff93836bb164d3d3edd2356a1c",
-  "log_sha256": "eda28c4b2ca125017fcdd6365d23ff3bc83c6009cb466abea8d0ca6ce4e81209",
+  "seconds": 21.494,
+  "xml_sha256": "8d2b810cdb925dd34f46be8375672368ad1d64aa7ffc41b15d5c32cff4a68468",
+  "log_sha256": "152891fe9c3f7cbe2f9c366bce78e03943ae975bf9c36b61ccb7fef4218641dd",
   "native_dependencies_configured": true,
   "model_inference_run_by_tests": false,
-  "search_candidates_complete_at_test": 8,
-  "note": "Synthetic native and model-free tests; separate candidate processes provide actual model evidence."
+  "search_candidates_complete_at_test": 12,
+  "note": "All inference, grading, and test source was already committed; completed research records were present in the working tree. Later plot whitespace/documentation changes do not alter that tested source. Synthetic native and model-free tests are separate from actual-model candidate runs."
 }

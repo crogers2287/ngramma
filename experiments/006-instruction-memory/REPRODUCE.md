@@ -8,6 +8,8 @@ Python 3.10+ and its standard library are sufficient:
 python3 scripts/verify_results.py
 python3 experiments/005-behavior/score_results.py
 python3 experiments/006-instruction-memory/verify_results.py
+python3 experiments/006-instruction-memory/analyze_results.py --check experiments/006-instruction-memory/analysis.json
+python3 experiments/006-instruction-memory/audit_addresses.py --check experiments/006-instruction-memory/address-audit.json
 ```
 
 For a commit published before all twelve candidates finish, add

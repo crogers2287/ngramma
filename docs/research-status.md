@@ -3,7 +3,7 @@
 The project objective comes from [handoff.md](../handoff.md): improve unseen ordinary-prompt tasks through sparse changes to existing native memory rows, with the rest of the model frozen and the teacher absent at inference. The first experiment is reported in [REPORT.md](../REPORT.md).
 
 The publication includes an installable offline response explorer, a model-free
-overlay inspector, row-patch utilities, evidence checkers, and annotated
+overlay inspector and row-address tracer, multirow patch utilities, evidence checkers, and annotated
 experimental source. It is not the complete system specified by the handoff.
 Host orchestration and production activation are outside this repository's
 current research scope.
@@ -11,9 +11,9 @@ current research scope.
 | Handoff milestone | Current evidence | Status and remaining exit criteria |
 |---|---|---|
 | M0 — Audit and runnable baseline | Actual checkpoint/table metadata and hashes; actual-model diagnostic and synthetic tool runs; pinned source revisions | Partial. Exact model distribution/license and full dependency lock still need independent audit. Fresh portable build unqualified. |
-| M1 — Native lookup and no-op overlay | Three CPU sequences, 39 tokens; 624 matching row accesses per traced condition; empty and original-row overlays exact; invalid overlays rejected | Narrow CPU checks passed. Broader packed/batched/multi-turn coverage and GPU parity remain. |
+| M1 — Native lookup and no-op overlay | Three CPU sequences, 39 tokens; 624 matching row accesses per traced condition; eight-row original-value overlay preserves 24 complete generations and scores; finite capture changes precisely the intended 1,280 values | Narrow CPU checks passed. Broader packed/batched/multi-turn coverage and GPU parity remain. |
 | M2 — Narrow differentiable edit | Exact unmodified native forward on 39 tokens; experiment 004 measures 19 edits of one existing row and validates a separate smooth local PLE derivative against its own finite differences | Full serving-gradient and useful finite-update qualification remain open. The native reference has no backward; these edits were not learned. |
-| M3 — Verified curriculum and selection | Five evaluated families, 47 episodes including repeats; independent state replay; observed-row index and 512 provisional candidates | Partial. No repeatable reminder advantage, verified teacher corrections, or influence/retention-qualified row selection. |
+| M3 — Verified curriculum and selection | Original five-family pilot and 47 episodes; later four-family generated-answer assay; repeated format-instruction benefit; fixed twelve-candidate instruction-row search | Partial. No qualifying content-reminder rescue or teacher correction training. A useful finite edit must pass both generated-task improvement and retention. |
 | M4 — Complete short-sequence training | Shared-row sequence reference and loss/gate excerpts exist | Unqualified. No actual-model training, full-sequence gradient qualification, development improvement, or forward/backward resource benchmark. |
 | M5 — Locked evaluation | Planned in the handoff | Not run. No locked learned candidate, training-seed comparison, sealed evaluation, or regression evidence. |
 | M6 — Controlled serving | Not part of the present research publication | Not attempted. No learned overlay, cache/rollback qualification, or deployment claim. |
@@ -32,6 +32,18 @@ The handoff's desired deliverable—an immutable overlay that improves unseen ta
 
 ## Next research milestone
 
+[Experiment 006](../experiments/006-instruction-memory/REPORT.md) tested twelve
+finite changes to eight instruction-related rows against actual unconstrained
+generated answers. All recipes were frozen before scores. An original-value
+control preserves 24 complete outputs and selected scores; a captured finite
+edit changes precisely the intended 1,280 values. Useful changes must also
+preserve correct answers and response formatting. This is a finite search,
+not the still-unqualified full-sequence training system. All twelve candidates
+were rejected: the best two each rescued two development failures and lost two
+initially correct controls. Across 288 scored candidate generations, none met
+the fixed gain/retention rule. No winner was selected, no overlay was accepted,
+and the 32 within-family holdout inputs remain unevaluated.
+
 [Experiment 005](../experiments/005-behavior/REPORT.md) adds actual generated
 answers and repeatability checks. A uniform format instruction changes the
 small development assay from 1/16 contract-compliant correct answers to 14/16;
@@ -39,8 +51,8 @@ small development assay from 1/16 contract-compliant correct answers to 14/16;
 this is not a general accuracy comparison. The remaining state-replacement
 errors repeat, but their fixed content hint does not rescue them. Counting
 also shows no hint benefit. No content target qualified, so no candidate row
-search or held-out evaluation was run. The demonstrated instruction-following
-contrast is a separate, narrower candidate for a future edit experiment.
+search or held-out evaluation was run within experiment 005. Its demonstrated
+instruction-following contrast supplies the separate, narrower target for 006.
 
 [Experiment 004](../experiments/004-row-response/REPORT.md) makes the numerical
 distinction concrete. Small changes to all 160 values of one row vanish at the
@@ -75,5 +87,6 @@ regression runs also pass with matching byte hashes. Wider execution modes remai
 Expand coverage across independent rows, directions, and prompts, and test
 whether a proposed surrogate recommends useful finite updates in the serving
 engine. A local smooth derivative check alone does not qualify that surrogate.
-In independent task work, find a reminder advantage that repeats under a fixed
-protocol. These remain prerequisites for M2/M3.
+In independent task work, retain the repeated format benefit through an
+accepted edit and find a repeatable content-reminder advantage. These remain
+open parts of M2/M3.

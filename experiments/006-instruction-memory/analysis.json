@@ -1,0 +1,1049 @@
+{
+  "schema": "ngramma.instruction-analysis/v1",
+  "complete": true,
+  "search_sha256": "ae8aa6c852309c995b79845e97a3efdac57125a448fcbcac8f789ff77b750f1b",
+  "outcomes": [
+    {
+      "condition": "original",
+      "groups": {
+        "dev": {
+          "cap_exhausted": 11,
+          "correct": 1,
+          "malformed": 13,
+          "total": 16,
+          "wrong_choice": 2
+        },
+        "controls": {
+          "cap_exhausted": 2,
+          "correct": 6,
+          "malformed": 2,
+          "total": 8
+        }
+      },
+      "families_including_controls": {
+        "decimal_version": {
+          "cap_exhausted": 2,
+          "correct": 3,
+          "malformed": 2,
+          "total": 6,
+          "wrong_choice": 1
+        },
+        "missing_zero": {
+          "cap_exhausted": 3,
+          "malformed": 5,
+          "total": 6,
+          "wrong_choice": 1
+        },
+        "signed_arithmetic": {
+          "cap_exhausted": 4,
+          "correct": 2,
+          "malformed": 4,
+          "total": 6
+        },
+        "state_override": {
+          "cap_exhausted": 4,
+          "correct": 2,
+          "malformed": 4,
+          "total": 6
+        }
+      },
+      "gains_from_original": [],
+      "losses_from_original": [],
+      "terminated_answer_labels": {
+        "A": 6,
+        "B": 3
+      },
+      "gains_by_correct_label": {},
+      "losses_by_correct_label": {},
+      "changed_completion_text": [],
+      "correct_literal_first_token_but_failed_complete_answer": []
+    },
+    {
+      "condition": "format_instruction",
+      "groups": {
+        "dev": {
+          "cap_exhausted": 0,
+          "correct": 14,
+          "total": 16,
+          "wrong_choice": 2
+        },
+        "controls": {
+          "cap_exhausted": 0,
+          "correct": 7,
+          "total": 8,
+          "wrong_choice": 1
+        }
+      },
+      "families_including_controls": {
+        "decimal_version": {
+          "cap_exhausted": 0,
+          "correct": 6,
+          "total": 6
+        },
+        "missing_zero": {
+          "cap_exhausted": 0,
+          "correct": 5,
+          "total": 6,
+          "wrong_choice": 1
+        },
+        "signed_arithmetic": {
+          "cap_exhausted": 0,
+          "correct": 6,
+          "total": 6
+        },
+        "state_override": {
+          "cap_exhausted": 0,
+          "correct": 4,
+          "total": 6,
+          "wrong_choice": 2
+        }
+      },
+      "gains_from_original": [
+        "dev-decimal-0",
+        "dev-decimal-1",
+        "dev-decimal-2",
+        "dev-arithmetic-0",
+        "dev-arithmetic-1",
+        "dev-arithmetic-2",
+        "dev-arithmetic-3",
+        "dev-state-0",
+        "dev-state-2",
+        "dev-missing-0",
+        "dev-missing-1",
+        "dev-missing-2",
+        "dev-missing-3",
+        "controls-6"
+      ],
+      "losses_from_original": [],
+      "terminated_answer_labels": {
+        "A": 15,
+        "B": 9
+      },
+      "gains_by_correct_label": {
+        "A": 8,
+        "B": 6
+      },
+      "losses_by_correct_label": {},
+      "changed_completion_text": [
+        "dev-decimal-0",
+        "dev-decimal-1",
+        "dev-decimal-2",
+        "dev-arithmetic-0",
+        "dev-arithmetic-1",
+        "dev-arithmetic-2",
+        "dev-arithmetic-3",
+        "dev-state-0",
+        "dev-state-1",
+        "dev-state-2",
+        "dev-state-3",
+        "dev-missing-0",
+        "dev-missing-1",
+        "dev-missing-2",
+        "dev-missing-3",
+        "controls-6",
+        "controls-7"
+      ],
+      "correct_literal_first_token_but_failed_complete_answer": []
+    },
+    {
+      "condition": "rademacher-minus-8",
+      "groups": {
+        "dev": {
+          "cap_exhausted": 12,
+          "correct": 1,
+          "malformed": 14,
+          "total": 16,
+          "wrong_choice": 1
+        },
+        "controls": {
+          "cap_exhausted": 3,
+          "correct": 5,
+          "malformed": 3,
+          "total": 8
+        }
+      },
+      "families_including_controls": {
+        "decimal_version": {
+          "cap_exhausted": 3,
+          "correct": 2,
+          "malformed": 3,
+          "total": 6,
+          "wrong_choice": 1
+        },
+        "missing_zero": {
+          "cap_exhausted": 3,
+          "correct": 1,
+          "malformed": 5,
+          "total": 6
+        },
+        "signed_arithmetic": {
+          "cap_exhausted": 5,
+          "correct": 1,
+          "malformed": 5,
+          "total": 6
+        },
+        "state_override": {
+          "cap_exhausted": 4,
+          "correct": 2,
+          "malformed": 4,
+          "total": 6
+        }
+      },
+      "gains_from_original": [
+        "controls-6"
+      ],
+      "losses_from_original": [
+        "controls-1",
+        "controls-3"
+      ],
+      "terminated_answer_labels": {
+        "A": 6,
+        "B": 1
+      },
+      "gains_by_correct_label": {
+        "A": 1
+      },
+      "losses_by_correct_label": {
+        "B": 2
+      },
+      "changed_completion_text": [
+        "dev-decimal-0",
+        "dev-arithmetic-1",
+        "dev-state-0",
+        "dev-state-1",
+        "dev-state-2",
+        "dev-missing-0",
+        "dev-missing-2",
+        "controls-1",
+        "controls-3",
+        "controls-6",
+        "controls-7"
+      ],
+      "correct_literal_first_token_but_failed_complete_answer": [
+        "dev-decimal-0"
+      ]
+    },
+    {
+      "condition": "rademacher-plus-8",
+      "groups": {
+        "dev": {
+          "cap_exhausted": 11,
+          "correct": 1,
+          "malformed": 13,
+          "total": 16,
+          "wrong_choice": 2
+        },
+        "controls": {
+          "cap_exhausted": 2,
+          "correct": 6,
+          "malformed": 2,
+          "total": 8
+        }
+      },
+      "families_including_controls": {
+        "decimal_version": {
+          "cap_exhausted": 3,
+          "correct": 2,
+          "malformed": 3,
+          "total": 6,
+          "wrong_choice": 1
+        },
+        "missing_zero": {
+          "cap_exhausted": 2,
+          "correct": 1,
+          "malformed": 4,
+          "total": 6,
+          "wrong_choice": 1
+        },
+        "signed_arithmetic": {
+          "cap_exhausted": 4,
+          "correct": 2,
+          "malformed": 4,
+          "total": 6
+        },
+        "state_override": {
+          "cap_exhausted": 4,
+          "correct": 2,
+          "malformed": 4,
+          "total": 6
+        }
+      },
+      "gains_from_original": [
+        "controls-6"
+      ],
+      "losses_from_original": [
+        "controls-1"
+      ],
+      "terminated_answer_labels": {
+        "A": 7,
+        "B": 2
+      },
+      "gains_by_correct_label": {
+        "A": 1
+      },
+      "losses_by_correct_label": {
+        "B": 1
+      },
+      "changed_completion_text": [
+        "dev-decimal-0",
+        "dev-arithmetic-1",
+        "dev-state-1",
+        "controls-1",
+        "controls-6",
+        "controls-7"
+      ],
+      "correct_literal_first_token_but_failed_complete_answer": [
+        "dev-decimal-0"
+      ]
+    },
+    {
+      "condition": "rademacher-minus-6",
+      "groups": {
+        "dev": {
+          "cap_exhausted": 11,
+          "correct": 2,
+          "malformed": 13,
+          "total": 16,
+          "wrong_choice": 1
+        },
+        "controls": {
+          "cap_exhausted": 4,
+          "correct": 4,
+          "malformed": 4,
+          "total": 8
+        }
+      },
+      "families_including_controls": {
+        "decimal_version": {
+          "cap_exhausted": 2,
+          "correct": 3,
+          "malformed": 2,
+          "total": 6,
+          "wrong_choice": 1
+        },
+        "missing_zero": {
+          "cap_exhausted": 4,
+          "correct": 1,
+          "malformed": 5,
+          "total": 6
+        },
+        "signed_arithmetic": {
+          "cap_exhausted": 5,
+          "correct": 1,
+          "malformed": 5,
+          "total": 6
+        },
+        "state_override": {
+          "cap_exhausted": 4,
+          "correct": 1,
+          "malformed": 5,
+          "total": 6
+        }
+      },
+      "gains_from_original": [
+        "dev-missing-1"
+      ],
+      "losses_from_original": [
+        "controls-3",
+        "controls-5"
+      ],
+      "terminated_answer_labels": {
+        "A": 6,
+        "B": 1
+      },
+      "gains_by_correct_label": {
+        "A": 1
+      },
+      "losses_by_correct_label": {
+        "B": 2
+      },
+      "changed_completion_text": [
+        "dev-arithmetic-0",
+        "dev-arithmetic-1",
+        "dev-state-0",
+        "dev-missing-1",
+        "dev-missing-2",
+        "controls-3",
+        "controls-5",
+        "controls-6",
+        "controls-7"
+      ],
+      "correct_literal_first_token_but_failed_complete_answer": [
+        "dev-arithmetic-0",
+        "controls-6"
+      ]
+    },
+    {
+      "condition": "rademacher-plus-6",
+      "groups": {
+        "dev": {
+          "cap_exhausted": 11,
+          "correct": 2,
+          "malformed": 12,
+          "total": 16,
+          "wrong_choice": 2
+        },
+        "controls": {
+          "cap_exhausted": 4,
+          "correct": 4,
+          "malformed": 4,
+          "total": 8
+        }
+      },
+      "families_including_controls": {
+        "decimal_version": {
+          "cap_exhausted": 3,
+          "correct": 2,
+          "malformed": 3,
+          "total": 6,
+          "wrong_choice": 1
+        },
+        "missing_zero": {
+          "cap_exhausted": 4,
+          "malformed": 5,
+          "total": 6,
+          "wrong_choice": 1
+        },
+        "signed_arithmetic": {
+          "cap_exhausted": 4,
+          "correct": 2,
+          "malformed": 4,
+          "total": 6
+        },
+        "state_override": {
+          "cap_exhausted": 4,
+          "correct": 2,
+          "malformed": 4,
+          "total": 6
+        }
+      },
+      "gains_from_original": [
+        "dev-arithmetic-1"
+      ],
+      "losses_from_original": [
+        "controls-1",
+        "controls-3"
+      ],
+      "terminated_answer_labels": {
+        "A": 7,
+        "B": 1
+      },
+      "gains_by_correct_label": {
+        "A": 1
+      },
+      "losses_by_correct_label": {
+        "B": 2
+      },
+      "changed_completion_text": [
+        "dev-arithmetic-1",
+        "dev-state-1",
+        "dev-missing-0",
+        "controls-1",
+        "controls-3",
+        "controls-6",
+        "controls-7"
+      ],
+      "correct_literal_first_token_but_failed_complete_answer": []
+    },
+    {
+      "condition": "alternating-minus-8",
+      "groups": {
+        "dev": {
+          "cap_exhausted": 11,
+          "correct": 3,
+          "malformed": 11,
+          "total": 16,
+          "wrong_choice": 2
+        },
+        "controls": {
+          "cap_exhausted": 3,
+          "correct": 5,
+          "malformed": 3,
+          "total": 8
+        }
+      },
+      "families_including_controls": {
+        "decimal_version": {
+          "cap_exhausted": 3,
+          "correct": 2,
+          "malformed": 3,
+          "total": 6,
+          "wrong_choice": 1
+        },
+        "missing_zero": {
+          "cap_exhausted": 2,
+          "correct": 3,
+          "malformed": 2,
+          "total": 6,
+          "wrong_choice": 1
+        },
+        "signed_arithmetic": {
+          "cap_exhausted": 4,
+          "correct": 2,
+          "malformed": 4,
+          "total": 6
+        },
+        "state_override": {
+          "cap_exhausted": 5,
+          "correct": 1,
+          "malformed": 5,
+          "total": 6
+        }
+      },
+      "gains_from_original": [
+        "dev-missing-0",
+        "dev-missing-1",
+        "controls-6"
+      ],
+      "losses_from_original": [
+        "controls-1",
+        "controls-5"
+      ],
+      "terminated_answer_labels": {
+        "A": 9,
+        "B": 1
+      },
+      "gains_by_correct_label": {
+        "A": 3
+      },
+      "losses_by_correct_label": {
+        "B": 2
+      },
+      "changed_completion_text": [
+        "dev-decimal-0",
+        "dev-arithmetic-1",
+        "dev-missing-0",
+        "dev-missing-1",
+        "controls-1",
+        "controls-5",
+        "controls-6"
+      ],
+      "correct_literal_first_token_but_failed_complete_answer": [
+        "dev-decimal-0"
+      ]
+    },
+    {
+      "condition": "alternating-plus-8",
+      "groups": {
+        "dev": {
+          "cap_exhausted": 11,
+          "correct": 3,
+          "malformed": 11,
+          "total": 16,
+          "wrong_choice": 2
+        },
+        "controls": {
+          "cap_exhausted": 3,
+          "correct": 4,
+          "malformed": 3,
+          "total": 8,
+          "wrong_choice": 1
+        }
+      },
+      "families_including_controls": {
+        "decimal_version": {
+          "cap_exhausted": 2,
+          "correct": 2,
+          "malformed": 2,
+          "total": 6,
+          "wrong_choice": 2
+        },
+        "missing_zero": {
+          "cap_exhausted": 4,
+          "correct": 1,
+          "malformed": 4,
+          "total": 6,
+          "wrong_choice": 1
+        },
+        "signed_arithmetic": {
+          "cap_exhausted": 4,
+          "correct": 2,
+          "malformed": 4,
+          "total": 6
+        },
+        "state_override": {
+          "cap_exhausted": 4,
+          "correct": 2,
+          "malformed": 4,
+          "total": 6
+        }
+      },
+      "gains_from_original": [
+        "dev-arithmetic-1",
+        "dev-missing-0"
+      ],
+      "losses_from_original": [
+        "controls-1",
+        "controls-3"
+      ],
+      "terminated_answer_labels": {
+        "A": 9,
+        "B": 1
+      },
+      "gains_by_correct_label": {
+        "A": 2
+      },
+      "losses_by_correct_label": {
+        "B": 2
+      },
+      "changed_completion_text": [
+        "dev-arithmetic-0",
+        "dev-arithmetic-1",
+        "dev-state-0",
+        "dev-missing-0",
+        "dev-missing-1",
+        "controls-1",
+        "controls-3",
+        "controls-6",
+        "controls-7"
+      ],
+      "correct_literal_first_token_but_failed_complete_answer": [
+        "dev-arithmetic-0",
+        "controls-6"
+      ]
+    },
+    {
+      "condition": "alternating-minus-6",
+      "groups": {
+        "dev": {
+          "cap_exhausted": 11,
+          "correct": 1,
+          "malformed": 13,
+          "total": 16,
+          "wrong_choice": 2
+        },
+        "controls": {
+          "cap_exhausted": 4,
+          "correct": 4,
+          "malformed": 4,
+          "total": 8
+        }
+      },
+      "families_including_controls": {
+        "decimal_version": {
+          "cap_exhausted": 3,
+          "correct": 2,
+          "malformed": 3,
+          "total": 6,
+          "wrong_choice": 1
+        },
+        "missing_zero": {
+          "cap_exhausted": 3,
+          "malformed": 5,
+          "total": 6,
+          "wrong_choice": 1
+        },
+        "signed_arithmetic": {
+          "cap_exhausted": 5,
+          "correct": 1,
+          "malformed": 5,
+          "total": 6
+        },
+        "state_override": {
+          "cap_exhausted": 4,
+          "correct": 2,
+          "malformed": 4,
+          "total": 6
+        }
+      },
+      "gains_from_original": [],
+      "losses_from_original": [
+        "controls-1",
+        "controls-3"
+      ],
+      "terminated_answer_labels": {
+        "A": 6,
+        "B": 1
+      },
+      "gains_by_correct_label": {},
+      "losses_by_correct_label": {
+        "B": 2
+      },
+      "changed_completion_text": [
+        "dev-decimal-0",
+        "dev-arithmetic-0",
+        "dev-arithmetic-1",
+        "dev-state-1",
+        "controls-1",
+        "controls-3"
+      ],
+      "correct_literal_first_token_but_failed_complete_answer": [
+        "dev-arithmetic-0"
+      ]
+    },
+    {
+      "condition": "alternating-plus-6",
+      "groups": {
+        "dev": {
+          "cap_exhausted": 12,
+          "correct": 2,
+          "malformed": 12,
+          "total": 16,
+          "wrong_choice": 2
+        },
+        "controls": {
+          "cap_exhausted": 4,
+          "correct": 4,
+          "malformed": 4,
+          "total": 8
+        }
+      },
+      "families_including_controls": {
+        "decimal_version": {
+          "cap_exhausted": 2,
+          "correct": 3,
+          "malformed": 2,
+          "total": 6,
+          "wrong_choice": 1
+        },
+        "missing_zero": {
+          "cap_exhausted": 4,
+          "correct": 1,
+          "malformed": 4,
+          "total": 6,
+          "wrong_choice": 1
+        },
+        "signed_arithmetic": {
+          "cap_exhausted": 6,
+          "malformed": 6,
+          "total": 6
+        },
+        "state_override": {
+          "cap_exhausted": 4,
+          "correct": 2,
+          "malformed": 4,
+          "total": 6
+        }
+      },
+      "gains_from_original": [
+        "dev-missing-0"
+      ],
+      "losses_from_original": [
+        "controls-2",
+        "controls-3"
+      ],
+      "terminated_answer_labels": {
+        "A": 6,
+        "B": 2
+      },
+      "gains_by_correct_label": {
+        "A": 1
+      },
+      "losses_by_correct_label": {
+        "A": 1,
+        "B": 1
+      },
+      "changed_completion_text": [
+        "dev-decimal-0",
+        "dev-arithmetic-0",
+        "dev-arithmetic-1",
+        "dev-arithmetic-2",
+        "dev-arithmetic-3",
+        "dev-state-1",
+        "dev-missing-0",
+        "dev-missing-1",
+        "controls-2",
+        "controls-3",
+        "controls-7"
+      ],
+      "correct_literal_first_token_but_failed_complete_answer": [
+        "dev-arithmetic-0",
+        "dev-arithmetic-3",
+        "dev-missing-1",
+        "controls-2"
+      ]
+    },
+    {
+      "condition": "hint_contrast-minus-8",
+      "groups": {
+        "dev": {
+          "cap_exhausted": 13,
+          "correct": 1,
+          "malformed": 14,
+          "total": 16,
+          "wrong_choice": 1
+        },
+        "controls": {
+          "cap_exhausted": 3,
+          "correct": 5,
+          "malformed": 3,
+          "total": 8
+        }
+      },
+      "families_including_controls": {
+        "decimal_version": {
+          "cap_exhausted": 2,
+          "correct": 3,
+          "malformed": 2,
+          "total": 6,
+          "wrong_choice": 1
+        },
+        "missing_zero": {
+          "cap_exhausted": 5,
+          "malformed": 6,
+          "total": 6
+        },
+        "signed_arithmetic": {
+          "cap_exhausted": 5,
+          "correct": 1,
+          "malformed": 5,
+          "total": 6
+        },
+        "state_override": {
+          "cap_exhausted": 4,
+          "correct": 2,
+          "malformed": 4,
+          "total": 6
+        }
+      },
+      "gains_from_original": [],
+      "losses_from_original": [
+        "controls-3"
+      ],
+      "terminated_answer_labels": {
+        "A": 5,
+        "B": 2
+      },
+      "gains_by_correct_label": {},
+      "losses_by_correct_label": {
+        "B": 1
+      },
+      "changed_completion_text": [
+        "dev-decimal-0",
+        "dev-arithmetic-0",
+        "dev-arithmetic-1",
+        "dev-state-1",
+        "dev-missing-0",
+        "dev-missing-1",
+        "dev-missing-2",
+        "controls-3",
+        "controls-6",
+        "controls-7"
+      ],
+      "correct_literal_first_token_but_failed_complete_answer": [
+        "dev-decimal-0",
+        "dev-arithmetic-0",
+        "controls-6"
+      ]
+    },
+    {
+      "condition": "hint_contrast-plus-8",
+      "groups": {
+        "dev": {
+          "cap_exhausted": 13,
+          "correct": 1,
+          "malformed": 14,
+          "total": 16,
+          "wrong_choice": 1
+        },
+        "controls": {
+          "cap_exhausted": 1,
+          "correct": 7,
+          "malformed": 1,
+          "total": 8
+        }
+      },
+      "families_including_controls": {
+        "decimal_version": {
+          "cap_exhausted": 2,
+          "correct": 3,
+          "malformed": 2,
+          "total": 6,
+          "wrong_choice": 1
+        },
+        "missing_zero": {
+          "cap_exhausted": 4,
+          "correct": 1,
+          "malformed": 5,
+          "total": 6
+        },
+        "signed_arithmetic": {
+          "cap_exhausted": 4,
+          "correct": 2,
+          "malformed": 4,
+          "total": 6
+        },
+        "state_override": {
+          "cap_exhausted": 4,
+          "correct": 2,
+          "malformed": 4,
+          "total": 6
+        }
+      },
+      "gains_from_original": [
+        "controls-6"
+      ],
+      "losses_from_original": [],
+      "terminated_answer_labels": {
+        "A": 6,
+        "B": 3
+      },
+      "gains_by_correct_label": {
+        "A": 1
+      },
+      "losses_by_correct_label": {},
+      "changed_completion_text": [
+        "dev-arithmetic-1",
+        "dev-missing-0",
+        "dev-missing-1",
+        "dev-missing-2",
+        "controls-6",
+        "controls-7"
+      ],
+      "correct_literal_first_token_but_failed_complete_answer": []
+    },
+    {
+      "condition": "hint_contrast-minus-6",
+      "groups": {
+        "dev": {
+          "cap_exhausted": 12,
+          "correct": 1,
+          "malformed": 14,
+          "total": 16,
+          "wrong_choice": 1
+        },
+        "controls": {
+          "cap_exhausted": 4,
+          "correct": 4,
+          "malformed": 4,
+          "total": 8
+        }
+      },
+      "families_including_controls": {
+        "decimal_version": {
+          "cap_exhausted": 3,
+          "correct": 2,
+          "malformed": 3,
+          "total": 6,
+          "wrong_choice": 1
+        },
+        "missing_zero": {
+          "cap_exhausted": 4,
+          "malformed": 6,
+          "total": 6
+        },
+        "signed_arithmetic": {
+          "cap_exhausted": 4,
+          "correct": 2,
+          "malformed": 4,
+          "total": 6
+        },
+        "state_override": {
+          "cap_exhausted": 5,
+          "correct": 1,
+          "malformed": 5,
+          "total": 6
+        }
+      },
+      "gains_from_original": [],
+      "losses_from_original": [
+        "controls-1",
+        "controls-5"
+      ],
+      "terminated_answer_labels": {
+        "A": 5,
+        "B": 1
+      },
+      "gains_by_correct_label": {},
+      "losses_by_correct_label": {
+        "B": 2
+      },
+      "changed_completion_text": [
+        "dev-arithmetic-0",
+        "dev-arithmetic-1",
+        "dev-missing-1",
+        "dev-missing-2",
+        "controls-1",
+        "controls-5"
+      ],
+      "correct_literal_first_token_but_failed_complete_answer": [
+        "dev-arithmetic-0"
+      ]
+    },
+    {
+      "condition": "hint_contrast-plus-6",
+      "groups": {
+        "dev": {
+          "cap_exhausted": 12,
+          "correct": 1,
+          "malformed": 14,
+          "total": 16,
+          "wrong_choice": 1
+        },
+        "controls": {
+          "cap_exhausted": 3,
+          "correct": 5,
+          "malformed": 3,
+          "total": 8
+        }
+      },
+      "families_including_controls": {
+        "decimal_version": {
+          "cap_exhausted": 3,
+          "correct": 2,
+          "malformed": 3,
+          "total": 6,
+          "wrong_choice": 1
+        },
+        "missing_zero": {
+          "cap_exhausted": 3,
+          "correct": 1,
+          "malformed": 5,
+          "total": 6
+        },
+        "signed_arithmetic": {
+          "cap_exhausted": 5,
+          "correct": 1,
+          "malformed": 5,
+          "total": 6
+        },
+        "state_override": {
+          "cap_exhausted": 4,
+          "correct": 2,
+          "malformed": 4,
+          "total": 6
+        }
+      },
+      "gains_from_original": [
+        "controls-6"
+      ],
+      "losses_from_original": [
+        "controls-1",
+        "controls-3"
+      ],
+      "terminated_answer_labels": {
+        "A": 6,
+        "B": 1
+      },
+      "gains_by_correct_label": {
+        "A": 1
+      },
+      "losses_by_correct_label": {
+        "B": 2
+      },
+      "changed_completion_text": [
+        "dev-decimal-0",
+        "dev-arithmetic-1",
+        "dev-missing-1",
+        "dev-missing-2",
+        "controls-1",
+        "controls-3",
+        "controls-6"
+      ],
+      "correct_literal_first_token_but_failed_complete_answer": [
+        "dev-missing-1"
+      ]
+    }
+  ],
+  "candidate_processes": 12,
+  "scored_candidate_generations": 288,
+  "extra_candidate_lookup_generations": 1,
+  "candidate_process_seconds": 4150.207508614054,
+  "candidate_authentication_seconds": 1808.528974582,
+  "candidate_model_bytes_hashed": 838284271872,
+  "maximum_candidate_rss_bytes": 71932145664,
+  "minimum_candidate_available_bytes": 121516199936,
+  "selected_winner": null,
+  "heldout_evaluated": false,
+  "scope": "Fixed response-contract development search; no general accuracy or trained-overlay claim."
+}

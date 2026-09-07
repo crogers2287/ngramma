@@ -1,0 +1,13 @@
+{
+  "schema": "ngramma.instruction-evidence/v1",
+  "complete": true,
+  "candidates_replayed": 12,
+  "scored_generations": 288,
+  "zero_matching_generations": 24,
+  "selected_rows": 8,
+  "edited_values": 1280,
+  "eligible_candidates": 0,
+  "selected_winner": null,
+  "heldout_evaluated": false,
+  "note": "Saved evidence replay only; no inference, model authentication, or raw capture recomputation."
+}

@@ -1,0 +1,140 @@
+{
+  "schema": "ngramma.instruction-address-audit/v1",
+  "complete": true,
+  "model_files_read": false,
+  "metadata_sha256": "86b7801cb30434e5da843eebf454a16a4dcedd90f9d569dafe5cf74873f5c4db",
+  "recipe_sha256": "5f4d07ebe3fc8147e89f4a793ce3aba50b184bd0f3deb1f1491febf1742d2a26",
+  "search_sha256": "ae8aa6c852309c995b79845e97a3efdac57125a448fcbcac8f789ff77b750f1b",
+  "native_reference_sha256": "e21943b0b9db1dc0d607fa01efd52c67e2c5e9449017036c214feabf48b6bc73",
+  "native_reference_tokens_matched": 39,
+  "native_reference_addresses_matched": 624,
+  "conditions": [
+    {
+      "condition": "original",
+      "batch_sha256": "b3924a23d0dfe79bbaae06431b1fde453dde1908ec1db977b87d04e70e10f8db",
+      "tasks": 24,
+      "positions": 1216,
+      "prompt_selected_hits": 192,
+      "decoded_selected_hits": 0,
+      "decoded_occurrences": []
+    },
+    {
+      "condition": "zero",
+      "batch_sha256": "751b6d75956fcfc46d5eb61509df81347fa1a9ec8934db90cac041c676158da6",
+      "tasks": 24,
+      "positions": 1216,
+      "prompt_selected_hits": 192,
+      "decoded_selected_hits": 0,
+      "decoded_occurrences": []
+    },
+    {
+      "condition": "rademacher-minus-8",
+      "batch_sha256": "18ee062e73dc5b5710b63b94395b7fda0e1e94bbb6bfdc94f92ec44b498b8f1c",
+      "tasks": 24,
+      "positions": 1220,
+      "prompt_selected_hits": 192,
+      "decoded_selected_hits": 0,
+      "decoded_occurrences": []
+    },
+    {
+      "condition": "rademacher-plus-8",
+      "batch_sha256": "5514bf3fc00e9dbdc548173e5e0be1c644c4905c4c0dca91a77282dbbedbfa29",
+      "tasks": 24,
+      "positions": 1216,
+      "prompt_selected_hits": 192,
+      "decoded_selected_hits": 0,
+      "decoded_occurrences": []
+    },
+    {
+      "condition": "rademacher-minus-6",
+      "batch_sha256": "b4d29ae01415269f85e3ff9ca9348f8e60d6794f54df690db5d08120530b508e",
+      "tasks": 24,
+      "positions": 1220,
+      "prompt_selected_hits": 192,
+      "decoded_selected_hits": 0,
+      "decoded_occurrences": []
+    },
+    {
+      "condition": "rademacher-plus-6",
+      "batch_sha256": "326bca54cb93e053b923e4a29bc6fd08a15dbf197fc3d88dc343ff968bd15874",
+      "tasks": 24,
+      "positions": 1218,
+      "prompt_selected_hits": 192,
+      "decoded_selected_hits": 0,
+      "decoded_occurrences": []
+    },
+    {
+      "condition": "alternating-minus-8",
+      "batch_sha256": "cd74efe73dff0edc7295f0880460cbd61f4f1cd4a3dedd6dba8b27e755c32420",
+      "tasks": 24,
+      "positions": 1214,
+      "prompt_selected_hits": 192,
+      "decoded_selected_hits": 0,
+      "decoded_occurrences": []
+    },
+    {
+      "condition": "alternating-plus-8",
+      "batch_sha256": "10506bc750929fdc5a1a52808d998a236f6adf5c15554ba91646b71c3f74e6a5",
+      "tasks": 24,
+      "positions": 1214,
+      "prompt_selected_hits": 192,
+      "decoded_selected_hits": 0,
+      "decoded_occurrences": []
+    },
+    {
+      "condition": "alternating-minus-6",
+      "batch_sha256": "bb67b04d821aba9a4a551f2b97fe95109f9b8f3ded8462b300d7d73b4708b75a",
+      "tasks": 24,
+      "positions": 1220,
+      "prompt_selected_hits": 192,
+      "decoded_selected_hits": 0,
+      "decoded_occurrences": []
+    },
+    {
+      "condition": "alternating-plus-6",
+      "batch_sha256": "628c4f4ee7c795ec68e24a27c8ade0bc5e7684a4715ed3deb64c4e53b8f92e2a",
+      "tasks": 24,
+      "positions": 1218,
+      "prompt_selected_hits": 192,
+      "decoded_selected_hits": 0,
+      "decoded_occurrences": []
+    },
+    {
+      "condition": "hint_contrast-minus-8",
+      "batch_sha256": "b92880decee990c4ffb53bfb545d0fb6d3f7bb18a44aac79ea2d8427f2076915",
+      "tasks": 24,
+      "positions": 1220,
+      "prompt_selected_hits": 192,
+      "decoded_selected_hits": 0,
+      "decoded_occurrences": []
+    },
+    {
+      "condition": "hint_contrast-plus-8",
+      "batch_sha256": "8b3f7bc7302d35f762c27037cae979e727cbd583c2a33a8431e839a7f8b13534",
+      "tasks": 24,
+      "positions": 1216,
+      "prompt_selected_hits": 192,
+      "decoded_selected_hits": 0,
+      "decoded_occurrences": []
+    },
+    {
+      "condition": "hint_contrast-minus-6",
+      "batch_sha256": "8aaf690c33244fe96c6bf709df6964b9af74c51c75b658d1d4dc460694557b2a",
+      "tasks": 24,
+      "positions": 1222,
+      "prompt_selected_hits": 192,
+      "decoded_selected_hits": 0,
+      "decoded_occurrences": []
+    },
+    {
+      "condition": "hint_contrast-plus-6",
+      "batch_sha256": "2b38c20c9c91137ae129a8bbaa6d1c62d636c12cbe748d0c0e5585c75dd96937",
+      "tasks": 24,
+      "positions": 1220,
+      "prompt_selected_hits": 192,
+      "decoded_selected_hits": 0,
+      "decoded_occurrences": []
+    }
+  ],
+  "note": "Complete-history addresses are calculated offline from saved actual token IDs. Only the historical reference and separately captured lookup witnesses are native comparisons; this is not an exhaustive map of row meaning."
+}

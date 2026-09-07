@@ -88,6 +88,10 @@ def main():
         path = args.output_prefix.with_suffix(suffix)
         metadata = {'Date': None} if suffix == '.svg' else {'Software': 'Ngramma experiment 006'}
         fig.savefig(path, dpi=160, metadata=metadata)
+        if suffix == '.svg':
+            # Matplotlib leaves spaces at the ends of SVG path-command lines.
+            # Keep generated source clean without changing its geometry.
+            path.write_text('\n'.join(line.rstrip() for line in path.read_text().splitlines()) + '\n')
         artifacts[path.name] = hashlib.sha256(path.read_bytes()).hexdigest()
     plt.close(fig)
     print(json.dumps({'candidates': verification['candidates_replayed'], 'artifacts': artifacts}, indent=2))
