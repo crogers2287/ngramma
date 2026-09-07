@@ -139,15 +139,25 @@ def run(args):
     args.local.mkdir(parents=True, exist_ok=False)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     runtime = args.runtime.resolve()
+    verification_library = getattr(args, 'verification_library', None)
     source_paths = [Path(__file__).resolve(), args.jobs.resolve(), args.lens.resolve(),
                     args.manifest.resolve()]
     if args.overlay:
         source_paths.append(args.overlay.resolve())
+    if verification_library:
+        source_paths.extend([verification_library.resolve(), verification_library.with_suffix(verification_library.suffix + '.build.json').resolve()])
     before = {str(p): sha(p) for p in source_paths}
     libraries = {p.name: sha(p) for p in sorted(runtime.glob('*.so'))}
+    if verification_library:
+        build = json.loads(verification_library.with_suffix(verification_library.suffix + '.build.json').read_text())
+        if build['binary_sha256'] != sha(verification_library) or build['runtime_llama_sha256'] != libraries['libllama.so']:
+            raise ValueError('Verification extension does not match binary/runtime')
     env = os.environ.copy()
     env['CUDA_VISIBLE_DEVICES'] = ''
     env['LD_LIBRARY_PATH'] = str(runtime)
+    env.pop('LD_PRELOAD', None)
+    if verification_library:
+        env['LD_PRELOAD'] = str(verification_library.resolve())
     for key in ('FLASH_MEMORY_OVERLAY', 'FLASH_MEMORY_TRACE'):
         env.pop(key, None)
     if args.overlay:
@@ -166,7 +176,8 @@ def run(args):
                           'batch': 32, 'microbatch': 32, 'flash_attention': False,
                           'cache_type': 'f32', 'repack': True,
                           'fresh_state_per_job': True, 'sampling': 'unconstrained greedy',
-                          'maximum_rss_gib': 80, 'minimum_available_gib': 24},
+                          'maximum_rss_gib': 80, 'minimum_available_gib': 24,
+                          'verification_library_sha256': sha(verification_library) if verification_library else None},
               'peak_rss_bytes': 0, 'minimum_available_bytes': None, 'jobs': []}
     start = time.monotonic()
     process = None
@@ -236,6 +247,16 @@ def run(args):
             raise ValueError('Input, binary, identity, or driver changed during execution')
         if any(sha(runtime / name) != value for name, value in libraries.items()):
             raise ValueError('Runtime libraries changed during execution')
+        verification = [json.loads(line.split(' ', 1)[1])
+                        for line in (args.local/'stderr.log').read_text(errors='replace').splitlines()
+                        if line.startswith('NGRAMMA_MODEL_VERIFIED ')]
+        record['parallel_verification'] = verification
+        if verification_library and args.overlay:
+            if not verification or any(v.get('shards') != len(identity['shards']) or
+                    v.get('bytes') != sum(s['bytes'] for s in identity['shards']) or
+                    v.get('full_file_sha256') is not True or v.get('cache_reused') is not False
+                    for v in verification):
+                raise ValueError('Missing or inconsistent complete-shard authentication evidence')
         record['status'] = 'complete'
         record['inputs_unchanged'] = True
     except BaseException as exc:
@@ -260,6 +281,8 @@ def main():
     for name in ('jobs', 'manifest', 'runtime', 'lens', 'local', 'output'):
         parser.add_argument('--' + name, type=Path, required=True)
     parser.add_argument('--overlay', type=Path)
+    parser.add_argument('--verification-library', type=Path,
+                        help='Explicit qualified parallel full-shard verifier; no authentication cache')
     parser.add_argument('--timeout', type=int, default=900)
     run(parser.parse_args())
 

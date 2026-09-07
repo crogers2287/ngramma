@@ -1,0 +1,12 @@
+{
+  "binary_sha256": "be9dc872f930c872a9e0d9569251987e608340d320ae5dc59c00c8f3efaecb8d",
+  "source_sha256": "852a1403b86dfd7756b580818fa306abace299bd68dce7c49a1c056ae24d84f3",
+  "archived_overlay_header_sha256": "3d09a09870fc3ec0c244c6ba47f6234821bae072b8c21d594c9fe1ecc497e6b7",
+  "engine_json_header_sha256": "aaf127c04cb31c406e5b04a63f1ae89369fccde6d8fa7cdda1ed4f32dfc5de63",
+  "runtime_llama_sha256": "86d051fe73cbf5ddbfbfa11c6ea43e7172ce5dbca77199a3bdf1b06c38a088b5",
+  "interposed_symbol": "_ZNK12flash_memory7overlay12verify_modelERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS7_EE",
+  "maximum_hash_workers": 3,
+  "full_file_sha256": true,
+  "authentication_cache": false,
+  "compiler": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0"
+}

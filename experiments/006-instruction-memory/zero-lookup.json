@@ -1,0 +1,92 @@
+{
+  "schema": "ngramma.multi-row-lookup/v1",
+  "identity_sha256": "af848e254fb9a6ca6be56b8f14f1d369a6e705c3363c4c4ac6e5f0cc7e652f87",
+  "overlay_sha256": "bd7173ce7c22ed11aaa0e13ae3560c6b47fa0635f812448ce6f73356e2137186",
+  "positions": 54,
+  "row_accesses": 864,
+  "actual_equals_intended_bytes": true,
+  "changed_values_from_original": 0,
+  "occurrences": [
+    {
+      "row_id": 170852069,
+      "positions_and_heads": [
+        [
+          38,
+          8
+        ]
+      ]
+    },
+    {
+      "row_id": 188951707,
+      "positions_and_heads": [
+        [
+          38,
+          9
+        ]
+      ]
+    },
+    {
+      "row_id": 216836863,
+      "positions_and_heads": [
+        [
+          38,
+          10
+        ]
+      ]
+    },
+    {
+      "row_id": 231400580,
+      "positions_and_heads": [
+        [
+          38,
+          11
+        ]
+      ]
+    },
+    {
+      "row_id": 240662679,
+      "positions_and_heads": [
+        [
+          38,
+          12
+        ]
+      ]
+    },
+    {
+      "row_id": 269945151,
+      "positions_and_heads": [
+        [
+          38,
+          13
+        ]
+      ]
+    },
+    {
+      "row_id": 299710630,
+      "positions_and_heads": [
+        [
+          38,
+          14
+        ]
+      ]
+    },
+    {
+      "row_id": 308570598,
+      "positions_and_heads": [
+        [
+          38,
+          15
+        ]
+      ]
+    }
+  ],
+  "capture_files_sha256": {
+    "tensor-0.bin": "2e3fc4d17a61aa42e405562648ee8b435cb63b4183deaacbbb53d357db85cc3d",
+    "tensor-1.bin": "d525b0560a8212822af3bcb80e3003303f6a128c9b6e8cd412061a969e639759",
+    "tensor-2.bin": "7646e5a8a98b6771b3ce14fe46f44e031b378fb369fd757b8fd76d736e9a7776",
+    "tensor-3.bin": "f14551949e069eb787970e366583badb0f656b00c6bc1e36bf6f47fcf22a1ac9",
+    "tensor-4.bin": "dac95aeb9421e4f92e05bfcddef04036f4abe3a3de47e7952231388eca776176"
+  },
+  "generation_sha256": "1b413357522ffb0616bdce290f6c491c4ed1d05035fdaf2aced6b0065f3e70c3",
+  "gather_sha256": "9ce59b6ddcd781f923478aba0cd79a7ac20e7a67c1e44718e24c3a3f3ff670ad"
+}

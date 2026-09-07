@@ -1,0 +1,22 @@
+{
+  "schema": "ngramma.instruction-zero/v1",
+  "passed": true,
+  "matching_generated_tasks": 24,
+  "matching_legacy_tokens": 17,
+  "legacy_logits_sha256": "a55a60e98074b4b6a98173ca05b65545b12c9855c7aff951e35c6bef40a7829b",
+  "baseline_sha256": "b3924a23d0dfe79bbaae06431b1fde453dde1908ec1db977b87d04e70e10f8db",
+  "zero_record_sha256": "751b6d75956fcfc46d5eb61509df81347fa1a9ec8934db90cac041c676158da6",
+  "lookup_sha256": "8de066edbe3aaba97bddd78d1c6a75e2d3ca3e58b65cd3e741fff0732adf17e4",
+  "verification_library_sha256": "be9dc872f930c872a9e0d9569251987e608340d320ae5dc59c00c8f3efaecb8d",
+  "full_shard_verification": [
+    {
+      "bytes": 69857022656,
+      "cache_reused": false,
+      "full_file_sha256": true,
+      "seconds": 149.547563117,
+      "shards": 3,
+      "workers": 3
+    }
+  ],
+  "zero_overlay_sha256": "bd7173ce7c22ed11aaa0e13ae3560c6b47fa0635f812448ce6f73356e2137186"
+}
