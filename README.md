@@ -6,11 +6,16 @@ The project begins with [handoff.md](handoff.md), its original research specific
 
 The intended result is the original frozen model plus a small, versioned memory overlay. A teacher diagnoses failures and supplies independently verified corrections during improvement cycles. A numerical optimizer changes selected existing rows; the backbone, tokenizer, memory reader, and gates stay frozen. Ordinary inference and the primary evaluation use no teacher or extra lesson text.
 
-**Latest result:** the memory-edit workbench measures 19 edits of one existing
+**Latest result:** [behavior discovery](experiments/005-behavior/REPORT.md) found
+a repeatable benefit from a stronger response-format instruction, but no
+qualifying content-reminder rescue. The real engine now supports bounded,
+unconstrained generated-answer tests. **No learned improvement has been demonstrated.**
+
+The memory-edit workbench measures 19 edits of one existing
 row, with eight fresh full-engine controls. Small edits vanish at the activation
 quantizer; the first surviving samples change scale bytes while integer codes
-stay fixed, and alter downstream token rankings. **No learned improvement has
-been demonstrated.** [Read experiment 004](experiments/004-row-response/REPORT.md).
+stay fixed, and alter downstream token rankings.
+[Read experiment 004](experiments/004-row-response/REPORT.md).
 The [preceding forward checks](experiments/003-attention/REPORT.md) match the CPU
 engine bit-for-bit through all 48 layers and logits on 39 tested tokens.
 

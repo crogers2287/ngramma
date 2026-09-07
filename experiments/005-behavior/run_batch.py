@@ -7,6 +7,7 @@ The overlay is fixed for the process and authenticated by the native loader.
 import argparse
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import selectors
@@ -41,9 +42,14 @@ def child_resources(pid):
 
 
 def validate_response(job, response):
+    def integer(value, low, high):
+        return type(value) is int and low <= value <= high
+
     if job.get('tokenize_only'):
         if not isinstance(response.get('tokens'), list) or not response['tokens']:
             raise ValueError('Missing tokenization response')
+        if not all(integer(t, 0, 2**31-1) for t in response['tokens']):
+            raise ValueError('Invalid tokenizer token ID')
         return
     if response.get('ok') is not True:
         raise ValueError('Engine did not explicitly report success')
@@ -51,7 +57,7 @@ def validate_response(job, response):
         for key, expected in (('schema', 'ngramma.greedy-generation/v1'),
                               ('greedy', True), ('fresh_state', True),
                               ('grammar', None), ('max_new_tokens', job['generate']['max_new_tokens'])):
-            if key not in response or response[key] != expected:
+            if key not in response or type(response[key]) is not type(expected) or response[key] != expected:
                 raise ValueError('Generation response mismatch: ' + key)
         if not response.get('prompt_tokens') or not response.get('generated_tokens'):
             raise ValueError('Missing generation token evidence')
@@ -65,8 +71,57 @@ def validate_response(job, response):
             raise ValueError('Generation exceeded its budget')
         if not isinstance(response.get('text'), str):
             raise ValueError('Missing generated text')
-        if response['text'].encode().hex() != response.get('text_bytes_hex'):
+        raw_text = bytes.fromhex(response.get('text_bytes_hex', ''))
+        if raw_text.decode('utf-8', errors='replace') != response['text']:
             raise ValueError('Generated text byte mismatch')
+        nv = response.get('vocab_size')
+        if not integer(nv, 1, 2**31-1):
+            raise ValueError('Invalid vocabulary size')
+        for key in ('prompt_tokens', 'generated_tokens'):
+            if not isinstance(response[key], list) or not all(integer(t, 0, nv-1) for t in response[key]):
+                raise ValueError('Invalid token ID in ' + key)
+        context = job['generate'].get('context_tokens', 128)
+        if type(response.get('context_tokens')) is not int or response['context_tokens'] != context:
+            raise ValueError('Context mismatch')
+        budget = min(job['generate']['max_new_tokens'], context - len(response['prompt_tokens']))
+        if budget < 1 or type(response.get('effective_new_token_budget')) is not int or response['effective_new_token_budget'] != budget:
+            raise ValueError('Effective generation budget mismatch')
+        count = len(response['generated_tokens'])
+        if not integer(response.get('generated_count'), 1, budget):
+            raise ValueError('Invalid generation count')
+        ended = response['stop_reason'] == 'eog'
+        if response.get('stopped_on_eog') is not ended:
+            raise ValueError('EOG flag mismatch')
+        if ended:
+            if not integer(response.get('eog_token'), 0, nv-1) or response['eog_token'] != response['generated_tokens'][-1]:
+                raise ValueError('EOG token mismatch')
+        elif response.get('eog_token') is not None or count != budget:
+            raise ValueError('Non-EOG termination mismatch')
+        if not ended:
+            expected_stop = 'context_limit' if budget < job['generate']['max_new_tokens'] else 'max_new_tokens'
+            if response['stop_reason'] != expected_stop:
+                raise ValueError('Termination limit mismatch')
+        if response.get('compact') is not job['generate'].get('compact', True):
+            raise ValueError('Compact mode mismatch')
+        if response.get('model_reused') is not True or response.get('temperature') != 0 or response.get('tie_break') != 'lowest_token_id':
+            raise ValueError('Decoder metadata mismatch')
+        first = response.get('first_step')
+        if not isinstance(first, dict) or first.get('greedy_token_id') != response['generated_tokens'][0]:
+            raise ValueError('First greedy token mismatch')
+        for key in ('top_logits', 'requested_logits'):
+            scores = first.get(key)
+            if not isinstance(scores, list):
+                raise ValueError('Missing first-step scores')
+            for score in scores:
+                if not isinstance(score, dict) or not integer(score.get('token_id'), 0, nv-1) or type(score.get('logit')) not in (int, float) or not math.isfinite(score['logit']):
+                    raise ValueError('Invalid first-step score')
+        top = first['top_logits']
+        if len(top) != job['generate'].get('top_k', min(5, nv)) or top != sorted(top, key=lambda x: (-x['logit'], x['token_id'])):
+            raise ValueError('Top-logit ordering/count mismatch')
+        if top and top[0]['token_id'] != response['generated_tokens'][0]:
+            raise ValueError('Greedy token differs from maximum')
+        if [x['token_id'] for x in first['requested_logits']] != job['generate'].get('score_tokens', []):
+            raise ValueError('Requested score IDs mismatch')
 
 
 def run(args):

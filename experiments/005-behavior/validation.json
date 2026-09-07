@@ -1,0 +1,124 @@
+{
+  "discovery": {
+    "initial/dev": {
+      "total": 16,
+      "malformed": 13,
+      "well_formed_eog": 3,
+      "cap_exhausted": 11,
+      "wrong_choice": 2,
+      "correct": 1
+    },
+    "initial/controls": {
+      "total": 8,
+      "correct": 6,
+      "well_formed_eog": 6,
+      "cap_exhausted": 2,
+      "malformed": 2
+    }
+  },
+  "followup": {
+    "repeat/dev": {
+      "total": 16,
+      "malformed": 13,
+      "well_formed_eog": 3,
+      "cap_exhausted": 11,
+      "wrong_choice": 2,
+      "correct": 1
+    },
+    "hinted/dev": {
+      "total": 16,
+      "malformed": 10,
+      "well_formed_eog": 6,
+      "cap_exhausted": 9,
+      "correct": 6
+    },
+    "format/dev": {
+      "total": 16,
+      "correct": 14,
+      "well_formed_eog": 16,
+      "cap_exhausted": 0,
+      "wrong_choice": 2
+    },
+    "format/controls": {
+      "total": 8,
+      "correct": 7,
+      "well_formed_eog": 8,
+      "cap_exhausted": 0,
+      "wrong_choice": 1
+    },
+    "count-ordinary/dev": {
+      "total": 8,
+      "correct": 4,
+      "well_formed_eog": 8,
+      "cap_exhausted": 0,
+      "wrong_choice": 4
+    },
+    "count-hinted/dev": {
+      "total": 8,
+      "correct": 4,
+      "well_formed_eog": 8,
+      "cap_exhausted": 0,
+      "wrong_choice": 4
+    },
+    "count-controls/controls": {
+      "total": 4,
+      "correct": 2,
+      "well_formed_eog": 4,
+      "cap_exhausted": 0,
+      "wrong_choice": 2
+    }
+  },
+  "repeat_generation_and_selected_logits_identical": 16,
+  "repeated_tasks": 16,
+  "format_gate": {
+    "well_formed_eog": 24,
+    "total": 24,
+    "required": 22,
+    "passed": true
+  },
+  "note": "Saved evidence replay only; no model inference rerun.",
+  "state_confirmation": {
+    "baseline/dev": {
+      "total": 16,
+      "correct": 14,
+      "well_formed_eog": 16,
+      "cap_exhausted": 0,
+      "wrong_choice": 2
+    },
+    "baseline/controls": {
+      "total": 8,
+      "correct": 7,
+      "well_formed_eog": 8,
+      "cap_exhausted": 0,
+      "wrong_choice": 1
+    },
+    "hinted/dev": {
+      "total": 4,
+      "correct": 2,
+      "well_formed_eog": 4,
+      "cap_exhausted": 0,
+      "wrong_choice": 2
+    },
+    "repeat-hinted/dev": {
+      "total": 4,
+      "correct": 2,
+      "well_formed_eog": 4,
+      "cap_exhausted": 0,
+      "wrong_choice": 2
+    },
+    "repeat-ordinary/dev": {
+      "total": 4,
+      "correct": 2,
+      "well_formed_eog": 4,
+      "cap_exhausted": 0,
+      "wrong_choice": 2
+    }
+  },
+  "baseline_identical": 24,
+  "baseline_total": 24,
+  "within_process_ordinary_identical": 4,
+  "within_process_hinted_identical": 4,
+  "repeated_hint_rescues": [],
+  "baseline_correct_retained_by_hint": true,
+  "content_target_gate_passed": false
+}

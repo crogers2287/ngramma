@@ -32,6 +32,16 @@ The handoff's desired deliverable—an immutable overlay that improves unseen ta
 
 ## Next research milestone
 
+[Experiment 005](../experiments/005-behavior/REPORT.md) adds actual generated
+answers and repeatability checks. A uniform format instruction changes the
+small development assay from 1/16 contract-compliant correct answers to 14/16;
+13 original failures were malformed completions under a four-token cap, so
+this is not a general accuracy comparison. The remaining state-replacement
+errors repeat, but their fixed content hint does not rescue them. Counting
+also shows no hint benefit. No content target qualified, so no candidate row
+search or held-out evaluation was run. The demonstrated instruction-following
+contrast is a separate, narrower candidate for a future edit experiment.
+
 [Experiment 004](../experiments/004-row-response/REPORT.md) makes the numerical
 distinction concrete. Small changes to all 160 values of one row vanish at the
 Q8_0 activation quantizer. The first changed ladder sample alters two FP16
