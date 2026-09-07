@@ -2,6 +2,7 @@
   "algorithm": "sha256",
   "note": "All reviewed release files except this manifest; historical source hashes are separate.",
   "files": {
+    ".gitattributes": "10ad0b67ba061fd3990718e4db58cb842a657bd33ccd3d55235612746b537dc5",
     ".github/workflows/evidence.yml": "c9aad29dcf37a2f895d157402c54d695af6361d052e262ff3a4b06e7a1eff784",
     ".gitignore": "9884db737f5af39b5e7d831ea563350873bb87294271eb3e9fbb1fd60c969fc5",
     "CITATION.cff": "e451c7a2115792e72f8847621cd9f577409b8ceb5d58ab96a95e061f2932dd03",

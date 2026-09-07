@@ -1,0 +1,4 @@
+# Preserve archived source and patch context byte-for-byte for provenance.
+reference/** -whitespace
+# Matplotlib emits whitespace inside SVG path data.
+figures/*.svg -whitespace
