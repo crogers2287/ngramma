@@ -1,0 +1,3413 @@
+{
+  "schema": "ngramma.behavior-batch/v1",
+  "status": "complete",
+  "identity_sha256": "af848e254fb9a6ca6be56b8f14f1d369a6e705c3363c4c4ac6e5f0cc7e652f87",
+  "overlay_sha256": "d0d448a771386599df5b27d8a5682b42947815b24051b72eae23c5eb30b6df08",
+  "lens_sha256": "337f7902a86822d8476a5402081f76130deae764cf53cdf80039a5ea1efdc846",
+  "jobs_sha256": "2d7b366e11dd46dab5bf23f7a02bb63006687493a28adfc00c4c5aa5a46a4a8e",
+  "driver_sha256": "f28ccdfd6189098c357811c2c38c58bc161c96293953a9c5fde71666f9d4711c",
+  "runtime_sha256": {
+    "libflash-memory-dequant.so": "c5aaa5c647292739144e1f761caa88dbc3f67ec34c112eed0b6d53da4fa1ef01",
+    "libggml-base.so": "8c6dd2c346e0d2b94a15499c6eccc40b73be9f175f4733e76c31656ddc776fa9",
+    "libggml-cpu.so": "501229e5937a6f9c0e6397ac6e67a7bf3242779a92639b119a970d2b1e4a352c",
+    "libggml-cuda.so": "64b56fed5626104a2d7d3b7009fcb1c5978fb2f36898ed9865994e3253ffcd5c",
+    "libggml-rpc.so": "fe861d0885bcd416ed642547d73965f7242e89baf6c4b2ac40aec067d0d46c2a",
+    "libggml.so": "8a98a858030637ff98f7aebb60fa36f75b07e0bdb28ced0741df9a9e1584521e",
+    "libllama-cli-impl.so": "72cec08d581328b03480c590cae907786608ce68524f6f19add8ed6b1b656e56",
+    "libllama-common.so": "96ced3d2c5a2ba247f377db43a2eff917e57e25ce9b7939ead7b682178ab75cd",
+    "libllama-server-impl.so": "af193269774994efadaa95c50934a9624daa93004e7e2332b99ef9216d6c289e",
+    "libllama.so": "86d051fe73cbf5ddbfbfa11c6ea43e7172ce5dbca77199a3bdf1b06c38a088b5",
+    "libmtmd.so": "94335326aded12b94cd75f516863982e0e8c687b1e2a1b317e03661f8edf10ff"
+  },
+  "profile": {
+    "device": "CPU",
+    "threads": 8,
+    "context": 128,
+    "batch": 32,
+    "microbatch": 32,
+    "flash_attention": false,
+    "cache_type": "f32",
+    "repack": true,
+    "fresh_state_per_job": true,
+    "sampling": "unconstrained greedy",
+    "maximum_rss_gib": 80,
+    "minimum_available_gib": 24,
+    "verification_library_sha256": "be9dc872f930c872a9e0d9569251987e608340d320ae5dc59c00c8f3efaecb8d"
+  },
+  "peak_rss_bytes": 71932145664,
+  "minimum_available_bytes": 125490937856,
+  "jobs": [
+    {
+      "id": "token-A",
+      "request": {
+        "text": "A",
+        "tokenize_only": true
+      },
+      "response": {
+        "tokens": [
+          32
+        ]
+      },
+      "seconds": 0.0008587769698351622
+    },
+    {
+      "id": "token-B",
+      "request": {
+        "text": "B",
+        "tokenize_only": true
+      },
+      "response": {
+        "tokens": [
+          33
+        ]
+      },
+      "seconds": 0.0008719050092622638
+    },
+    {
+      "id": "dev-decimal-0",
+      "request": {
+        "text": "<|im_start|>user\nWhich decimal number is larger: 9.9 or 9.11?\nA: 9.9\nB: 9.11\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 3,
+        "effective_new_token_budget": 4,
+        "eog_token": null,
+        "first_step": {
+          "greedy_token_id": 32,
+          "requested_logits": [
+            {
+              "logit": 17.61664581298828,
+              "token_id": 32
+            },
+            {
+              "logit": 12.620038032531738,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 17.61664581298828,
+              "token_id": 32
+            },
+            {
+              "logit": 17.55902862548828,
+              "token_id": 1206
+            },
+            {
+              "logit": 17.08203887939453,
+              "token_id": 9764
+            },
+            {
+              "logit": 16.64656639099121,
+              "token_id": 4350
+            },
+            {
+              "logit": 15.426342010498047,
+              "token_id": 760
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 4,
+        "generated_tokens": [
+          32,
+          25,
+          220,
+          24
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          22365,
+          11778,
+          1324,
+          369,
+          7875,
+          25,
+          220,
+          24,
+          13,
+          24,
+          466,
+          220,
+          24,
+          13,
+          16,
+          16,
+          30,
+          198,
+          32,
+          25,
+          220,
+          24,
+          13,
+          24,
+          198,
+          33,
+          25,
+          220,
+          24,
+          13,
+          16,
+          16,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 8.326052514,
+        "stop_reason": "max_new_tokens",
+        "stopped_on_eog": false,
+        "temperature": 0,
+        "text": "A: 9",
+        "text_bytes_hex": "413a2039",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 8.35014779609628
+    },
+    {
+      "id": "dev-decimal-1",
+      "request": {
+        "text": "<|im_start|>user\nWhich software version is larger: 9.9 or 9.11?\nA: 9.9\nB: 9.11\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 1,
+        "effective_new_token_budget": 4,
+        "eog_token": 248046,
+        "first_step": {
+          "greedy_token_id": 32,
+          "requested_logits": [
+            {
+              "logit": 17.962249755859375,
+              "token_id": 32
+            },
+            {
+              "logit": 16.956396102905273,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 17.962249755859375,
+              "token_id": 32
+            },
+            {
+              "logit": 17.461288452148438,
+              "token_id": 623
+            },
+            {
+              "logit": 17.130237579345703,
+              "token_id": 15666
+            },
+            {
+              "logit": 17.07944107055664,
+              "token_id": 760
+            },
+            {
+              "logit": 16.956396102905273,
+              "token_id": 33
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 2,
+        "generated_tokens": [
+          32,
+          248046
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          22365,
+          3061,
+          2243,
+          369,
+          7875,
+          25,
+          220,
+          24,
+          13,
+          24,
+          466,
+          220,
+          24,
+          13,
+          16,
+          16,
+          30,
+          198,
+          32,
+          25,
+          220,
+          24,
+          13,
+          24,
+          198,
+          33,
+          25,
+          220,
+          24,
+          13,
+          16,
+          16,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 7.607808566,
+        "stop_reason": "eog",
+        "stopped_on_eog": true,
+        "temperature": 0,
+        "text": "A",
+        "text_bytes_hex": "41",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 7.6314247499685735
+    },
+    {
+      "id": "dev-decimal-2",
+      "request": {
+        "text": "<|im_start|>user\nWhich decimal number is larger: 3.8 or 3.12?\nA: 3.12\nB: 3.8\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 3,
+        "effective_new_token_budget": 4,
+        "eog_token": null,
+        "first_step": {
+          "greedy_token_id": 1206,
+          "requested_logits": [
+            {
+              "logit": 15.982479095458984,
+              "token_id": 32
+            },
+            {
+              "logit": 16.075115203857422,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 18.51221466064453,
+              "token_id": 1206
+            },
+            {
+              "logit": 17.05160903930664,
+              "token_id": 16619
+            },
+            {
+              "logit": 16.513185501098633,
+              "token_id": 760
+            },
+            {
+              "logit": 16.075115203857422,
+              "token_id": 33
+            },
+            {
+              "logit": 15.982479095458984,
+              "token_id": 32
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 4,
+        "generated_tokens": [
+          1206,
+          9150,
+          220,
+          18
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          22365,
+          11778,
+          1324,
+          369,
+          7875,
+          25,
+          220,
+          18,
+          13,
+          23,
+          466,
+          220,
+          18,
+          13,
+          16,
+          17,
+          30,
+          198,
+          32,
+          25,
+          220,
+          18,
+          13,
+          16,
+          17,
+          198,
+          33,
+          25,
+          220,
+          18,
+          13,
+          23,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 7.811499079,
+        "stop_reason": "max_new_tokens",
+        "stopped_on_eog": false,
+        "temperature": 0,
+        "text": "To compare 3",
+        "text_bytes_hex": "546f20636f6d706172652033",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 7.833656569942832
+    },
+    {
+      "id": "dev-decimal-3",
+      "request": {
+        "text": "<|im_start|>user\nWhich software version is larger: 3.8 or 3.12?\nA: 3.12\nB: 3.8\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 1,
+        "effective_new_token_budget": 4,
+        "eog_token": 248046,
+        "first_step": {
+          "greedy_token_id": 32,
+          "requested_logits": [
+            {
+              "logit": 17.77145767211914,
+              "token_id": 32
+            },
+            {
+              "logit": 16.49907684326172,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 17.77145767211914,
+              "token_id": 32
+            },
+            {
+              "logit": 17.226940155029297,
+              "token_id": 4350
+            },
+            {
+              "logit": 16.875673294067383,
+              "token_id": 760
+            },
+            {
+              "logit": 16.49907684326172,
+              "token_id": 33
+            },
+            {
+              "logit": 16.422473907470703,
+              "token_id": 623
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 2,
+        "generated_tokens": [
+          32,
+          248046
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          22365,
+          3061,
+          2243,
+          369,
+          7875,
+          25,
+          220,
+          18,
+          13,
+          23,
+          466,
+          220,
+          18,
+          13,
+          16,
+          17,
+          30,
+          198,
+          32,
+          25,
+          220,
+          18,
+          13,
+          16,
+          17,
+          198,
+          33,
+          25,
+          220,
+          18,
+          13,
+          23,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 7.694644772,
+        "stop_reason": "eog",
+        "stopped_on_eog": true,
+        "temperature": 0,
+        "text": "A",
+        "text_bytes_hex": "41",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 7.7181652339641005
+    },
+    {
+      "id": "dev-arithmetic-0",
+      "request": {
+        "text": "<|im_start|>user\nEvaluate -3 - (-7).\nA: 4\nB: -10\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 3,
+        "effective_new_token_budget": 4,
+        "eog_token": null,
+        "first_step": {
+          "greedy_token_id": 1206,
+          "requested_logits": [
+            {
+              "logit": 19.295509338378906,
+              "token_id": 32
+            },
+            {
+              "logit": 14.761201858520508,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 19.746139526367188,
+              "token_id": 1206
+            },
+            {
+              "logit": 19.295509338378906,
+              "token_id": 32
+            },
+            {
+              "logit": 18.364686965942383,
+              "token_id": 12
+            },
+            {
+              "logit": 18.06680679321289,
+              "token_id": 760
+            },
+            {
+              "logit": 16.977441787719727,
+              "token_id": 36
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 4,
+        "generated_tokens": [
+          1206,
+          14989,
+          279,
+          7258
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          79503,
+          471,
+          18,
+          471,
+          9987,
+          22,
+          553,
+          198,
+          32,
+          25,
+          220,
+          19,
+          198,
+          33,
+          25,
+          471,
+          16,
+          15,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 6.025332915,
+        "stop_reason": "max_new_tokens",
+        "stopped_on_eog": false,
+        "temperature": 0,
+        "text": "To evaluate the expression",
+        "text_bytes_hex": "546f206576616c75617465207468652065787072657373696f6e",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 6.049403332057409
+    },
+    {
+      "id": "dev-arithmetic-1",
+      "request": {
+        "text": "<|im_start|>user\nEvaluate (-4) * (-6).\nA: 24\nB: -24\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 3,
+        "effective_new_token_budget": 4,
+        "eog_token": null,
+        "first_step": {
+          "greedy_token_id": 760,
+          "requested_logits": [
+            {
+              "logit": 18.176359176635742,
+              "token_id": 32
+            },
+            {
+              "logit": 14.044244766235352,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 18.456504821777344,
+              "token_id": 760
+            },
+            {
+              "logit": 18.176359176635742,
+              "token_id": 32
+            },
+            {
+              "logit": 17.813560485839844,
+              "token_id": 15666
+            },
+            {
+              "logit": 17.387468338012695,
+              "token_id": 1206
+            },
+            {
+              "logit": 15.488715171813965,
+              "token_id": 3944
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 4,
+        "generated_tokens": [
+          760,
+          1918,
+          314,
+          1330
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          79503,
+          9987,
+          19,
+          8,
+          348,
+          9987,
+          21,
+          553,
+          198,
+          32,
+          25,
+          220,
+          17,
+          19,
+          198,
+          33,
+          25,
+          471,
+          17,
+          19,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 6.756385217,
+        "stop_reason": "max_new_tokens",
+        "stopped_on_eog": false,
+        "temperature": 0,
+        "text": "The product of two",
+        "text_bytes_hex": "5468652070726f64756374206f662074776f",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 6.7802002530079335
+    },
+    {
+      "id": "dev-arithmetic-2",
+      "request": {
+        "text": "<|im_start|>user\nEvaluate -8 - (-2).\nA: -10\nB: -6\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 3,
+        "effective_new_token_budget": 4,
+        "eog_token": null,
+        "first_step": {
+          "greedy_token_id": 1206,
+          "requested_logits": [
+            {
+              "logit": 17.102720260620117,
+              "token_id": 32
+            },
+            {
+              "logit": 15.846793174743652,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 18.773441314697266,
+              "token_id": 1206
+            },
+            {
+              "logit": 17.102720260620117,
+              "token_id": 32
+            },
+            {
+              "logit": 16.64024543762207,
+              "token_id": 760
+            },
+            {
+              "logit": 15.962801933288574,
+              "token_id": 332
+            },
+            {
+              "logit": 15.846793174743652,
+              "token_id": 33
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 4,
+        "generated_tokens": [
+          1206,
+          14989,
+          279,
+          7258
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          79503,
+          471,
+          23,
+          471,
+          9987,
+          17,
+          553,
+          198,
+          32,
+          25,
+          471,
+          16,
+          15,
+          198,
+          33,
+          25,
+          471,
+          21,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 5.920289514,
+        "stop_reason": "max_new_tokens",
+        "stopped_on_eog": false,
+        "temperature": 0,
+        "text": "To evaluate the expression",
+        "text_bytes_hex": "546f206576616c75617465207468652065787072657373696f6e",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 5.9429365820251405
+    },
+    {
+      "id": "dev-arithmetic-3",
+      "request": {
+        "text": "<|im_start|>user\nEvaluate (-5) * (-9).\nA: -45\nB: 45\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 3,
+        "effective_new_token_budget": 4,
+        "eog_token": null,
+        "first_step": {
+          "greedy_token_id": 760,
+          "requested_logits": [
+            {
+              "logit": 17.199047088623047,
+              "token_id": 32
+            },
+            {
+              "logit": 18.10994529724121,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 19.442989349365234,
+              "token_id": 760
+            },
+            {
+              "logit": 18.10994529724121,
+              "token_id": 33
+            },
+            {
+              "logit": 17.806076049804688,
+              "token_id": 1206
+            },
+            {
+              "logit": 17.199047088623047,
+              "token_id": 32
+            },
+            {
+              "logit": 16.763259887695312,
+              "token_id": 15666
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 4,
+        "generated_tokens": [
+          760,
+          1918,
+          314,
+          1330
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          79503,
+          9987,
+          20,
+          8,
+          348,
+          9987,
+          24,
+          553,
+          198,
+          32,
+          25,
+          471,
+          19,
+          20,
+          198,
+          33,
+          25,
+          220,
+          19,
+          20,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 6.230169647,
+        "stop_reason": "max_new_tokens",
+        "stopped_on_eog": false,
+        "temperature": 0,
+        "text": "The product of two",
+        "text_bytes_hex": "5468652070726f64756374206f662074776f",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 6.2534314300864935
+    },
+    {
+      "id": "dev-state-0",
+      "request": {
+        "text": "<|im_start|>user\nx starts at 1. In order: set x to 4; add 2; set x to 1; add 3. What is x?\nA: 4\nB: 9\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 3,
+        "effective_new_token_budget": 4,
+        "eog_token": null,
+        "first_step": {
+          "greedy_token_id": 9764,
+          "requested_logits": [
+            {
+              "logit": 16.551240921020508,
+              "token_id": 32
+            },
+            {
+              "logit": 14.683079719543457,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 17.909944534301758,
+              "token_id": 9764
+            },
+            {
+              "logit": 16.551240921020508,
+              "token_id": 32
+            },
+            {
+              "logit": 15.738241195678711,
+              "token_id": 760
+            },
+            {
+              "logit": 15.173296928405762,
+              "token_id": 15666
+            },
+            {
+              "logit": 14.683079719543457,
+              "token_id": 33
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 4,
+        "generated_tokens": [
+          9764,
+          579,
+          11319,
+          1472
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          87,
+          8211,
+          506,
+          220,
+          16,
+          13,
+          733,
+          1906,
+          25,
+          716,
+          830,
+          310,
+          220,
+          19,
+          26,
+          884,
+          220,
+          17,
+          26,
+          716,
+          830,
+          310,
+          220,
+          16,
+          26,
+          884,
+          220,
+          18,
+          13,
+          3437,
+          369,
+          830,
+          30,
+          198,
+          32,
+          25,
+          220,
+          19,
+          198,
+          33,
+          25,
+          220,
+          24,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 9.574479045,
+        "stop_reason": "max_new_tokens",
+        "stopped_on_eog": false,
+        "temperature": 0,
+        "text": "Let's trace through",
+        "text_bytes_hex": "4c65742773207472616365207468726f756768",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 9.597355038975365
+    },
+    {
+      "id": "dev-state-1",
+      "request": {
+        "text": "<|im_start|>user\nx starts at 2. In order: set x to 5; add 3; set x to 3; add 4. What is x?\nA: 12\nB: 7\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 3,
+        "effective_new_token_budget": 4,
+        "eog_token": null,
+        "first_step": {
+          "greedy_token_id": 9764,
+          "requested_logits": [
+            {
+              "logit": 16.05636215209961,
+              "token_id": 32
+            },
+            {
+              "logit": 13.83223819732666,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 17.992591857910156,
+              "token_id": 9764
+            },
+            {
+              "logit": 16.05636215209961,
+              "token_id": 32
+            },
+            {
+              "logit": 15.906445503234863,
+              "token_id": 760
+            },
+            {
+              "logit": 15.548468589782715,
+              "token_id": 1596
+            },
+            {
+              "logit": 15.257528305053711,
+              "token_id": 1206
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 4,
+        "generated_tokens": [
+          9764,
+          579,
+          11319,
+          279
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          87,
+          8211,
+          506,
+          220,
+          17,
+          13,
+          733,
+          1906,
+          25,
+          716,
+          830,
+          310,
+          220,
+          20,
+          26,
+          884,
+          220,
+          18,
+          26,
+          716,
+          830,
+          310,
+          220,
+          18,
+          26,
+          884,
+          220,
+          19,
+          13,
+          3437,
+          369,
+          830,
+          30,
+          198,
+          32,
+          25,
+          220,
+          16,
+          17,
+          198,
+          33,
+          25,
+          220,
+          22,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 9.874755961,
+        "stop_reason": "max_new_tokens",
+        "stopped_on_eog": false,
+        "temperature": 0,
+        "text": "Let's trace the",
+        "text_bytes_hex": "4c6574277320747261636520746865",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 9.897984376992099
+    },
+    {
+      "id": "dev-state-2",
+      "request": {
+        "text": "<|im_start|>user\nx starts at 3. In order: set x to 6; add 4; set x to 5; add 5. What is x?\nA: 10\nB: 15\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 3,
+        "effective_new_token_budget": 4,
+        "eog_token": null,
+        "first_step": {
+          "greedy_token_id": 9764,
+          "requested_logits": [
+            {
+              "logit": 17.828433990478516,
+              "token_id": 32
+            },
+            {
+              "logit": 15.058032989501953,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 19.39085578918457,
+              "token_id": 9764
+            },
+            {
+              "logit": 17.828433990478516,
+              "token_id": 32
+            },
+            {
+              "logit": 16.233165740966797,
+              "token_id": 760
+            },
+            {
+              "logit": 15.058032989501953,
+              "token_id": 33
+            },
+            {
+              "logit": 14.955816268920898,
+              "token_id": 1206
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 4,
+        "generated_tokens": [
+          9764,
+          579,
+          11319,
+          279
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          87,
+          8211,
+          506,
+          220,
+          18,
+          13,
+          733,
+          1906,
+          25,
+          716,
+          830,
+          310,
+          220,
+          21,
+          26,
+          884,
+          220,
+          19,
+          26,
+          716,
+          830,
+          310,
+          220,
+          20,
+          26,
+          884,
+          220,
+          20,
+          13,
+          3437,
+          369,
+          830,
+          30,
+          198,
+          32,
+          25,
+          220,
+          16,
+          15,
+          198,
+          33,
+          25,
+          220,
+          16,
+          20,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 9.838312591,
+        "stop_reason": "max_new_tokens",
+        "stopped_on_eog": false,
+        "temperature": 0,
+        "text": "Let's trace the",
+        "text_bytes_hex": "4c6574277320747261636520746865",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 9.862985863001086
+    },
+    {
+      "id": "dev-state-3",
+      "request": {
+        "text": "<|im_start|>user\nx starts at 4. In order: set x to 7; add 5; set x to 7; add 6. What is x?\nA: 18\nB: 13\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 3,
+        "effective_new_token_budget": 4,
+        "eog_token": null,
+        "first_step": {
+          "greedy_token_id": 9764,
+          "requested_logits": [
+            {
+              "logit": 16.355310440063477,
+              "token_id": 32
+            },
+            {
+              "logit": 13.830557823181152,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 18.634784698486328,
+              "token_id": 9764
+            },
+            {
+              "logit": 17.040630340576172,
+              "token_id": 760
+            },
+            {
+              "logit": 16.355310440063477,
+              "token_id": 32
+            },
+            {
+              "logit": 15.976141929626465,
+              "token_id": 1596
+            },
+            {
+              "logit": 15.136564254760742,
+              "token_id": 1206
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 4,
+        "generated_tokens": [
+          9764,
+          579,
+          11319,
+          279
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          87,
+          8211,
+          506,
+          220,
+          19,
+          13,
+          733,
+          1906,
+          25,
+          716,
+          830,
+          310,
+          220,
+          22,
+          26,
+          884,
+          220,
+          20,
+          26,
+          716,
+          830,
+          310,
+          220,
+          22,
+          26,
+          884,
+          220,
+          21,
+          13,
+          3437,
+          369,
+          830,
+          30,
+          198,
+          32,
+          25,
+          220,
+          16,
+          23,
+          198,
+          33,
+          25,
+          220,
+          16,
+          18,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 9.4797524,
+        "stop_reason": "max_new_tokens",
+        "stopped_on_eog": false,
+        "temperature": 0,
+        "text": "Let's trace the",
+        "text_bytes_hex": "4c6574277320747261636520746865",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 9.504548936034553
+    },
+    {
+      "id": "dev-missing-0",
+      "request": {
+        "text": "<|im_start|>user\nUse 7 only when field x is missing. Record: {}. What value is returned?\nA: 7\nB: 0\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 3,
+        "effective_new_token_budget": 4,
+        "eog_token": null,
+        "first_step": {
+          "greedy_token_id": 1206,
+          "requested_logits": [
+            {
+              "logit": 17.31293487548828,
+              "token_id": 32
+            },
+            {
+              "logit": 15.665857315063477,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 17.54787826538086,
+              "token_id": 1206
+            },
+            {
+              "logit": 17.31293487548828,
+              "token_id": 32
+            },
+            {
+              "logit": 17.14159393310547,
+              "token_id": 15666
+            },
+            {
+              "logit": 16.720638275146484,
+              "token_id": 760
+            },
+            {
+              "logit": 15.665857315063477,
+              "token_id": 33
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 4,
+        "generated_tokens": [
+          1206,
+          7995,
+          279,
+          869
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          9947,
+          220,
+          22,
+          1132,
+          948,
+          2002,
+          830,
+          369,
+          7167,
+          13,
+          13190,
+          25,
+          81499,
+          3437,
+          869,
+          369,
+          5743,
+          30,
+          198,
+          32,
+          25,
+          220,
+          22,
+          198,
+          33,
+          25,
+          220,
+          15,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 7.887479478,
+        "stop_reason": "max_new_tokens",
+        "stopped_on_eog": false,
+        "temperature": 0,
+        "text": "To determine the value",
+        "text_bytes_hex": "546f2064657465726d696e65207468652076616c7565",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 7.910151086049154
+    },
+    {
+      "id": "dev-missing-1",
+      "request": {
+        "text": "<|im_start|>user\nUse 8 only when field x is missing. Record: {x: 0}. What value is returned?\nA: 0\nB: 8\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 3,
+        "effective_new_token_budget": 4,
+        "eog_token": 248046,
+        "first_step": {
+          "greedy_token_id": 15666,
+          "requested_logits": [
+            {
+              "logit": 18.16415786743164,
+              "token_id": 32
+            },
+            {
+              "logit": 16.53728485107422,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 18.80413818359375,
+              "token_id": 15666
+            },
+            {
+              "logit": 18.16415786743164,
+              "token_id": 32
+            },
+            {
+              "logit": 16.855571746826172,
+              "token_id": 760
+            },
+            {
+              "logit": 16.53728485107422,
+              "token_id": 33
+            },
+            {
+              "logit": 15.679001808166504,
+              "token_id": 332
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 4,
+        "generated_tokens": [
+          15666,
+          25,
+          357,
+          248046
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          9947,
+          220,
+          23,
+          1132,
+          948,
+          2002,
+          830,
+          369,
+          7167,
+          13,
+          13190,
+          25,
+          313,
+          87,
+          25,
+          220,
+          15,
+          7563,
+          3437,
+          869,
+          369,
+          5743,
+          30,
+          198,
+          32,
+          25,
+          220,
+          15,
+          198,
+          33,
+          25,
+          220,
+          23,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 8.348690052,
+        "stop_reason": "eog",
+        "stopped_on_eog": true,
+        "temperature": 0,
+        "text": "Answer: A",
+        "text_bytes_hex": "416e737765723a2041",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 8.372000943985768
+    },
+    {
+      "id": "dev-missing-2",
+      "request": {
+        "text": "<|im_start|>user\nUse 9 only when field x is missing. Record: {}. What value is returned?\nA: 0\nB: 9\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 3,
+        "effective_new_token_budget": 4,
+        "eog_token": 248046,
+        "first_step": {
+          "greedy_token_id": 15666,
+          "requested_logits": [
+            {
+              "logit": 15.793824195861816,
+              "token_id": 32
+            },
+            {
+              "logit": 14.388778686523438,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 15.960174560546875,
+              "token_id": 15666
+            },
+            {
+              "logit": 15.793824195861816,
+              "token_id": 32
+            },
+            {
+              "logit": 14.713950157165527,
+              "token_id": 760
+            },
+            {
+              "logit": 14.388778686523438,
+              "token_id": 33
+            },
+            {
+              "logit": 14.177352905273438,
+              "token_id": 1919
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 4,
+        "generated_tokens": [
+          15666,
+          25,
+          417,
+          248046
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          9947,
+          220,
+          24,
+          1132,
+          948,
+          2002,
+          830,
+          369,
+          7167,
+          13,
+          13190,
+          25,
+          81499,
+          3437,
+          869,
+          369,
+          5743,
+          30,
+          198,
+          32,
+          25,
+          220,
+          15,
+          198,
+          33,
+          25,
+          220,
+          24,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 7.64149962,
+        "stop_reason": "eog",
+        "stopped_on_eog": true,
+        "temperature": 0,
+        "text": "Answer: B",
+        "text_bytes_hex": "416e737765723a2042",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 7.663898380007595
+    },
+    {
+      "id": "dev-missing-3",
+      "request": {
+        "text": "<|im_start|>user\nUse 10 only when field x is missing. Record: {x: 0}. What value is returned?\nA: 10\nB: 0\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 3,
+        "effective_new_token_budget": 4,
+        "eog_token": null,
+        "first_step": {
+          "greedy_token_id": 760,
+          "requested_logits": [
+            {
+              "logit": 17.69512367248535,
+              "token_id": 32
+            },
+            {
+              "logit": 17.427885055541992,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 18.994583129882812,
+              "token_id": 760
+            },
+            {
+              "logit": 18.34018325805664,
+              "token_id": 15666
+            },
+            {
+              "logit": 17.69512367248535,
+              "token_id": 32
+            },
+            {
+              "logit": 17.427885055541992,
+              "token_id": 33
+            },
+            {
+              "logit": 16.830059051513672,
+              "token_id": 332
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 4,
+        "generated_tokens": [
+          760,
+          3150,
+          369,
+          51891
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          9947,
+          220,
+          16,
+          15,
+          1132,
+          948,
+          2002,
+          830,
+          369,
+          7167,
+          13,
+          13190,
+          25,
+          313,
+          87,
+          25,
+          220,
+          15,
+          7563,
+          3437,
+          869,
+          369,
+          5743,
+          30,
+          198,
+          32,
+          25,
+          220,
+          16,
+          15,
+          198,
+          33,
+          25,
+          220,
+          15,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 8.776116795,
+        "stop_reason": "max_new_tokens",
+        "stopped_on_eog": false,
+        "temperature": 0,
+        "text": "The record is `{",
+        "text_bytes_hex": "546865207265636f726420697320607b",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 8.79834502004087
+    },
+    {
+      "id": "controls-0",
+      "request": {
+        "text": "<|im_start|>user\nWhich decimal number is larger: 2.4 or 2.1?\nA: 2.4\nB: 2.1\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 1,
+        "effective_new_token_budget": 4,
+        "eog_token": 248046,
+        "first_step": {
+          "greedy_token_id": 32,
+          "requested_logits": [
+            {
+              "logit": 18.999378204345703,
+              "token_id": 32
+            },
+            {
+              "logit": 13.425661087036133,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 18.999378204345703,
+              "token_id": 32
+            },
+            {
+              "logit": 16.879730224609375,
+              "token_id": 15666
+            },
+            {
+              "logit": 16.579832077026367,
+              "token_id": 20003
+            },
+            {
+              "logit": 16.28271484375,
+              "token_id": 1206
+            },
+            {
+              "logit": 15.318824768066406,
+              "token_id": 760
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 2,
+        "generated_tokens": [
+          32,
+          248046
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          22365,
+          11778,
+          1324,
+          369,
+          7875,
+          25,
+          220,
+          17,
+          13,
+          19,
+          466,
+          220,
+          17,
+          13,
+          16,
+          30,
+          198,
+          32,
+          25,
+          220,
+          17,
+          13,
+          19,
+          198,
+          33,
+          25,
+          220,
+          17,
+          13,
+          16,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 6.875818276,
+        "stop_reason": "eog",
+        "stopped_on_eog": true,
+        "temperature": 0,
+        "text": "A",
+        "text_bytes_hex": "41",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 6.900585404015146
+    },
+    {
+      "id": "controls-1",
+      "request": {
+        "text": "<|im_start|>user\nWhich software version is larger: 4.8 or 4.3?\nA: 4.3\nB: 4.8\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 3,
+        "effective_new_token_budget": 4,
+        "eog_token": null,
+        "first_step": {
+          "greedy_token_id": 4350,
+          "requested_logits": [
+            {
+              "logit": 16.156227111816406,
+              "token_id": 32
+            },
+            {
+              "logit": 17.07689094543457,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 17.167648315429688,
+              "token_id": 4350
+            },
+            {
+              "logit": 17.07689094543457,
+              "token_id": 33
+            },
+            {
+              "logit": 16.44557762145996,
+              "token_id": 623
+            },
+            {
+              "logit": 16.393762588500977,
+              "token_id": 760
+            },
+            {
+              "logit": 16.156227111816406,
+              "token_id": 32
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 4,
+        "generated_tokens": [
+          4350,
+          25456,
+          3061,
+          2243
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          22365,
+          3061,
+          2243,
+          369,
+          7875,
+          25,
+          220,
+          19,
+          13,
+          23,
+          466,
+          220,
+          19,
+          13,
+          18,
+          30,
+          198,
+          32,
+          25,
+          220,
+          19,
+          13,
+          18,
+          198,
+          33,
+          25,
+          220,
+          19,
+          13,
+          23,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 7.97071684,
+        "stop_reason": "max_new_tokens",
+        "stopped_on_eog": false,
+        "temperature": 0,
+        "text": "When comparing software version",
+        "text_bytes_hex": "5768656e20636f6d706172696e6720736f6674776172652076657273696f6e",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 7.994984920020215
+    },
+    {
+      "id": "controls-2",
+      "request": {
+        "text": "<|im_start|>user\nEvaluate 2 + 3.\nA: 5\nB: 6\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 1,
+        "effective_new_token_budget": 4,
+        "eog_token": 248046,
+        "first_step": {
+          "greedy_token_id": 32,
+          "requested_logits": [
+            {
+              "logit": 18.8836727142334,
+              "token_id": 32
+            },
+            {
+              "logit": 13.904257774353027,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 18.8836727142334,
+              "token_id": 32
+            },
+            {
+              "logit": 17.912778854370117,
+              "token_id": 760
+            },
+            {
+              "logit": 17.443721771240234,
+              "token_id": 15666
+            },
+            {
+              "logit": 15.548358917236328,
+              "token_id": 17
+            },
+            {
+              "logit": 14.766475677490234,
+              "token_id": 1206
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 2,
+        "generated_tokens": [
+          32,
+          248046
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          79503,
+          220,
+          17,
+          478,
+          220,
+          18,
+          13,
+          198,
+          32,
+          25,
+          220,
+          20,
+          198,
+          33,
+          25,
+          220,
+          21,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 5.221947876,
+        "stop_reason": "eog",
+        "stopped_on_eog": true,
+        "temperature": 0,
+        "text": "A",
+        "text_bytes_hex": "41",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 5.244953123037703
+    },
+    {
+      "id": "controls-3",
+      "request": {
+        "text": "<|im_start|>user\nEvaluate 9 - 4.\nA: 4\nB: 5\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 3,
+        "effective_new_token_budget": 4,
+        "eog_token": null,
+        "first_step": {
+          "greedy_token_id": 24,
+          "requested_logits": [
+            {
+              "logit": 16.13141632080078,
+              "token_id": 32
+            },
+            {
+              "logit": 16.561687469482422,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 17.042407989501953,
+              "token_id": 24
+            },
+            {
+              "logit": 16.561687469482422,
+              "token_id": 33
+            },
+            {
+              "logit": 16.187196731567383,
+              "token_id": 760
+            },
+            {
+              "logit": 16.13141632080078,
+              "token_id": 32
+            },
+            {
+              "logit": 15.681456565856934,
+              "token_id": 332
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 4,
+        "generated_tokens": [
+          24,
+          471,
+          220,
+          19
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          79503,
+          220,
+          24,
+          471,
+          220,
+          19,
+          13,
+          198,
+          32,
+          25,
+          220,
+          19,
+          198,
+          33,
+          25,
+          220,
+          20,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 6.319662501,
+        "stop_reason": "max_new_tokens",
+        "stopped_on_eog": false,
+        "temperature": 0,
+        "text": "9 - 4",
+        "text_bytes_hex": "39202d2034",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 6.344275222974829
+    },
+    {
+      "id": "controls-4",
+      "request": {
+        "text": "<|im_start|>user\nx starts at 1. Add 2. What is x?\nA: 3\nB: 1\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 1,
+        "effective_new_token_budget": 4,
+        "eog_token": 248046,
+        "first_step": {
+          "greedy_token_id": 32,
+          "requested_logits": [
+            {
+              "logit": 19.250385284423828,
+              "token_id": 32
+            },
+            {
+              "logit": 13.17918872833252,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 19.250385284423828,
+              "token_id": 32
+            },
+            {
+              "logit": 16.72745132446289,
+              "token_id": 760
+            },
+            {
+              "logit": 16.55056381225586,
+              "token_id": 15666
+            },
+            {
+              "logit": 14.65662956237793,
+              "token_id": 87
+            },
+            {
+              "logit": 14.551386833190918,
+              "token_id": 1206
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 2,
+        "generated_tokens": [
+          32,
+          248046
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          87,
+          8211,
+          506,
+          220,
+          16,
+          13,
+          2604,
+          220,
+          17,
+          13,
+          3437,
+          369,
+          830,
+          30,
+          198,
+          32,
+          25,
+          220,
+          18,
+          198,
+          33,
+          25,
+          220,
+          16,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 6.14923359,
+        "stop_reason": "eog",
+        "stopped_on_eog": true,
+        "temperature": 0,
+        "text": "A",
+        "text_bytes_hex": "41",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 6.174916037009098
+    },
+    {
+      "id": "controls-5",
+      "request": {
+        "text": "<|im_start|>user\nx starts at 9. Set x to 4. What is x?\nA: 9\nB: 4\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 1,
+        "effective_new_token_budget": 4,
+        "eog_token": 248046,
+        "first_step": {
+          "greedy_token_id": 33,
+          "requested_logits": [
+            {
+              "logit": 17.66502571105957,
+              "token_id": 32
+            },
+            {
+              "logit": 18.171886444091797,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 18.171886444091797,
+              "token_id": 33
+            },
+            {
+              "logit": 17.95621681213379,
+              "token_id": 760
+            },
+            {
+              "logit": 17.66502571105957,
+              "token_id": 32
+            },
+            {
+              "logit": 16.704132080078125,
+              "token_id": 15666
+            },
+            {
+              "logit": 15.141183853149414,
+              "token_id": 1596
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 2,
+        "generated_tokens": [
+          33,
+          248046
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          87,
+          8211,
+          506,
+          220,
+          24,
+          13,
+          2488,
+          830,
+          310,
+          220,
+          19,
+          13,
+          3437,
+          369,
+          830,
+          30,
+          198,
+          32,
+          25,
+          220,
+          24,
+          198,
+          33,
+          25,
+          220,
+          19,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 7.017786845,
+        "stop_reason": "eog",
+        "stopped_on_eog": true,
+        "temperature": 0,
+        "text": "B",
+        "text_bytes_hex": "42",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 7.042776897083968
+    },
+    {
+      "id": "controls-6",
+      "request": {
+        "text": "<|im_start|>user\nUse 7 if x is missing. Record: {x: 3}. What value is returned?\nA: 3\nB: 7\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 1,
+        "effective_new_token_budget": 4,
+        "eog_token": 248046,
+        "first_step": {
+          "greedy_token_id": 32,
+          "requested_logits": [
+            {
+              "logit": 16.614145278930664,
+              "token_id": 32
+            },
+            {
+              "logit": 15.111214637756348,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 16.614145278930664,
+              "token_id": 32
+            },
+            {
+              "logit": 16.345890045166016,
+              "token_id": 760
+            },
+            {
+              "logit": 16.118112564086914,
+              "token_id": 1596
+            },
+            {
+              "logit": 16.05117416381836,
+              "token_id": 623
+            },
+            {
+              "logit": 15.99050521850586,
+              "token_id": 9764
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 2,
+        "generated_tokens": [
+          32,
+          248046
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          9947,
+          220,
+          22,
+          413,
+          830,
+          369,
+          7167,
+          13,
+          13190,
+          25,
+          313,
+          87,
+          25,
+          220,
+          18,
+          7563,
+          3437,
+          869,
+          369,
+          5743,
+          30,
+          198,
+          32,
+          25,
+          220,
+          18,
+          198,
+          33,
+          25,
+          220,
+          22,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 7.208253083,
+        "stop_reason": "eog",
+        "stopped_on_eog": true,
+        "temperature": 0,
+        "text": "A",
+        "text_bytes_hex": "41",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 7.231149158906192
+    },
+    {
+      "id": "controls-7",
+      "request": {
+        "text": "<|im_start|>user\nUse 8 if x is missing. Record: {}. What value is returned?\nA: 0\nB: 8\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": true,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        }
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": true,
+        "context_tokens": 128,
+        "decode_calls": 3,
+        "effective_new_token_budget": 4,
+        "eog_token": null,
+        "first_step": {
+          "greedy_token_id": 15666,
+          "requested_logits": [
+            {
+              "logit": 17.03305435180664,
+              "token_id": 32
+            },
+            {
+              "logit": 15.808403968811035,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 17.955963134765625,
+              "token_id": 15666
+            },
+            {
+              "logit": 17.623977661132812,
+              "token_id": 760
+            },
+            {
+              "logit": 17.03305435180664,
+              "token_id": 32
+            },
+            {
+              "logit": 16.768739700317383,
+              "token_id": 9764
+            },
+            {
+              "logit": 16.432106018066406,
+              "token_id": 332
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 4,
+        "generated_tokens": [
+          15666,
+          25,
+          417,
+          271
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          9947,
+          220,
+          23,
+          413,
+          830,
+          369,
+          7167,
+          13,
+          13190,
+          25,
+          81499,
+          3437,
+          869,
+          369,
+          5743,
+          30,
+          198,
+          32,
+          25,
+          220,
+          15,
+          198,
+          33,
+          25,
+          220,
+          23,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 7.60248972,
+        "stop_reason": "max_new_tokens",
+        "stopped_on_eog": false,
+        "temperature": 0,
+        "text": "Answer: B\n\n",
+        "text_bytes_hex": "416e737765723a20420a0a",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 7.626050984021276
+    },
+    {
+      "id": "lookup-witness",
+      "request": {
+        "text": "<|im_start|>user\nWhich decimal number is larger: 9.9 or 9.11?\nA: 9.9\nB: 9.11\nAnswer only A or B.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "generate": {
+          "max_new_tokens": 4,
+          "compact": false,
+          "context_tokens": 128,
+          "top_k": 5,
+          "score_tokens": [
+            32,
+            33
+          ]
+        },
+        "capture": [
+          "ple_embd"
+        ],
+        "output_dir": "/home/crogers2287/ngramma/.local/006/first-candidate-witness"
+      },
+      "response": {
+        "chunk_size": 32,
+        "compact": false,
+        "context_tokens": 128,
+        "decode_calls": 3,
+        "effective_new_token_budget": 4,
+        "eog_token": null,
+        "first_step": {
+          "greedy_token_id": 32,
+          "requested_logits": [
+            {
+              "logit": 17.616647720336914,
+              "token_id": 32
+            },
+            {
+              "logit": 12.620040893554688,
+              "token_id": 33
+            }
+          ],
+          "top_logits": [
+            {
+              "logit": 17.616647720336914,
+              "token_id": 32
+            },
+            {
+              "logit": 17.559030532836914,
+              "token_id": 1206
+            },
+            {
+              "logit": 17.082042694091797,
+              "token_id": 9764
+            },
+            {
+              "logit": 16.646570205688477,
+              "token_id": 4350
+            },
+            {
+              "logit": 15.42634391784668,
+              "token_id": 760
+            }
+          ]
+        },
+        "fresh_state": true,
+        "generated_count": 4,
+        "generated_tokens": [
+          32,
+          25,
+          220,
+          24
+        ],
+        "grammar": null,
+        "greedy": true,
+        "max_new_tokens": 4,
+        "model_reused": true,
+        "ok": true,
+        "output_dir": "/home/crogers2287/ngramma/.local/006/first-candidate-witness",
+        "prefill_calls": 2,
+        "prompt_tokens": [
+          248045,
+          846,
+          198,
+          22365,
+          11778,
+          1324,
+          369,
+          7875,
+          25,
+          220,
+          24,
+          13,
+          24,
+          466,
+          220,
+          24,
+          13,
+          16,
+          16,
+          30,
+          198,
+          32,
+          25,
+          220,
+          24,
+          13,
+          24,
+          198,
+          33,
+          25,
+          220,
+          24,
+          13,
+          16,
+          16,
+          198,
+          15666,
+          1132,
+          357,
+          466,
+          417,
+          13,
+          248046,
+          198,
+          248045,
+          74455,
+          198,
+          248068,
+          271,
+          248069,
+          271
+        ],
+        "schema": "ngramma.greedy-generation/v1",
+        "seconds": 8.28826911,
+        "stop_reason": "max_new_tokens",
+        "stopped_on_eog": false,
+        "temperature": 0,
+        "text": "A: 9",
+        "text_bytes_hex": "413a2039",
+        "tie_break": "lowest_token_id",
+        "vocab_size": 248320
+      },
+      "seconds": 8.313460590899922
+    }
+  ],
+  "ready": {
+    "ready": true,
+    "vocab_size": 248320
+  },
+  "load_seconds": 161.76632842503022,
+  "parallel_verification": [
+    {
+      "bytes": 69857022656,
+      "cache_reused": false,
+      "full_file_sha256": true,
+      "seconds": 154.0309807,
+      "shards": 3,
+      "workers": 3
+    }
+  ],
+  "inputs_unchanged": true,
+  "seconds": 357.0223238810431
+}

@@ -1,0 +1,94 @@
+{
+  "schema": "ngramma.instruction-input-audit/v1",
+  "passed": true,
+  "recipe_sha256": "5f4d07ebe3fc8147e89f4a793ce3aba50b184bd0f3deb1f1491febf1742d2a26",
+  "baseline_bound": true,
+  "zero_overlay_bound": true,
+  "unique_selected_rows": 8,
+  "development_tasks": 16,
+  "control_tasks": 8,
+  "heldout_search_tasks": 0,
+  "native_changed_values": 1280,
+  "native_lookup_bound": true,
+  "inspected_overlays": [
+    {
+      "label": "zero",
+      "overlay_sha256": "bd7173ce7c22ed11aaa0e13ae3560c6b47fa0635f812448ce6f73356e2137186",
+      "stored_row_format": "absolute FP32",
+      "row_count": 8
+    },
+    {
+      "label": "rademacher-minus-8",
+      "overlay_sha256": "d0d448a771386599df5b27d8a5682b42947815b24051b72eae23c5eb30b6df08",
+      "stored_row_format": "absolute FP32",
+      "row_count": 8
+    },
+    {
+      "label": "rademacher-plus-8",
+      "overlay_sha256": "9ceb4e3a8e0feb0674f7b6dcbff7c602d87de9bf7e1ffad5cf86e164d1fddfd0",
+      "stored_row_format": "absolute FP32",
+      "row_count": 8
+    },
+    {
+      "label": "rademacher-minus-6",
+      "overlay_sha256": "f2c55b838738c509dd3d75ff9cea65f1a6ef14361528c829c6dc114a75a47168",
+      "stored_row_format": "absolute FP32",
+      "row_count": 8
+    },
+    {
+      "label": "rademacher-plus-6",
+      "overlay_sha256": "222096b83a1e9bc6833267127e680f79974c64d9e22ef099f515c9977ae1b9af",
+      "stored_row_format": "absolute FP32",
+      "row_count": 8
+    },
+    {
+      "label": "alternating-minus-8",
+      "overlay_sha256": "16a0bb94bb1a052992d729c2afd145d75c1ca1e8b3170292d676e262e6f80932",
+      "stored_row_format": "absolute FP32",
+      "row_count": 8
+    },
+    {
+      "label": "alternating-plus-8",
+      "overlay_sha256": "8b5037c0a88f3508f2f3041361325ee3f928c1f1a98529f6fcb19576d480ace7",
+      "stored_row_format": "absolute FP32",
+      "row_count": 8
+    },
+    {
+      "label": "alternating-minus-6",
+      "overlay_sha256": "9d22d279285aa6db8d4e2fdab4da767848e18fa9ac00898782eafc8034dcaa9d",
+      "stored_row_format": "absolute FP32",
+      "row_count": 8
+    },
+    {
+      "label": "alternating-plus-6",
+      "overlay_sha256": "50264dcd09d5a4f30ad14225cbbb2d9236845c3f2a886389a56cc0f4f99ba36a",
+      "stored_row_format": "absolute FP32",
+      "row_count": 8
+    },
+    {
+      "label": "hint_contrast-minus-8",
+      "overlay_sha256": "f78be447982563df93721cbfdbabab15b0d42f17a7818d6c034bc36f45c56fee",
+      "stored_row_format": "absolute FP32",
+      "row_count": 8
+    },
+    {
+      "label": "hint_contrast-plus-8",
+      "overlay_sha256": "b3ca0ed408212684ced060224fad949db00cae7e8fc66c4d25695a84a71545cd",
+      "stored_row_format": "absolute FP32",
+      "row_count": 8
+    },
+    {
+      "label": "hint_contrast-minus-6",
+      "overlay_sha256": "956fa72bf242cb2c71f1a40146448dee40b6ee9e9aab4e4a09b9b71d95b10c16",
+      "stored_row_format": "absolute FP32",
+      "row_count": 8
+    },
+    {
+      "label": "hint_contrast-plus-6",
+      "overlay_sha256": "2fa297adc780a7abe61cbfe700cd45667efcb1208abc07464c3e6718a78dd6c2",
+      "stored_row_format": "absolute FP32",
+      "row_count": 8
+    }
+  ],
+  "model_files_read": false
+}

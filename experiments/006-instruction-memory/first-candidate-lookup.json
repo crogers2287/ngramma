@@ -1,0 +1,92 @@
+{
+  "schema": "ngramma.multi-row-lookup/v1",
+  "identity_sha256": "af848e254fb9a6ca6be56b8f14f1d369a6e705c3363c4c4ac6e5f0cc7e652f87",
+  "overlay_sha256": "d0d448a771386599df5b27d8a5682b42947815b24051b72eae23c5eb30b6df08",
+  "positions": 54,
+  "row_accesses": 864,
+  "actual_equals_intended_bytes": true,
+  "changed_values_from_original": 1280,
+  "occurrences": [
+    {
+      "row_id": 170852069,
+      "positions_and_heads": [
+        [
+          38,
+          8
+        ]
+      ]
+    },
+    {
+      "row_id": 188951707,
+      "positions_and_heads": [
+        [
+          38,
+          9
+        ]
+      ]
+    },
+    {
+      "row_id": 216836863,
+      "positions_and_heads": [
+        [
+          38,
+          10
+        ]
+      ]
+    },
+    {
+      "row_id": 231400580,
+      "positions_and_heads": [
+        [
+          38,
+          11
+        ]
+      ]
+    },
+    {
+      "row_id": 240662679,
+      "positions_and_heads": [
+        [
+          38,
+          12
+        ]
+      ]
+    },
+    {
+      "row_id": 269945151,
+      "positions_and_heads": [
+        [
+          38,
+          13
+        ]
+      ]
+    },
+    {
+      "row_id": 299710630,
+      "positions_and_heads": [
+        [
+          38,
+          14
+        ]
+      ]
+    },
+    {
+      "row_id": 308570598,
+      "positions_and_heads": [
+        [
+          38,
+          15
+        ]
+      ]
+    }
+  ],
+  "capture_files_sha256": {
+    "tensor-0.bin": "2e3fc4d17a61aa42e405562648ee8b435cb63b4183deaacbbb53d357db85cc3d",
+    "tensor-1.bin": "20c038a85ef6d8bc45122d2c9aed676b401c1b13549e7a1cb1fef1d1286151c0",
+    "tensor-2.bin": "53fb64d1f63e19c9ff218798a11daf12a8ec61883f08b90df7d47f49825d7b98",
+    "tensor-3.bin": "bd6db2b03ac6f10e6a9a776d14297bd058349d52516357f8d257f7aa4fa59fc3",
+    "tensor-4.bin": "8a88477bd85c7f1d9c7b53c2fb920866a09bc426dd83c5d19dbe9f782a1af56d"
+  },
+  "generation_sha256": "3b056037fa8ecb88c6c971d8b3f8e2aacf8f0ef81304d1145fb5429a89bf46c1",
+  "gather_sha256": "0f7009b19a90a5b9a810f7ec4970b1a7497b7d0723a93eea01588da755cbaf96"
+}

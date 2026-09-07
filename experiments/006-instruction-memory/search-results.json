@@ -1,0 +1,1057 @@
+{
+  "schema": "ngramma.instruction-search/v1",
+  "complete": false,
+  "candidate_recipe_sha256": "5f4d07ebe3fc8147e89f4a793ce3aba50b184bd0f3deb1f1491febf1742d2a26",
+  "results": [
+    {
+      "label": "rademacher-minus-8",
+      "epsilon": -0.00390625,
+      "overlay_sha256": "d0d448a771386599df5b27d8a5682b42947815b24051b72eae23c5eb30b6df08",
+      "development_correct": 1,
+      "controls_correct": 5,
+      "development_rescues": [],
+      "baseline_correct_losses": [
+        "controls-1",
+        "controls-3"
+      ],
+      "new_compliance_losses": [
+        "dev-missing-2",
+        "controls-1",
+        "controls-3"
+      ],
+      "eligible": false,
+      "seconds": 357.0223238810431,
+      "tasks": [
+        {
+          "id": "dev-decimal-0",
+          "split": "dev",
+          "family": "decimal_version",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "A: 9",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-decimal-1",
+          "split": "dev",
+          "family": "decimal_version",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "A",
+          "error_kind": "wrong_choice",
+          "stop_reason": "eog"
+        },
+        {
+          "id": "dev-decimal-2",
+          "split": "dev",
+          "family": "decimal_version",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "To compare 3",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-decimal-3",
+          "split": "dev",
+          "family": "decimal_version",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "A",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "dev-arithmetic-0",
+          "split": "dev",
+          "family": "signed_arithmetic",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "To evaluate the expression",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-arithmetic-1",
+          "split": "dev",
+          "family": "signed_arithmetic",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "The product of two",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-arithmetic-2",
+          "split": "dev",
+          "family": "signed_arithmetic",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "To evaluate the expression",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-arithmetic-3",
+          "split": "dev",
+          "family": "signed_arithmetic",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "The product of two",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-state-0",
+          "split": "dev",
+          "family": "state_override",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Let's trace through",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-state-1",
+          "split": "dev",
+          "family": "state_override",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Let's trace the",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-state-2",
+          "split": "dev",
+          "family": "state_override",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Let's trace the",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-state-3",
+          "split": "dev",
+          "family": "state_override",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Let's trace the",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-missing-0",
+          "split": "dev",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "To determine the value",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-missing-1",
+          "split": "dev",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Answer: A",
+          "error_kind": "malformed",
+          "stop_reason": "eog"
+        },
+        {
+          "id": "dev-missing-2",
+          "split": "dev",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Answer: B",
+          "error_kind": "malformed",
+          "stop_reason": "eog"
+        },
+        {
+          "id": "dev-missing-3",
+          "split": "dev",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "The record is `{",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "controls-0",
+          "split": "controls",
+          "family": "decimal_version",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "A",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "controls-1",
+          "split": "controls",
+          "family": "decimal_version",
+          "baseline_success": true,
+          "candidate_success": false,
+          "text": "When comparing software version",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "controls-2",
+          "split": "controls",
+          "family": "signed_arithmetic",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "A",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "controls-3",
+          "split": "controls",
+          "family": "signed_arithmetic",
+          "baseline_success": true,
+          "candidate_success": false,
+          "text": "9 - 4",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "controls-4",
+          "split": "controls",
+          "family": "state_override",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "A",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "controls-5",
+          "split": "controls",
+          "family": "state_override",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "B",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "controls-6",
+          "split": "controls",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": true,
+          "text": "A",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "controls-7",
+          "split": "controls",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Answer: B\n\n",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        }
+      ],
+      "record_sha256": "18ee062e73dc5b5710b63b94395b7fda0e1e94bbb6bfdc94f92ec44b498b8f1c"
+    },
+    {
+      "label": "rademacher-plus-8",
+      "epsilon": 0.00390625,
+      "overlay_sha256": "9ceb4e3a8e0feb0674f7b6dcbff7c602d87de9bf7e1ffad5cf86e164d1fddfd0",
+      "development_correct": 1,
+      "controls_correct": 6,
+      "development_rescues": [],
+      "baseline_correct_losses": [
+        "controls-1"
+      ],
+      "new_compliance_losses": [
+        "controls-1"
+      ],
+      "eligible": false,
+      "seconds": 347.34364307206124,
+      "tasks": [
+        {
+          "id": "dev-decimal-0",
+          "split": "dev",
+          "family": "decimal_version",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "A: 9",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-decimal-1",
+          "split": "dev",
+          "family": "decimal_version",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "A",
+          "error_kind": "wrong_choice",
+          "stop_reason": "eog"
+        },
+        {
+          "id": "dev-decimal-2",
+          "split": "dev",
+          "family": "decimal_version",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "To compare 3",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-decimal-3",
+          "split": "dev",
+          "family": "decimal_version",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "A",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "dev-arithmetic-0",
+          "split": "dev",
+          "family": "signed_arithmetic",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "To evaluate the expression",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-arithmetic-1",
+          "split": "dev",
+          "family": "signed_arithmetic",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "The product of two",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-arithmetic-2",
+          "split": "dev",
+          "family": "signed_arithmetic",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "To evaluate the expression",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-arithmetic-3",
+          "split": "dev",
+          "family": "signed_arithmetic",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "The product of two",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-state-0",
+          "split": "dev",
+          "family": "state_override",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Let's trace the",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-state-1",
+          "split": "dev",
+          "family": "state_override",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Let's trace the",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-state-2",
+          "split": "dev",
+          "family": "state_override",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Let's trace through",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-state-3",
+          "split": "dev",
+          "family": "state_override",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Let's trace the",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-missing-0",
+          "split": "dev",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Answer: A",
+          "error_kind": "malformed",
+          "stop_reason": "eog"
+        },
+        {
+          "id": "dev-missing-1",
+          "split": "dev",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Answer: A",
+          "error_kind": "malformed",
+          "stop_reason": "eog"
+        },
+        {
+          "id": "dev-missing-2",
+          "split": "dev",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "A",
+          "error_kind": "wrong_choice",
+          "stop_reason": "eog"
+        },
+        {
+          "id": "dev-missing-3",
+          "split": "dev",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "The record is `{",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "controls-0",
+          "split": "controls",
+          "family": "decimal_version",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "A",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "controls-1",
+          "split": "controls",
+          "family": "decimal_version",
+          "baseline_success": true,
+          "candidate_success": false,
+          "text": "When comparing software version",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "controls-2",
+          "split": "controls",
+          "family": "signed_arithmetic",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "A",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "controls-3",
+          "split": "controls",
+          "family": "signed_arithmetic",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "B",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "controls-4",
+          "split": "controls",
+          "family": "state_override",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "A",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "controls-5",
+          "split": "controls",
+          "family": "state_override",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "B",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "controls-6",
+          "split": "controls",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": true,
+          "text": "A",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "controls-7",
+          "split": "controls",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Answer: B\n\n",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        }
+      ],
+      "record_sha256": "5514bf3fc00e9dbdc548173e5e0be1c644c4905c4c0dca91a77282dbbedbfa29"
+    },
+    {
+      "label": "rademacher-minus-6",
+      "epsilon": -0.015625,
+      "overlay_sha256": "f2c55b838738c509dd3d75ff9cea65f1a6ef14361528c829c6dc114a75a47168",
+      "development_correct": 2,
+      "controls_correct": 4,
+      "development_rescues": [
+        "dev-missing-1"
+      ],
+      "baseline_correct_losses": [
+        "controls-3",
+        "controls-5"
+      ],
+      "new_compliance_losses": [
+        "dev-missing-2",
+        "controls-3",
+        "controls-5"
+      ],
+      "eligible": false,
+      "seconds": 347.04248932399787,
+      "tasks": [
+        {
+          "id": "dev-decimal-0",
+          "split": "dev",
+          "family": "decimal_version",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "To determine which decimal",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-decimal-1",
+          "split": "dev",
+          "family": "decimal_version",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "A",
+          "error_kind": "wrong_choice",
+          "stop_reason": "eog"
+        },
+        {
+          "id": "dev-decimal-2",
+          "split": "dev",
+          "family": "decimal_version",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "To compare 3",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-decimal-3",
+          "split": "dev",
+          "family": "decimal_version",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "A",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "dev-arithmetic-0",
+          "split": "dev",
+          "family": "signed_arithmetic",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "A: 4",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-arithmetic-1",
+          "split": "dev",
+          "family": "signed_arithmetic",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "The product of two",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-arithmetic-2",
+          "split": "dev",
+          "family": "signed_arithmetic",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "To evaluate the expression",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-arithmetic-3",
+          "split": "dev",
+          "family": "signed_arithmetic",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "The product of two",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-state-0",
+          "split": "dev",
+          "family": "state_override",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "```A```",
+          "error_kind": "malformed",
+          "stop_reason": "eog"
+        },
+        {
+          "id": "dev-state-1",
+          "split": "dev",
+          "family": "state_override",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Let's trace through",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-state-2",
+          "split": "dev",
+          "family": "state_override",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Let's trace through",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-state-3",
+          "split": "dev",
+          "family": "state_override",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Let's trace the",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-missing-0",
+          "split": "dev",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Answer: A",
+          "error_kind": "malformed",
+          "stop_reason": "eog"
+        },
+        {
+          "id": "dev-missing-1",
+          "split": "dev",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": true,
+          "text": "A",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "dev-missing-2",
+          "split": "dev",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "The question states:",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-missing-3",
+          "split": "dev",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "The record is `{",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "controls-0",
+          "split": "controls",
+          "family": "decimal_version",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "A",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "controls-1",
+          "split": "controls",
+          "family": "decimal_version",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "B",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "controls-2",
+          "split": "controls",
+          "family": "signed_arithmetic",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "A",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "controls-3",
+          "split": "controls",
+          "family": "signed_arithmetic",
+          "baseline_success": true,
+          "candidate_success": false,
+          "text": "9 - 4",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "controls-4",
+          "split": "controls",
+          "family": "state_override",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "A",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "controls-5",
+          "split": "controls",
+          "family": "state_override",
+          "baseline_success": true,
+          "candidate_success": false,
+          "text": "The question states that",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "controls-6",
+          "split": "controls",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "A: 3",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "controls-7",
+          "split": "controls",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Answer: B\n\n",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        }
+      ],
+      "record_sha256": "b4d29ae01415269f85e3ff9ca9348f8e60d6794f54df690db5d08120530b508e"
+    },
+    {
+      "label": "rademacher-plus-6",
+      "epsilon": 0.015625,
+      "overlay_sha256": "222096b83a1e9bc6833267127e680f79974c64d9e22ef099f515c9977ae1b9af",
+      "development_correct": 2,
+      "controls_correct": 4,
+      "development_rescues": [
+        "dev-arithmetic-1"
+      ],
+      "baseline_correct_losses": [
+        "controls-1",
+        "controls-3"
+      ],
+      "new_compliance_losses": [
+        "controls-1",
+        "controls-3"
+      ],
+      "eligible": false,
+      "seconds": 344.8679502339801,
+      "tasks": [
+        {
+          "id": "dev-decimal-0",
+          "split": "dev",
+          "family": "decimal_version",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "To determine which decimal",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-decimal-1",
+          "split": "dev",
+          "family": "decimal_version",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "A",
+          "error_kind": "wrong_choice",
+          "stop_reason": "eog"
+        },
+        {
+          "id": "dev-decimal-2",
+          "split": "dev",
+          "family": "decimal_version",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "To compare 3",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-decimal-3",
+          "split": "dev",
+          "family": "decimal_version",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "A",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "dev-arithmetic-0",
+          "split": "dev",
+          "family": "signed_arithmetic",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "To evaluate the expression",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-arithmetic-1",
+          "split": "dev",
+          "family": "signed_arithmetic",
+          "baseline_success": false,
+          "candidate_success": true,
+          "text": "A",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "dev-arithmetic-2",
+          "split": "dev",
+          "family": "signed_arithmetic",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "To evaluate the expression",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-arithmetic-3",
+          "split": "dev",
+          "family": "signed_arithmetic",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "The product of two",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-state-0",
+          "split": "dev",
+          "family": "state_override",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Let's trace the",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-state-1",
+          "split": "dev",
+          "family": "state_override",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Let's trace the",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-state-2",
+          "split": "dev",
+          "family": "state_override",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Let's trace through",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-state-3",
+          "split": "dev",
+          "family": "state_override",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Let's trace the",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-missing-0",
+          "split": "dev",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "The instruction states:",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "dev-missing-1",
+          "split": "dev",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Answer: A",
+          "error_kind": "malformed",
+          "stop_reason": "eog"
+        },
+        {
+          "id": "dev-missing-2",
+          "split": "dev",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "A",
+          "error_kind": "wrong_choice",
+          "stop_reason": "eog"
+        },
+        {
+          "id": "dev-missing-3",
+          "split": "dev",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "The record is `{",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "controls-0",
+          "split": "controls",
+          "family": "decimal_version",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "A",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "controls-1",
+          "split": "controls",
+          "family": "decimal_version",
+          "baseline_success": true,
+          "candidate_success": false,
+          "text": "The comparison between software",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "controls-2",
+          "split": "controls",
+          "family": "signed_arithmetic",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "A",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "controls-3",
+          "split": "controls",
+          "family": "signed_arithmetic",
+          "baseline_success": true,
+          "candidate_success": false,
+          "text": "9 - 4",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "controls-4",
+          "split": "controls",
+          "family": "state_override",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "A",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "controls-5",
+          "split": "controls",
+          "family": "state_override",
+          "baseline_success": true,
+          "candidate_success": true,
+          "text": "B",
+          "error_kind": null,
+          "stop_reason": "eog"
+        },
+        {
+          "id": "controls-6",
+          "split": "controls",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Let's analyze the",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        },
+        {
+          "id": "controls-7",
+          "split": "controls",
+          "family": "missing_zero",
+          "baseline_success": false,
+          "candidate_success": false,
+          "text": "Let's analyze the",
+          "error_kind": "malformed",
+          "stop_reason": "max_new_tokens"
+        }
+      ],
+      "record_sha256": "326bca54cb93e053b923e4a29bc6fd08a15dbf197fc3d88dc343ff968bd15874"
+    }
+  ],
+  "winner": null,
+  "heldout_evaluated": false
+}

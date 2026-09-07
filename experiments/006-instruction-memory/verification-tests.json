@@ -1,0 +1,26 @@
+{
+  "schema": "ngramma.verification-tests/v1",
+  "kind": "synthetic_authentication_tests_no_model_weights",
+  "tests": 11,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "seconds": 8.185,
+  "cases": [
+    "test_complete_hashes_and_bounded_groups",
+    "test_same_size_corruption_in_every_shard_rejected[0]",
+    "test_same_size_corruption_in_every_shard_rejected[1]",
+    "test_same_size_corruption_in_every_shard_rejected[2]",
+    "test_identity_failures_rejected[count]",
+    "test_identity_failures_rejected[size]",
+    "test_identity_failures_rejected[digest]",
+    "test_identity_failures_rejected[path]",
+    "test_identity_failures_rejected[missing]",
+    "test_repeated_path_is_rehashed_after_mutation",
+    "test_canonical_alias_matches_original_loader_rule"
+  ],
+  "test_source_sha256": "c7ee279b262bef50d8489631f2d8766cd641b3b62e785fc646337054d003e0e8",
+  "verification_source_sha256": "852a1403b86dfd7756b580818fa306abace299bd68dce7c49a1c056ae24d84f3",
+  "xml_sha256": "0c85d5cac95fc77be742c4703de384a768b7fd82153248378e5f27ed750b9676",
+  "log_sha256": "8987ffbfc1c102c9bf06d330da75c3ceac6b041907adf815d034f864a3697f8a"
+}
